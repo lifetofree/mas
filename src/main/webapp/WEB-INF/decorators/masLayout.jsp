@@ -10,14 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<c:url value="/resources/bootstrap/css/bootstrap.min.css"
-	var="cssbootstrap" />
+<c:url value="/resources/bootstrap/css/bootstrap.min.css" var="cssbootstrap" />
 <c:url value="/resources/angular/angular.js" var="scriptangular" />
 <c:url value="/resources/jquery/jquery-2.1.4.min.js" var="scriptjquery" />
-<c:url value="/resources/bootstrap/js/bootstrap.min.js"
-	var="scriptbootstrap" />
-<c:url value="/resources/ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js"
-	var="scriptui" />
+<c:url value="/resources/bootstrap/js/bootstrap.min.js" var="scriptbootstrap" />
+<c:url value="/resources/ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js" var="scriptui" />
 
 <c:url value="/resources/custom/css/custom.css" var="csscustom" />
 <c:url value="/resources/custom/js/sidebarmenu.js" var="scriptsidebar" />
