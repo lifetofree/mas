@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE decorators>
+<decorators defaultdir="/WEB-INF/decorators">
+    <decorator name="default" page="masLayout.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>
