@@ -16,6 +16,7 @@
 		<slf4j.version>1.6.6</slf4j.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<hibernate.version>4.2.11.Final</hibernate.version>
+		<mongodb.version>3.0.2</mongodb.version>
 	</properties>
 	<dependencies>
 		<!-- Hibernate ORM -->
@@ -70,6 +71,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
+		</dependency>
+		
+		<!-- mongodb java driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongodb.version}</version>
 		</dependency>
 				
 		<!-- AspectJ -->
