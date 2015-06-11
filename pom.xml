@@ -17,6 +17,7 @@
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<hibernate.version>4.2.11.Final</hibernate.version>
 		<mongodb.version>3.0.2</mongodb.version>
+		<spring.mongodb.version>1.7.0.RELEASE</spring.mongodb.version>
 	</properties>
 	<dependencies>
 		<!-- Hibernate ORM -->
@@ -78,6 +79,13 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>${mongodb.version}</version>
+		</dependency>
+		
+		<!-- Spring data mongodb -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${spring.mongodb.version}</version>
 		</dependency>
 				
 		<!-- AspectJ -->
