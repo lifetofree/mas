@@ -9,8 +9,8 @@
 	<body>
 		test home body
 		<div id="panelMain">
-			test call in div
-			${ id }
+			test call in div <br />
+			${ retSamples }
 		</div>
 	</body>
 </html>
