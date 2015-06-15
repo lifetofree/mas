@@ -3,6 +3,7 @@ package com.dev.mas.controller;
 import java.util.Locale;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +21,19 @@ public class SampleController {
 	public String home(Locale locale, Model model) {
 		ApplicationContext ctx = 
 	            new AnnotationConfigApplicationContext(AppConfig.class);
-		HostingService hostingBo = (HostingService) ctx.getBean("hostingServiceImpl");
+		HostingService hostingService = (HostingService) ctx.getBean("hostingServiceImpl");
 	 
 		try {
 	 
-			hostingBo.save("cloud.google.com");
-			hostingBo.save("heroku.com");
-			hostingBo.save("cloudbees.com");
+			hostingService.save("cloud.google.com");
+			hostingService.save("heroku.com");
+			hostingService.save("cloudbees.com");
 			model.addAttribute("retSamples", "123456");
 	 
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
+		} finally {
+			((ConfigurableApplicationContext)ctx).close();
 		}
 		
 		return "sample";
