@@ -18,12 +18,22 @@
 					<td>Name</td>
 				</tr>
 			</thead>
+			<c:choose>
+			<c:when test="${not empty retSampleList}">
 			<c:forEach var="listValue" items="${retSampleList}">
 				<tr>
 					<td><c:out value="${listValue.id}" /></td>
 					<td><c:out value="${listValue.name}" /></td>
 				</tr>
 			</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
 		</table>
 	</div>
 </body>
