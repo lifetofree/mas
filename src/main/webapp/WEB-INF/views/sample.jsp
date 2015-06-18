@@ -9,7 +9,7 @@
 <body>
 	test home body
 	<div id="panelMain">
-		test call in div <br /> ${ retSamples } <br />
+		Error : ${ retSamples } <br />
 
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
