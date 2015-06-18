@@ -1,5 +1,7 @@
 package com.dev.mas.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,14 @@ public class HostingDaoImpl implements HostingDao {
 
 		mongoOperation.save(hosting);
 
+	}
+	
+	@Override
+	public List<Hosting> list() {
+		
+		List<Hosting> hostingList = mongoOperation.findAll(Hosting.class);
+		return hostingList;
+		
 	}
 
 }

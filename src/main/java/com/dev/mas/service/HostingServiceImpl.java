@@ -1,5 +1,7 @@
 package com.dev.mas.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,13 @@ public class HostingServiceImpl implements HostingService {
 		hostingDao.save(hosting);
  
 		System.out.println(hosting);
+ 
+	}
+	
+	@Override
+	public List<Hosting> list() throws SequenceException {
+
+		return hostingDao.list();
  
 	}
 	
