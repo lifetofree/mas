@@ -17,7 +17,7 @@
 <c:url value="/resources/ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js" var="scriptui" />
 
 <c:url value="/resources/custom/css/custom.css" var="csscustom" />
-<c:url value="/resources/custom/js/sidebarmenu.js" var="scriptsidebar" />
+<c:url value="/resources/custom/js/custom.js" var="scriptcustom" />
 
 <link href="${cssbootstrap}" rel="stylesheet">
 <script src="${scriptangular}" type="text/javascript"></script>
@@ -26,7 +26,7 @@
 <script src="${scriptui}" type="text/javascript"></script>
 
 <link href="${csscustom}" rel="stylesheet">
-<script src="${scriptsidebar}" type="text/javascript"></script>
+<script src="${scriptcustom}" type="text/javascript"></script>
 
 <title>MAS | <decorator:title
 		default="Management and Analysis System" />
