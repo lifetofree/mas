@@ -22,12 +22,13 @@ public class HostingServiceImpl implements HostingService {
 	private HostingDao hostingDao;
  
 	@Override
-	public void save(String name) throws SequenceException {
+	public void save(Hosting hosting) throws SequenceException {
  
-		Hosting hosting = new Hosting();
+//		Hosting hosting = new Hosting();
  
 		hosting.setId(sequenceDao.getNextSequenceId(HOSTING_SEQ_KEY));
-		hosting.setName(name);
+		hosting.setName(hosting.getName());
+		hosting.setDomain(hosting.getDomain());
 		hostingDao.save(hosting);
  
 		System.out.println(hosting);

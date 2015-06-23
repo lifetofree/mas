@@ -7,7 +7,7 @@ import com.dev.mas.model.Hosting;
 
 public interface HostingService {
 
-	public void save(String name) throws SequenceException;
+	public void save(Hosting hosting) throws SequenceException;
 	public List<Hosting> list() throws SequenceException;
 	
 }

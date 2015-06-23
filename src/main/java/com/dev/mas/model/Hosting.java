@@ -10,6 +10,7 @@ public class Hosting {
 	private long id;
 
 	private String name;
+	private String domain;
 
 	public long getId() {
 		return id;
@@ -30,6 +31,14 @@ public class Hosting {
 	@Override
 	public String toString() {
 		return "Hosting [id=" + id + ", name=" + name + "]";
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 }
