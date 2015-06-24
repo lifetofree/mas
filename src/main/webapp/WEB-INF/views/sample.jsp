@@ -12,7 +12,7 @@
 	<div id="panelMain">
 		Error : ${ retSamples } <br />
 
-		<form:form class="form-inline" commandName="addHosting">
+		<form:form class="form-inline" modelAttribute="addHosting">
 			<div class="form-group">
 				<form:input path="name" class="form-control" placeHolder="Host Name" />
 				<form:input path="domain" class="form-control" placeHolder="Domain Name" />
