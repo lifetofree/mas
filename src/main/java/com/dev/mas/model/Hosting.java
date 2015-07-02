@@ -11,6 +11,7 @@ public class Hosting {
 
 	private String name;
 	private String domain;
+	private String supplier;
 
 	public long getId() {
 		return id;
@@ -39,6 +40,14 @@ public class Hosting {
 
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
 	}
 
 }

@@ -51,17 +51,17 @@ public class SampleController {
 		return "sample";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	public String processForm(ModelMap modelmap,
 			@ModelAttribute(value = "addHosting") Hosting hosting,
 			BindingResult result) {
 
 		// list data
 		try {
-			
+
 			// add data
 			hostingService.save(hosting);
-			modelmap.addAttribute("addHosting",new Hosting());
+			modelmap.addAttribute("addHosting", new Hosting());
 
 			List<Hosting> hostingList = hostingService.list();
 			modelmap.addAttribute("retSampleList", hostingList);
@@ -73,30 +73,30 @@ public class SampleController {
 		} finally {
 
 		}
-		
+
 		return "sample";
 	}
 
-//	@RequestMapping(value = "/runsave", method = RequestMethod.GET)
-//	public String home(Locale locale, ModelMap modelmap) {
-//
-//		try {
-//
-//			hostingService.save("cloud.google.com");
-//			hostingService.save("heroku.com");
-//			hostingService.save("cloudbees.com");
-//
-//			List<Hosting> hostingList = hostingService.list();
-//			modelmap.addAttribute("retSampleList", hostingList);
-//			modelmap.addAttribute("retSamples", "---");
-//
-//		} catch (SequenceException e) {
-//			// System.out.println(e.getErrMsg());
-//			modelmap.addAttribute("retSamples", e.getErrMsg());
-//		} finally {
-//
-//		}
-//
-//		return "sample";
-//	}
+	// @RequestMapping(value = "/runsave", method = RequestMethod.GET)
+	// public String home(Locale locale, ModelMap modelmap) {
+	//
+	// try {
+	//
+	// hostingService.save("cloud.google.com");
+	// hostingService.save("heroku.com");
+	// hostingService.save("cloudbees.com");
+	//
+	// List<Hosting> hostingList = hostingService.list();
+	// modelmap.addAttribute("retSampleList", hostingList);
+	// modelmap.addAttribute("retSamples", "---");
+	//
+	// } catch (SequenceException e) {
+	// // System.out.println(e.getErrMsg());
+	// modelmap.addAttribute("retSamples", e.getErrMsg());
+	// } finally {
+	//
+	// }
+	//
+	// return "sample";
+	// }
 }
