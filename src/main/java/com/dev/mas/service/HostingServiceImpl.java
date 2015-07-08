@@ -42,4 +42,11 @@ public class HostingServiceImpl implements HostingService {
  
 	}
 	
+	@Override
+	public Hosting listById(int id) throws SequenceException {
+
+		return hostingDao.listById(id);
+ 
+	}
+	
 }
