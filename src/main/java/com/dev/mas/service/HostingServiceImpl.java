@@ -31,7 +31,7 @@ public class HostingServiceImpl implements HostingService {
 		hosting.setDomain(hosting.getDomain());
 		hostingDao.save(hosting);
  
-		System.out.println(hosting);
+//		System.out.println(hosting);
  
 	}
 	

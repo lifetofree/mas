@@ -63,9 +63,9 @@ public class SampleController {
 			hostingService.save(hosting);
 			modelmap.addAttribute("addHosting", new Hosting());
 
-			List<Hosting> hostingList = hostingService.list();
-			modelmap.addAttribute("retSampleList", hostingList);
-			modelmap.addAttribute("retSamples", "---");
+//			List<Hosting> hostingList = hostingService.list();
+//			modelmap.addAttribute("retSampleList", hostingList);
+//			modelmap.addAttribute("retSamples", "---");
 
 		} catch (SequenceException e) {
 			// System.out.println(e.getErrMsg());
@@ -74,7 +74,8 @@ public class SampleController {
 
 		}
 
-		return "sample";
+//		return "sample";
+		return "redirect:/samples/";
 	}
 
 	// @RequestMapping(value = "/runsave", method = RequestMethod.GET)
