@@ -105,7 +105,19 @@ public class MasterTypeCarController {
 			mastertypecar = carbookingService.listById(id);
 			modelmap.addAttribute("addTypeCar", mastertypecar);
 
+			MasterTypeCar mastertypecarDesc = null;
+
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
+
+			for (int i = 0; i < typecarList.size(); i++) {
+				mastertypecarDesc = typecarList.get(i);
+				if (mastertypecarDesc.getTcStatus() == 1) {
+					mastertypecarDesc.setTcStatusDesc("Online");
+				} else {
+					mastertypecarDesc.setTcStatusDesc("Offline");
+				}
+			}
+			
 			modelmap.addAttribute("retSampleList", typecarList);
 			modelmap.addAttribute("retSamples", "---");
 
@@ -131,6 +143,18 @@ public class MasterTypeCarController {
 			carbookingService.save(mastertypecar);
 			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
 
+			MasterTypeCar mastertypecarDesc = null;
+
+			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
+
+			for (int i = 0; i < typecarList.size(); i++) {
+				mastertypecarDesc = typecarList.get(i);
+				if (mastertypecarDesc.getTcStatus() == 1) {
+					mastertypecarDesc.setTcStatusDesc("Online");
+				} else {
+					mastertypecarDesc.setTcStatusDesc("Offline");
+				}
+			}
 			// List<Hosting> hostingList = hostingService.list();
 			// modelmap.addAttribute("retSampleList", hostingList);
 			// modelmap.addAttribute("retSamples", "---");

@@ -12,18 +12,9 @@
 	<div id="panelMain">
 		Error : ${ retSamples } <br />
 
-		<form:form class="form-inline" modelAttribute="addHosting"
-			method="POST" action="${pageContext.request.contextPath}/samples/add">
-			<div class="form-group">
-				<form:input path="name" class="form-control" placeHolder="Host Name" />
-				<form:input path="domain" class="form-control"
-					placeHolder="Domain Name" />
-			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form:form>
 		
 		<form:form class="form-inline" modelAttribute="addHosting"
-			method="POST" action="">
+			method="POST" action="${pageContext.request.contextPath}/samples/edit">
 			<div class="form-group">
 				<form:input path="id" class="form-control" placeHolder="Host Name" />
 				<form:input path="name" class="form-control" placeHolder="Host Name" />

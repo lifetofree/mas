@@ -6,8 +6,9 @@ import com.dev.mas.model.Hosting;
 
 public interface HostingDao {
 
-	public void save(Hosting hosting);
 	public List<Hosting> list();
 	public Hosting listById(int id);
+	
+	public void save(Hosting hosting);
 
 }

@@ -13,13 +13,6 @@ public class HostingDaoImpl implements HostingDao {
 
 	@Autowired
 	private MongoOperations mongoOperation;
-
-	@Override
-	public void save(Hosting hosting) {
-
-		mongoOperation.save(hosting);
-
-	}
 	
 	@Override
 	public List<Hosting> list() {
@@ -35,6 +28,13 @@ public class HostingDaoImpl implements HostingDao {
 		Hosting hosting = mongoOperation.findById(id, Hosting.class);
 		return hosting;
 		
+	}
+	
+	@Override
+	public void save(Hosting hosting) {
+
+		mongoOperation.save(hosting);
+
 	}
 
 }

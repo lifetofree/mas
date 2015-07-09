@@ -53,9 +53,13 @@
 		<br>
 		<div id="insertdata"
 			style="display: none; background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
+			<div id="nameinsert">
 			<label
-				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">Add
-				TypeCar</label>
+				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">ADD TYPECAR</label></div>
+				<div id="nameedit">
+				<label
+				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">UPDATE	TYPECAR</label>
+				</div>
 			<form:form class="form-inline" modelAttribute="addTypeCar"
 				method="POST" action="${pageContext.request.contextPath}/typecar/add">
 				<div class="form-group">
@@ -81,14 +85,12 @@
 			</form:form>
 		</div>
 
-		<div id="editdata"
+		<!--  <div id="editdata"
 			style="background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
 			<form:form class="form-inline" modelAttribute="addTypeCar"
 				method="POST" action="">
 			<label
-				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">UpDate
-				TypeCar</label>
-			
+				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">UpDate	TypeCar</label>
 				<div class="form-group">
 
 					<label
@@ -109,17 +111,17 @@
 				<button type="submit"
 					class="btn btn-danger glyphicon glyphicon-remove"></button>
 			</form:form>
-		</div>
+		</div>-->
 		<br>
 
 		<div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<td style="font-weight: bold">#</td>
-						<td style="font-weight: bold">TypeName</td>
-						<td style="font-weight: bold">Status</td>
-						<td style="font-weight: bold">Management</td>
+						<td style="font-weight: bold;font-size:13pt;">#</td>
+						<td style="font-weight: bold;font-size:13pt;">TypeName</td>
+						<td style="font-weight: bold;font-size:13pt;">Status</td>
+						<td style="font-weight: bold;font-size:13pt;">Management</td>
 
 					</tr>
 				</thead>
@@ -127,9 +129,9 @@
 					<c:when test="${not empty retSampleList}">
 						<c:forEach var="listValue" items="${retSampleList}">
 							<tr>
-								<td><c:out value="${listValue.id}" /></td>
-								<td><c:out value="${listValue.typeCarTH}" /></td>
-								<td><c:out value="${listValue.tcStatusDesc}" /></td>
+								<td style="font-size:13pt;"><c:out value="${listValue.id}" /></td>
+								<td style="font-size:13pt;"><c:out value="${listValue.typeCarTH}" /></td>
+								<td style="font-size:13pt;"><c:out value="${listValue.tcStatusDesc}" /></td>
 								<td><a
 									href="<c:url value='/typecar/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
