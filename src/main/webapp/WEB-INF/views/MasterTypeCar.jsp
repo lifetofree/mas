@@ -17,13 +17,13 @@
 		}
 	}
 
-	function Show_Divedit(editdata) {
+	/*function Show_Divedit(editdata) {
 		if (false == $(editdata).is(':visible')) {
 			$(editdata).show(250);
 		} else {
 			$(editdata).hide(250);
 		}
-	}
+	}*/
 </script>
 
 <link
@@ -82,7 +82,7 @@
 		</div>
 
 		<div id="editdata"
-			style="display: none; background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
+			style="background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
 			<form:form class="form-inline" modelAttribute="addTypeCar"
 				method="POST" action="">
 			<label
