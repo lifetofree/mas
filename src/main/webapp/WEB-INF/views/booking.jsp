@@ -12,9 +12,10 @@
 	<div id="panelMain">
 		Error : ${ retSamples } <br />
 
-		<form:form class="form-inline" modelAttribute="addHosting">
+		<form:form class="form-inline" modelAttribute="addBooking">
 			<div class="form-group">
 				<form:input path="name" class="form-control" placeHolder="Host Name" />
+					<form:input path="car" class="form-control" placeHolder="Car Name" />
 				<form:input path="domain" class="form-control" placeHolder="Domain Name" />
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
@@ -26,6 +27,7 @@
 				<tr>
 					<td>ID</td>
 					<td>Name</td>
+					<td>car</td>
 					<td>Domain</td>
 				</tr>
 			</thead>
@@ -35,6 +37,7 @@
 						<tr>
 							<td><c:out value="${listValue.id}" /></td>
 							<td><c:out value="${listValue.name}" /></td>
+							<td><c:out value="${listValue.car}" /></td>
 							<td><c:out value="${listValue.domain}" /></td>
 						</tr>
 					</c:forEach>
