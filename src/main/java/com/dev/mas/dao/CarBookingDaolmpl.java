@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
-import com.dev.mas.model.CarBooking;
+import com.dev.mas.model.MasterTypeCar;
 
 
 @Service
@@ -15,18 +15,25 @@ public class CarBookingDaolmpl implements CarBookingDao{
 	private MongoOperations mongoOperation;
 	
 	@Override
-	public void save(CarBooking carbooking) {
+	public void save(MasterTypeCar mastertypecar) {
 
-		mongoOperation.save(carbooking);
+		mongoOperation.save(mastertypecar);
 
 	}
 
 	@Override
-	public List<CarBooking> list() {
+	public List<MasterTypeCar> list() {
 		
-		List<CarBooking> TypeCarList = mongoOperation.findAll(CarBooking.class);
+		List<MasterTypeCar> TypeCarList = mongoOperation.findAll(MasterTypeCar.class);
 		return TypeCarList;
 		
 	}
+	@Override
+	public MasterTypeCar listById(int id) {
 		
+		MasterTypeCar mastertypecar = mongoOperation.findById(id, MasterTypeCar.class);
+		return mastertypecar;
+		
+	}
+
 }

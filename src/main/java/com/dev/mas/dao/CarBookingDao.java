@@ -2,15 +2,16 @@ package com.dev.mas.dao;
 
 
 import java.util.List;
-import com.dev.mas.model.CarBooking;
+import com.dev.mas.model.MasterTypeCar;
 
 
 
 public interface CarBookingDao {
 	
-	public void save(CarBooking carbooking);
-	public List<CarBooking> list();
-	
+	public void save(MasterTypeCar mastertypecar);
+	public List<MasterTypeCar> list();
+	public MasterTypeCar listById(int id);
+
 
 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.Hosting;
@@ -60,15 +60,15 @@ public class SampleController {
 		try {
 
 			// add data
-			hostingService.save(hosting);
-			modelmap.addAttribute("addHosting", new Hosting());
+			hosting = hostingService.listById(id);
+			modelmap.addAttribute("addHosting", hosting);
 
 			List<Hosting> hostingList = hostingService.list();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
 
 		} catch (SequenceException e) {
-			// System.out.println(e.getErrMsg());
+			 System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
 
