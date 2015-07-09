@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,43 +27,34 @@ public class SampleController {
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-
-		// show form
-		modelmap.addAttribute("addHosting", new Hosting());
-
-		// list data
+		// clear form
+		modelmap.addAttribute("dataHosting", new Hosting());
 		try {
-
 			List<Hosting> hostingList = hostingService.list();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
-
 		} catch (SequenceException e) {
-			// System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
 
 		}
 
 		return "sample";
+		
 	}
 
-	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/upsert/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-
-		// list data
 		try {
-
 			// show form
 			hosting = hostingService.listById(id);
-			modelmap.addAttribute("addHosting", hosting);
-
+			modelmap.addAttribute("dataHosting", hosting);
+			
+			// all list
 			List<Hosting> hostingList = hostingService.list();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
-
 		} catch (SequenceException e) {
-			// System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
 
@@ -74,84 +63,17 @@ public class SampleController {
 		return "sample";
 	}
 
-	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String processUpdateForm(ModelMap modelmap,
-			@ModelAttribute(value = "addHosting") Hosting hosting,
-			BindingResult result) {
-		// , @PathVariable int id
-		// list data
+	@RequestMapping(value = { "/upsert" }, method = RequestMethod.POST)
+	public String processUpdateForm(ModelMap modelmap, Hosting hosting) {
 		try {
-
-			if (hosting.getId() == 0) {
-				// add data
-				hostingService.save(hosting);
-				modelmap.addAttribute("addHosting", new Hosting());
-			} else {
-				
-			}
-
-			// List<Hosting> hostingList = hostingService.list();
-			// modelmap.addAttribute("retSampleList", hostingList);
-			// modelmap.addAttribute("retSamples", "---");
-
+			hostingService.save(hosting);
 		} catch (SequenceException e) {
-			// System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-
+			modelmap.addAttribute("addHosting", new Hosting()); 
 		}
 
-		// return "sample";
 		return "redirect:/samples/";
 	}
-
-	// @RequestMapping(value = { "/add" }, method = RequestMethod.POST)
-	// public String processForm(ModelMap modelmap,
-	// @ModelAttribute(value = "addHosting") Hosting hosting,
-	// BindingResult result) {
-	//
-	// // list data
-	// try {
-	//
-	// // add data
-	// hostingService.save(hosting);
-	// modelmap.addAttribute("addHosting", new Hosting());
-	//
-	// // List<Hosting> hostingList = hostingService.list();
-	// // modelmap.addAttribute("retSampleList", hostingList);
-	// // modelmap.addAttribute("retSamples", "---");
-	//
-	// } catch (SequenceException e) {
-	// // System.out.println(e.getErrMsg());
-	// modelmap.addAttribute("retSamples", e.getErrMsg());
-	// } finally {
-	//
-	// }
-	//
-	// // return "sample";
-	// return "redirect:/samples/";
-	// }
-
-	// @RequestMapping(value = "/runsave", method = RequestMethod.GET)
-	// public String home(Locale locale, ModelMap modelmap) {
-	//
-	// try {
-	//
-	// hostingService.save("cloud.google.com");
-	// hostingService.save("heroku.com");
-	// hostingService.save("cloudbees.com");
-	//
-	// List<Hosting> hostingList = hostingService.list();
-	// modelmap.addAttribute("retSampleList", hostingList);
-	// modelmap.addAttribute("retSamples", "---");
-	//
-	// } catch (SequenceException e) {
-	// // System.out.println(e.getErrMsg());
-	// modelmap.addAttribute("retSamples", e.getErrMsg());
-	// } finally {
-	//
-	// }
-	//
-	// return "sample";
-	// }
+	
 }

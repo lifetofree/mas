@@ -14,39 +14,39 @@ import com.dev.mas.model.Hosting;
 public class HostingServiceImpl implements HostingService {
 
 	private static final String HOSTING_SEQ_KEY = "hosting";
-	 
+
 	@Autowired
 	private SequenceDao sequenceDao;
- 
+
 	@Autowired
 	private HostingDao hostingDao;
- 
+
 	@Override
 	public void save(Hosting hosting) throws SequenceException {
- 
-//		Hosting hosting = new Hosting();
- 
-		hosting.setId(sequenceDao.getNextSequenceId(HOSTING_SEQ_KEY));
+
+		if (hosting.getId() == 0) {
+			hosting.setId(sequenceDao.getNextSequenceId(HOSTING_SEQ_KEY));
+		} else {
+			hosting.setId(hosting.getId());
+		}
 		hosting.setName(hosting.getName());
 		hosting.setDomain(hosting.getDomain());
 		hostingDao.save(hosting);
- 
-//		System.out.println(hosting);
- 
+
 	}
-	
+
 	@Override
 	public List<Hosting> list() throws SequenceException {
 
 		return hostingDao.list();
- 
+
 	}
-	
+
 	@Override
-	public Hosting listById(int id) throws SequenceException {
+	public Hosting listById(long id) throws SequenceException {
 
 		return hostingDao.listById(id);
- 
+
 	}
-	
+
 }

@@ -29,11 +29,6 @@ public class Hosting {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "Hosting [id=" + id + ", name=" + name + "]";
-	}
-
 	public String getDomain() {
 		return domain;
 	}
@@ -48,6 +43,11 @@ public class Hosting {
 
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
+	}
+	
+	@Override
+	public String toString() {
+		return "Hosting [id=" + id + ", name=" + name + "]";
 	}
 
 }
