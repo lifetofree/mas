@@ -28,5 +28,13 @@ public class HostingDaoImpl implements HostingDao {
 		return hostingList;
 		
 	}
+	
+	@Override
+	public Hosting listById(int id) {
+		
+		Hosting hosting = mongoOperation.findById(id, Hosting.class);
+		return hosting;
+		
+	}
 
 }

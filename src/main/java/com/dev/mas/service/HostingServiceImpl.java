@@ -31,7 +31,7 @@ public class HostingServiceImpl implements HostingService {
 		hosting.setDomain(hosting.getDomain());
 		hostingDao.save(hosting);
  
-		System.out.println(hosting);
+//		System.out.println(hosting);
  
 	}
 	
@@ -39,6 +39,13 @@ public class HostingServiceImpl implements HostingService {
 	public List<Hosting> list() throws SequenceException {
 
 		return hostingDao.list();
+ 
+	}
+	
+	@Override
+	public Hosting listById(int id) throws SequenceException {
+
+		return hostingDao.listById(id);
  
 	}
 	
