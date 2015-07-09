@@ -70,7 +70,7 @@ public class SampleController {
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("addHosting", new Hosting()); 
+			modelmap.addAttribute("dataHosting", new Hosting()); 
 		}
 
 		return "redirect:/samples/";
