@@ -59,9 +59,6 @@ public class SampleController {
 			modelmap.addAttribute("dataHosting", hosting);
 
 			// all list
-			// List<Hosting> hostingList = hostingService.list();
-			// query.with(new Sort(Sort.Direction.DESC, "id"));
-			// List<Hosting> hostingList = hostingService.findByCriteria(query);
 			List<Hosting> hostingList = getDefaultList();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
@@ -88,7 +85,6 @@ public class SampleController {
 	}
 
 	private List<Hosting> getDefaultList() {
-		
 		try {
 			query.with(new Sort(Sort.Direction.DESC, "id"));
 			hostingList = hostingService.findByCriteria(query);
