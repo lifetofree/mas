@@ -16,12 +16,14 @@
 			$(insertdata).hide(250);
 		}
 	}
-
-	/*function Show_Divedit(editdata) {
-		if (false == $(editdata).is(':visible')) {
-			$(editdata).show(250);
+	
+	
+	
+/*	function Show_Divedit(editdata) {
+		if (false == $(insertdata).is(':visible')) {
+			$(insertdata).show(250);
 		} else {
-			$(editdata).hide(250);
+			$(insertdata).hide(250);
 		}
 	}*/
 </script>
@@ -53,17 +55,16 @@
 		<br>
 		<div id="insertdata"
 			style="display: none; background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
-			<div id="nameinsert">
-			<label
-				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">ADD TYPECAR</label></div>
-				<div id="nameedit">
-				<label
-				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">UPDATE	TYPECAR</label>
-				</div>
-			<form:form class="form-inline" modelAttribute="addTypeCar"
-				method="POST" action="${pageContext.request.contextPath}/typecar/add">
-				<div class="form-group">
 
+			<label
+				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">ADD
+				TYPECAR</label>
+
+			<form:form class="form-inline" modelAttribute="addTypeCar"
+				method="POST"
+				action="${pageContext.request.contextPath}/typecar/edit">
+				<div class="form-group">
+					<form:hidden path="id" />
 					<label
 						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลรถยนต์
 						: </label>
@@ -85,43 +86,16 @@
 			</form:form>
 		</div>
 
-		<!--  <div id="editdata"
-			style="background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
-			<form:form class="form-inline" modelAttribute="addTypeCar"
-				method="POST" action="">
-			<label
-				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">UpDate	TypeCar</label>
-				<div class="form-group">
-
-					<label
-						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลรถยนต์
-						: </label>
-					<form:input path="typeCarTH" class="form-control"
-						style="Height: 20pt" />
-				</div>
-				<div class="form-group">
-					<label style="font-weight: bold">สถานะ : </label>
-					<form:select path="tcStatus" style="Width: 80pt; Height: 20pt"
-						id="tcStatus" name="tcStatus">
-						<option value="01">Online</option>
-						<option value="00">Offline</option>
-					</form:select>
-				</div>
-				<button type="submit" class="btn btn-success glyphicon glyphicon-ok"></button>
-				<button type="submit"
-					class="btn btn-danger glyphicon glyphicon-remove"></button>
-			</form:form>
-		</div>-->
 		<br>
 
 		<div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<td style="font-weight: bold;font-size:13pt;">#</td>
-						<td style="font-weight: bold;font-size:13pt;">TypeName</td>
-						<td style="font-weight: bold;font-size:13pt;">Status</td>
-						<td style="font-weight: bold;font-size:13pt;">Management</td>
+						<td style="font-weight: bold; font-size: 13pt;">#</td>
+						<td style="font-weight: bold; font-size: 13pt;">TypeName</td>
+						<td style="font-weight: bold; font-size: 13pt;">Status</td>
+						<td style="font-weight: bold; font-size: 13pt;">Management</td>
 
 					</tr>
 				</thead>
@@ -129,16 +103,17 @@
 					<c:when test="${not empty retSampleList}">
 						<c:forEach var="listValue" items="${retSampleList}">
 							<tr>
-								<td style="font-size:13pt;"><c:out value="${listValue.id}" /></td>
-								<td style="font-size:13pt;"><c:out value="${listValue.typeCarTH}" /></td>
-								<td style="font-size:13pt;"><c:out value="${listValue.tcStatusDesc}" /></td>
+								<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
+								<td style="font-size: 13pt;"><c:out
+										value="${listValue.typeCarTH}" /></td>
+								<td style="font-size: 13pt;"><c:out
+										value="${listValue.tcStatusDesc}" /></td>
 								<td><a
 									href="<c:url value='/typecar/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
-										data-toggle="tooltip" onclick="Show_Divedit(editdata)"
+										 onclick="Show_Divedit(editdata)"
 										aria-hidden="true"></span></a> <a id="btndelete"
-									class="btn btn-danger glyphicon glyphicon-trash"
-									data-toggle="tooltip"></a></td>
+									class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete"></a></td>
 
 
 							</tr>

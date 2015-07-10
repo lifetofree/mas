@@ -23,7 +23,12 @@ public class CarBookingServicelmpl implements CarBookingService {
  
 	@Override
 	public void save(MasterTypeCar mastertypecar) throws SequenceException {
-		mastertypecar.setId(sequenceDao.getNextSequenceId(MasterTypeCar_SEQ_KEY));
+		
+		if (mastertypecar.getId() == 0) {
+			mastertypecar.setId(sequenceDao.getNextSequenceId(MasterTypeCar_SEQ_KEY));
+		} else {
+			mastertypecar.setId(mastertypecar.getId());
+		}
 		mastertypecar.setTypeCarTH(mastertypecar.getTypeCarTH());
 		mastertypecar.setTypeCarEN(mastertypecar.getTypeCarEN());
 		mastertypecar.setCEmpIDX(mastertypecar.getCEmpIDX());
@@ -34,9 +39,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 		mastertypecar.setTcStatus(mastertypecar.getTcStatus());
 		carbookingDao.save(mastertypecar);
  
- 
-		System.out.println(mastertypecar);
- 
+  
 	}
 	
 	@Override

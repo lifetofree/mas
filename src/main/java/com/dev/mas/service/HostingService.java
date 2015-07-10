@@ -7,8 +7,9 @@ import com.dev.mas.model.Hosting;
 
 public interface HostingService {
 
-	public void save(Hosting hosting) throws SequenceException;
 	public List<Hosting> list() throws SequenceException;
-	public Hosting listById(int id) throws SequenceException;
+	public Hosting listById(long id) throws SequenceException;
+	
+	public void save(Hosting hosting) throws SequenceException;
 	
 }
