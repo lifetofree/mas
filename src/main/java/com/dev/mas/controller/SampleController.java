@@ -27,37 +27,42 @@ public class SampleController {
 	private HostingService hostingService;
 
 	private Hosting hosting = new Hosting();
+	private List<Hosting> hostingList = null;
 	private Query query = new Query();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
 		// clear form
 		modelmap.addAttribute("dataHosting", new Hosting());
-		try {
+//		try {
 //			List<Hosting> hostingList = hostingService.list();
-			query.with(new Sort(Sort.Direction.DESC, "id"));
-			List<Hosting> hostingList = hostingService.findByCriteria(query);
+//			query.with(new Sort(Sort.Direction.DESC, "id"));
+//			List<Hosting> hostingList = hostingService.findByCriteria(query);
+			List<Hosting> hostingList = getDefaultList();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
-		} catch (SequenceException e) {
-			modelmap.addAttribute("retSamples", e.getErrMsg());
-		} finally {
-
-		}
+//		} catch (SequenceException e) {
+//			modelmap.addAttribute("retSamples", e.getErrMsg());
+//		} finally {
+//
+//		}
 
 		return "sample";
-		
+
 	}
 
 	@RequestMapping(value = { "/upsert/{id}" }, method = RequestMethod.GET)
-	public String processEdit(ModelMap modelmap, @PathVariable int id) {
+	public String processUpsertGet(ModelMap modelmap, @PathVariable int id) {
 		try {
 			// show form
 			hosting = hostingService.listById(id);
 			modelmap.addAttribute("dataHosting", hosting);
-			
+
 			// all list
-			List<Hosting> hostingList = hostingService.list();
+			// List<Hosting> hostingList = hostingService.list();
+			// query.with(new Sort(Sort.Direction.DESC, "id"));
+			// List<Hosting> hostingList = hostingService.findByCriteria(query);
+			List<Hosting> hostingList = getDefaultList();
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
@@ -70,16 +75,30 @@ public class SampleController {
 	}
 
 	@RequestMapping(value = { "/upsert" }, method = RequestMethod.POST)
-	public String processUpdateForm(ModelMap modelmap, Hosting hosting) {
+	public String processUpsertPost(ModelMap modelmap, Hosting hosting) {
 		try {
 			hostingService.save(hosting);
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("dataHosting", new Hosting()); 
+			modelmap.addAttribute("dataHosting", new Hosting());
 		}
 
 		return "redirect:/samples/";
 	}
-	
+
+	private List<Hosting> getDefaultList() {
+		
+		try {
+			query.with(new Sort(Sort.Direction.DESC, "id"));
+			hostingList = hostingService.findByCriteria(query);
+		} catch (SequenceException e) {
+			
+		} finally {
+			
+		}
+
+		return hostingList;
+	}
+
 }
