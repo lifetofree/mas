@@ -1,8 +1,11 @@
 package com.dev.mas.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +27,16 @@ public class SampleController {
 	private HostingService hostingService;
 
 	private Hosting hosting = new Hosting();
+	private Query query = new Query();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
 		// clear form
 		modelmap.addAttribute("dataHosting", new Hosting());
 		try {
-			List<Hosting> hostingList = hostingService.list();
+//			List<Hosting> hostingList = hostingService.list();
+			query.with(new Sort(Sort.Direction.DESC, "id"));
+			List<Hosting> hostingList = hostingService.findByCriteria(query);
 			modelmap.addAttribute("retSampleList", hostingList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {

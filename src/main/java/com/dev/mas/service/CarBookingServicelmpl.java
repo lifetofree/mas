@@ -3,6 +3,7 @@ package com.dev.mas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.dev.mas.dao.CarBookingDao;
@@ -35,8 +36,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 		mastertypecar.setCreateDate(mastertypecar.getCreateDate());
 		mastertypecar.setAdEmpIDX(mastertypecar.getAdEmpIDX());
 		mastertypecar.setUpdateDate(mastertypecar.getUpdateDate());
-		mastertypecar.setChange(mastertypecar.getChange());
-		mastertypecar.setTcStatus(mastertypecar.getTcStatus());
+	    mastertypecar.setTcStatus(mastertypecar.getTcStatus());
 		carbookingDao.save(mastertypecar);
  
   
@@ -45,7 +45,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	@Override
 	public List<MasterTypeCar> listtypecar() throws SequenceException {
 
-		return carbookingDao.list();
+		return carbookingDao.listtypecar();
  
 	}
 	
@@ -54,5 +54,12 @@ public class CarBookingServicelmpl implements CarBookingService {
 
 		return carbookingDao.listById(id);
  
+	}
+	
+	@Override
+	public List<MasterTypeCar> findByCriteria(Query query) throws SequenceException {
+
+		return carbookingDao.findByCriteria(query);
+
 	}
 }

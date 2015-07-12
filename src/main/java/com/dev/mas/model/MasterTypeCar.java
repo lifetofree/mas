@@ -17,7 +17,6 @@ public class MasterTypeCar {
 	private Date createDate;
 	private int adEmpIDX;
 	private Date updateDate;
-	private String change;
 	private int tcStatus;
 	private String tcStatusDesc;
 
@@ -87,14 +86,6 @@ public class MasterTypeCar {
 		this.updateDate = updateDate;
 	}
 
-	public String getChange() {
-		return change;
-	}
-
-	public void setChange(String change) {
-		this.change = change;
-	}
-
 	public int getTcStatus() {
 		return tcStatus;
 	}
@@ -107,7 +98,7 @@ public class MasterTypeCar {
 
 @Override
 public String toString() {
-	return "CarBooking [id=" + id + ", TypeCarTH=" + typeCarTH + ", TypeCarEN=" + typeCarEN + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", Change=" + change + ", TcStatus=" + tcStatus + "]";
+	return "MasterTypeCar [id=" + id + ", TypeCarTH=" + typeCarTH + ", TypeCarEN=" + typeCarEN + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
 }
 
 }

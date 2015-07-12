@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.dev.mas.model.Hosting;
@@ -13,6 +14,9 @@ public class HostingDaoImpl implements HostingDao {
 
 	@Autowired
 	private MongoOperations mongoOperation;
+	
+	private Hosting hosting = new Hosting();
+//	private List<Hosting> hostingList = new List<Hosting>;
 	
 	@Override
 	public List<Hosting> list() {
@@ -25,8 +29,16 @@ public class HostingDaoImpl implements HostingDao {
 	@Override
 	public Hosting listById(long id) {
 		
-		Hosting hosting = mongoOperation.findById(id, Hosting.class);
+		hosting = mongoOperation.findById(id, Hosting.class);
 		return hosting;
+		
+	}
+	
+	@Override
+	public List<Hosting> findByCriteria(Query query) {
+		
+		List<Hosting> hostingList = mongoOperation.find(query, Hosting.class);
+		return hostingList;
 		
 	}
 	

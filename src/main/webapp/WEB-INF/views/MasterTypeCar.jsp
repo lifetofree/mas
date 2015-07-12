@@ -16,16 +16,14 @@
 			$(insertdata).hide(250);
 		}
 	}
-	
-	
-	
-/*	function Show_Divedit(editdata) {
-		if (false == $(insertdata).is(':visible')) {
-			$(insertdata).show(250);
-		} else {
-			$(insertdata).hide(250);
-		}
-	}*/
+
+	/*	function Show_Divedit(editdata) {
+	 if (false == $(insertdata).is(':visible')) {
+	 $(insertdata).show(250);
+	 } else {
+	 $(insertdata).hide(250);
+	 }
+	 }*/
 </script>
 
 <link
@@ -108,14 +106,12 @@
 										value="${listValue.typeCarTH}" /></td>
 								<td style="font-size: 13pt;"><c:out
 										value="${listValue.tcStatusDesc}" /></td>
-								<td><a
+								 <td><a
 									href="<c:url value='/typecar/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
-										 onclick="Show_Divedit(editdata)"
-										aria-hidden="true"></span></a> <a id="btndelete"
-									class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete"></a></td>
-
-
+										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/typecar/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 </td>
 							</tr>
 						</c:forEach>
 					</c:when>
