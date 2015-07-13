@@ -21,12 +21,12 @@
 				<form:input path="domain" class="form-control"
 					placeHolder="Domain Name" />
 			</div>
-			<button type="submit" name="cmdName" name="save"
+			<button type="submit" name="cmdName" value="save"
 				class="btn btn-default">
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"
 					data-original-title="save" data-toggle="tooltip"></span>
 			</button>
-			<button type="submit" name="cmdName" name="cancel"
+			<button type="submit" name="cmdName" value="cancel"
 				class="btn btn-default">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"
 					data-original-title="cancel" data-toggle="tooltip"></span>
