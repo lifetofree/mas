@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,38 +29,20 @@ public class MasterTypeCarController {
 	private CarBookingService carbookingService;
 
 	private MasterTypeCar mastertypecar = new MasterTypeCar();
-	private Query query = new Query();
 
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-		// add
-
-		modelmap.addAttribute("addTypeCar", new MasterTypeCar());
-
+		List<MasterTypeCar> typecarList = null;
 		try {
-			MasterTypeCar mastertypecarDesc = null;
-		//	List<MasterTypeCar> typecarList = carbookingService.listtypecar();
-			query.with(new Sort(Sort.Direction.DESC, "id"));
-			List<MasterTypeCar> typecarList = carbookingService.findByCriteria(query);
-			
-			
-			for (int i = 0; i < typecarList.size(); i++) {
-				mastertypecarDesc = typecarList.get(i);
-				
-				if (mastertypecarDesc.getTcStatus() == 1) {
-					mastertypecarDesc.setTcStatusDesc("Online");
-				} else if (mastertypecarDesc.getTcStatus() == 0) {
-					mastertypecarDesc.setTcStatusDesc("Offline");
-				}
-			}
-			
+			typecarList = getListMasterTypeCar();
+			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
 			modelmap.addAttribute("retSampleList", typecarList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-
+			typecarList = null;
 		}
 
 		return "MasterTypeCar";
@@ -67,31 +50,17 @@ public class MasterTypeCarController {
 
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-
+		List<MasterTypeCar> typecarList = null;
 		try {
 
 			// show form
 			mastertypecar = carbookingService.listById(id);
 			modelmap.addAttribute("addTypeCar", mastertypecar);
 
-			MasterTypeCar mastertypecarDesc = null;
-
-			//List<MasterTypeCar> typecarList = carbookingService.listtypecar();
-			
-			query.with(new Sort(Sort.Direction.DESC, "id"));
-			List<MasterTypeCar> typecarList = carbookingService.findByCriteria(query);
-			for (int i = 0; i < typecarList.size(); i++) {
-				mastertypecarDesc = typecarList.get(i);
-				if (mastertypecarDesc.getTcStatus() == 1) {
-					mastertypecarDesc.setTcStatusDesc("Online");
-				} else if (mastertypecarDesc.getTcStatus() == 0) {
-					mastertypecarDesc.setTcStatusDesc("Offline");
-				}
-			}
 			// all list
+			typecarList = getListMasterTypeCar();
 			modelmap.addAttribute("retSampleList", typecarList);
 			modelmap.addAttribute("retSamples", "---");
-
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
@@ -129,9 +98,6 @@ public class MasterTypeCarController {
 			mastertypecar.setCreateDate(date);
 			mastertypecar.setTcStatus(9);
 			carbookingService.save(mastertypecar);
-			//List<MasterTypeCar> typecarList = carbookingService.findByCriteria(query);
-			//modelmap.addAttribute("retSampleList", typecarList);
-			//modelmap.addAttribute("retSamples", "---");
 			
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
@@ -142,5 +108,30 @@ public class MasterTypeCarController {
 		return "redirect:/typecar/";
 	}
 	
-	
+	private List<MasterTypeCar> getListMasterTypeCar() throws SequenceException {
+		List<MasterTypeCar> typecarList 		= null;
+		MasterTypeCar		mastertypecarDesc 	= null;
+		Query 				query 				= null;
+		try {
+			query 				= new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			query.with(new Sort(Sort.Direction.DESC, "id"));
+			typecarList = carbookingService.findByCriteria(query);
+			
+			for (int i = 0; i < typecarList.size(); i++) {
+				mastertypecarDesc = typecarList.get(i);
+				
+				if (mastertypecarDesc.getTcStatus() == 1) {
+					mastertypecarDesc.setTcStatusDesc("Online");
+				} else if (mastertypecarDesc.getTcStatus() == 0) {
+					mastertypecarDesc.setTcStatusDesc("Offline");
+				}
+			}
+			return typecarList;
+		} finally {
+			typecarList 		= null;
+			mastertypecarDesc 	= null;
+			query 				= null;
+		}
+	}
 }
