@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.Hosting;
@@ -34,18 +35,18 @@ public class SampleController {
 	public String defaultPage(ModelMap modelmap) {
 		// clear form
 		modelmap.addAttribute("dataHosting", new Hosting());
-//		try {
-//			List<Hosting> hostingList = hostingService.list();
-//			query.with(new Sort(Sort.Direction.DESC, "id"));
-//			List<Hosting> hostingList = hostingService.findByCriteria(query);
-			List<Hosting> hostingList = getDefaultList();
-			modelmap.addAttribute("retSampleList", hostingList);
-			modelmap.addAttribute("retSamples", "---");
-//		} catch (SequenceException e) {
-//			modelmap.addAttribute("retSamples", e.getErrMsg());
-//		} finally {
-//
-//		}
+		// try {
+		// List<Hosting> hostingList = hostingService.list();
+		// query.with(new Sort(Sort.Direction.DESC, "id"));
+		// List<Hosting> hostingList = hostingService.findByCriteria(query);
+		List<Hosting> hostingList = getDefaultList();
+		modelmap.addAttribute("retSampleList", hostingList);
+		modelmap.addAttribute("retSamples", "---");
+		// } catch (SequenceException e) {
+		// modelmap.addAttribute("retSamples", e.getErrMsg());
+		// } finally {
+		//
+		// }
 
 		return "sample";
 
@@ -71,13 +72,18 @@ public class SampleController {
 		return "sample";
 	}
 
-	@RequestMapping(value = { "/upsert" }, method = RequestMethod.POST)
-	public String processUpsertPost(ModelMap modelmap, Hosting hosting) {
-		try {
-			hostingService.save(hosting);
-		} catch (SequenceException e) {
-			modelmap.addAttribute("retSamples", e.getErrMsg());
-		} finally {
+	@RequestMapping(value = { "/upsert" }, params = { "cmdName" }, method = RequestMethod.POST)
+	public String processUpsertPost(ModelMap modelmap,
+			@RequestParam String cmdName, Hosting hosting) {
+		if (cmdName.equals("save")) {
+			try {
+				hostingService.save(hosting);
+			} catch (SequenceException e) {
+				modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("dataHosting", new Hosting());
+			}
+		} else if (cmdName.equals("cancel")) {
 			modelmap.addAttribute("dataHosting", new Hosting());
 		}
 
@@ -89,9 +95,9 @@ public class SampleController {
 			query.with(new Sort(Sort.Direction.DESC, "id"));
 			hostingList = hostingService.findByCriteria(query);
 		} catch (SequenceException e) {
-			
+
 		} finally {
-			
+
 		}
 
 		return hostingList;
