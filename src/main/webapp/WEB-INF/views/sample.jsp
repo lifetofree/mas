@@ -13,7 +13,8 @@
 		Error : ${ retSamples } <br />
 
 		<form:form class="form-inline" modelAttribute="dataHosting"
-			method="POST" action="${pageContext.request.contextPath}/samples/upsert">
+			method="POST"
+			action="${pageContext.request.contextPath}/samples/upsert">
 			<div class="form-group">
 				<form:hidden path="id" />
 				<form:input path="name" class="form-control" placeHolder="Host Name" />
@@ -42,7 +43,8 @@
 							<td><c:out value="${listValue.domain}" /></td>
 							<td><a
 								href="<c:url value='/samples/upsert/${listValue.id}' />"><span
-									class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+									class="glyphicon glyphicon-edit" aria-hidden="true"
+									data-original-title="edit" data-toggle="tooltip"></span></a></td>
 						</tr>
 					</c:forEach>
 				</c:when>
