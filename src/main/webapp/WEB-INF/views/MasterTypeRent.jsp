@@ -1,68 +1,128 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Master Data</title>
+<title>ข้อมูลประเภทรถยนต์</title>
+
+<script>
+	//Show/Hide search
+	function Show_Divadd(insertdata) {
+		if (false == $(insertdata).is(':visible')) {
+			$(insertdata).show(250);
+		} else {
+			$(insertdata).hide(250);
+		}
+	}
+
+	
+</script>
+
+<link
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"
+	rel="stylesheet" />
+
 </head>
 <body>
-<div id="panelMain"><!--div master-->
-<div id="PanelBody_UpdatePanel1">
-	
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Type Rent<small> (ข้อมูลประเภทการจอง)</small></h2>
-                </div>
-            </div>
-            
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <div class="col-lg-1">
-                                        <a id="PanelBody_btnadd" class="btn btn-success" data-toggle="tooltip" title="" href="javascript:__doPostBack('ctl00$PanelBody$btnadd','')" data-original-title="Insert"><i class="fa fa-plus"></i></a>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-body">
-                            <div class="form-horizontal" role="form">
-                            <div>
-		<table class="table table-striped table-bordered table-hover table-responsive col-lg-12" cellspacing="0" rules="all" border="1" id="PanelBody_GvMaster" style="border-collapse:collapse;">
-			<tbody><tr class="table_headCenter" style="height:40px;">
-				<th scope="col">#</th><th scope="col">Type Rent</th><th scope="col">More</th>
-			</tr><tr>
-				<td>
-                                            1
-                                        </td>
-                                        <td align="left">
-                                            &nbsp;&nbsp;&nbsp;<span id="PanelBody_GvMaster_lblUStatusDetail_0" class="col-sm-10"><lable id="lblemail">ประเภทการจอง</lable></span>
-                                        </td>
-                                        <td>
-                                        
-                                            <a id="PanelBody_GvMaster_Edit_0" class="btn btn-primary" data-toggle="tooltip" title="" href="javascript:__doPostBack('ctl00$PanelBody$GvMaster$ctl02$Edit','')" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                                            <a onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่ ?');" id="PanelBody_GvMaster_Delete_0" class="btn btn-danger" data-toggle="tooltip" title="" href="javascript:__doPostBack('ctl00$PanelBody$GvMaster$ctl02$Delete','')" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-			</tr>
-			<!--  <tr class="PageCustom">
-				<td colspan="7"><table>
-					<tbody><tr>
-						<td><span class="btn btn-info" data-original-title="" title="">1</span></td><td><a href="javascript:__doPostBack('ctl00$PanelBody$GvMaster','Page$2')" class="btn btn-default" data-original-title="" title="">2</a></td><td><a href="javascript:__doPostBack('ctl00$PanelBody$GvMaster','Page$3')" class="btn btn-default" data-original-title="" title="">3</a></td><td><a href="javascript:__doPostBack('ctl00$PanelBody$GvMaster','Page$4')" class="btn btn-default" data-original-title="" title="">4</a></td><td><a href="javascript:__doPostBack('ctl00$PanelBody$GvMaster','Page$5')" class="btn btn-default" data-original-title="" title="">...</a></td><td><a href="javascript:__doPostBack('ctl00$PanelBody$GvMaster','Page$Last')" class="btn btn-default" data-original-title="" title="">Last</a></td>
-					
-				</tbody></table></td>
-			</tr></tr>-->
-		</tbody></table>
+	<div id="panelMain">
+
+
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>
+					Type Rent<small> (ข้อมูลประเภทการจองรถยนต์)</small>
+				</h2>
+			</div>
+		</div>
+		<br>
+		<div id="btnshow">
+			<button type="button"
+				class="btn btn-success glyphicon glyphicon-plus"
+				style="font-size: 11pt; width: 40pt; height: 20pt; text-align: center; font-weight: bold;"
+				onclick="Show_Divadd(insertdata)" id="btndiv1"></button>
+		</div>
+		<br>
+		<div id="insertdata"
+			style="background-color: #EEEEEE; witdh: 50pt; Height: 70pt">
+
+			<label
+				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">Add
+				Type Rent</label>
+
+			<form:form class="form-inline" modelAttribute="addTypeRent"
+				method="POST" 	action="${pageContext.request.contextPath}/typerent/edit">
+				<div class="form-group">
+					<form:hidden path="id" />
+					<label
+						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลประเภทการจองรถยนต์
+						: </label>
+					<form:input path="typerentTH" class="form-control"
+						style="Height: 20pt" />
+				</div>
+				<div class="form-group">
+					<label style="font-weight: bold">สถานะ : </label>
+					<form:select path="tcStatus" style="Width: 80pt; Height: 20pt"
+						id="tcStatus" name="tcStatus">
+						<option value="01">Online</option>
+						<option value="00">Offline</option>
+					</form:select>
+				</div>
+				<button type="submit"
+					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
+					<button type="submit" value='/typerent/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
+				</form:form>
+				
+				
+				
+		</div>
+
+		<br>
+
+		<div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<td style="font-weight: bold; font-size: 13pt;">#</td>
+						<td style="font-weight: bold; font-size: 13pt;">Type Rent</td>
+						<td style="font-weight: bold; font-size: 13pt;">Status</td>
+						<td style="font-weight: bold; font-size: 13pt;">Management</td>
+
+					</tr>
+				</thead>
+				<c:choose>
+					<c:when test="${not empty retSampleList}">
+						<c:forEach var="listValue" items="${retSampleList}">
+							<tr>
+								<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
+								<td style="font-size: 13pt;"><c:out
+										value="${listValue.typerentTH}" /></td>
+								<td style="font-size: 13pt;"><c:out
+										value="${listValue.tcStatusDesc}" /></td>
+								 <td><a
+									href="<c:url value='/typerent/edit/${listValue.id}' />"><span
+										class="btn btn-primary glyphicon glyphicon-edit"
+										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/typerent/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 </td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</table>
+		</div>
+
+
 	</div>
-                        </div>
-                            </div>
-                    </div>
-                    </div>
-</div>
 </body>
 </html>

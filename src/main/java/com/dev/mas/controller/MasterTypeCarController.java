@@ -30,7 +30,6 @@ public class MasterTypeCarController {
 
 	private MasterTypeCar mastertypecar = new MasterTypeCar();
 
-
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
 		List<MasterTypeCar> typecarList = null;
@@ -88,7 +87,7 @@ public class MasterTypeCarController {
 
 		return "redirect:/typecar/";
 	}
-	
+
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
@@ -98,7 +97,7 @@ public class MasterTypeCarController {
 			mastertypecar.setCreateDate(date);
 			mastertypecar.setTcStatus(9);
 			carbookingService.save(mastertypecar);
-			
+
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
@@ -108,19 +107,41 @@ public class MasterTypeCarController {
 		return "redirect:/typecar/";
 	}
 	
+	
+
+//	@RequestMapping(value = { "/cancel" }, method = RequestMethod.GET)
+//	public String cancelSaveContact(ModelMap modelmap, @PathVariable int id) {
+//		List<MasterTypeCar> typecarList = null;
+//		try {
+//			typecarList = getListMasterTypeCar();
+//			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+//			modelmap.addAttribute("retSampleList", typecarList);
+//			modelmap.addAttribute("retSamples", "---");
+//
+//		} catch (SequenceException e) {
+//			modelmap.addAttribute("retSamples", e.getErrMsg());
+//		} finally {
+//			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+//		}
+//		
+//		return "redirect:/typecar/";
+//	}
+	
+	
+
 	private List<MasterTypeCar> getListMasterTypeCar() throws SequenceException {
-		List<MasterTypeCar> typecarList 		= null;
-		MasterTypeCar		mastertypecarDesc 	= null;
-		Query 				query 				= null;
+		List<MasterTypeCar> typecarList = null;
+		MasterTypeCar mastertypecarDesc = null;
+		Query query = null;
 		try {
-			query 				= new Query();
+			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			query.with(new Sort(Sort.Direction.DESC, "id"));
 			typecarList = carbookingService.findByCriteria(query);
-			
+
 			for (int i = 0; i < typecarList.size(); i++) {
 				mastertypecarDesc = typecarList.get(i);
-				
+
 				if (mastertypecarDesc.getTcStatus() == 1) {
 					mastertypecarDesc.setTcStatusDesc("Online");
 				} else if (mastertypecarDesc.getTcStatus() == 0) {
@@ -129,9 +150,9 @@ public class MasterTypeCarController {
 			}
 			return typecarList;
 		} finally {
-			typecarList 		= null;
-			mastertypecarDesc 	= null;
-			query 				= null;
+			typecarList = null;
+			mastertypecarDesc = null;
+			query = null;
 		}
 	}
 }

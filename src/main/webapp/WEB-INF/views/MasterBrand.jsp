@@ -39,7 +39,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h2>
-					TypeCar Data<small> (ข้อมูลประเภทรถยนต์)</small>
+					Brand Car<small> (ข้อมูลยี่ห้อรถยนต์)</small>
 				</h2>
 			</div>
 		</div>
@@ -56,16 +56,16 @@
 
 			<label
 				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">ADD
-				TYPECAR</label>
+				BRAND</label>
 
-			<form:form class="form-inline" modelAttribute="addTypeCar"
-				method="POST" 	action="${pageContext.request.contextPath}/typecar/edit">
+			<form:form class="form-inline" modelAttribute="addBrand"
+				method="POST" 	action="${pageContext.request.contextPath}/brand/edit">
 				<div class="form-group">
 					<form:hidden path="id" />
 					<label
-						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลรถยนต์
+						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลยี่อห้อรถยนต์
 						: </label>
-					<form:input path="typeCarTH" class="form-control"
+					<form:input path="brandTH" class="form-control"
 						style="Height: 20pt" />
 				</div>
 				<div class="form-group">
@@ -78,7 +78,7 @@
 				</div>
 				<button type="submit"
 					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
-					<button type="submit" value='/typecar/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
+					<button type="submit" value='/brand/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
 				</form:form>
 				
 				
@@ -92,7 +92,7 @@
 				<thead>
 					<tr>
 						<td style="font-weight: bold; font-size: 13pt;">#</td>
-						<td style="font-weight: bold; font-size: 13pt;">TypeName</td>
+						<td style="font-weight: bold; font-size: 13pt;">BrandName</td>
 						<td style="font-weight: bold; font-size: 13pt;">Status</td>
 						<td style="font-weight: bold; font-size: 13pt;">Management</td>
 
@@ -104,14 +104,14 @@
 							<tr>
 								<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
 								<td style="font-size: 13pt;"><c:out
-										value="${listValue.typeCarTH}" /></td>
+										value="${listValue.brandTH}" /></td>
 								<td style="font-size: 13pt;"><c:out
 										value="${listValue.tcStatusDesc}" /></td>
 								 <td><a
-									href="<c:url value='/typecar/edit/${listValue.id}' />"><span
+									href="<c:url value='/brand/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/typecar/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/brand/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

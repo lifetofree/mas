@@ -9,19 +9,25 @@ import org.springframework.stereotype.Service;
 import com.dev.mas.dao.CarBookingDao;
 import com.dev.mas.dao.SequenceDao;
 import com.dev.mas.exception.SequenceException;
+import com.dev.mas.model.MasterBrand;
+import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterTypeCar;
+import com.dev.mas.model.MasterTypeRent;
 
 
 
 @Service
 public class CarBookingServicelmpl implements CarBookingService {
-	private static final String MasterTypeCar_SEQ_KEY = "M0_TbTypeCar";
 	@Autowired
 	private SequenceDao sequenceDao;
  
 	@Autowired
 	private CarBookingDao carbookingDao;
  
+	
+	//MasterTypeCar
+	private static final String MasterTypeCar_SEQ_KEY = "M0_TbTypeCar";
+	
 	@Override
 	public void save(MasterTypeCar mastertypecar) throws SequenceException {
 		
@@ -62,4 +68,142 @@ public class CarBookingServicelmpl implements CarBookingService {
 		return carbookingDao.findByCriteria(query);
 
 	}
+	
+	
+	//MasterBrand
+	private static final String MasterBrand_SEQ_KEY = "M0_TbBrand";
+	
+ 
+	@Override
+	public void savebrand(MasterBrand masterbrand) throws SequenceException {
+		
+		if (masterbrand.getId() == 0) {
+			masterbrand.setId(sequenceDao.getNextSequenceId(MasterBrand_SEQ_KEY));
+		} else {
+			masterbrand.setId(masterbrand.getId());
+		}
+		masterbrand.setBrandTH(masterbrand.getBrandTH());
+		masterbrand.setBrandEN(masterbrand.getBrandEN());
+		masterbrand.setCEmpIDX(masterbrand.getCEmpIDX());
+		masterbrand.setCreateDate(masterbrand.getCreateDate());
+		masterbrand.setAdEmpIDX(masterbrand.getAdEmpIDX());
+		masterbrand.setUpdateDate(masterbrand.getUpdateDate());
+		masterbrand.setTcStatus(masterbrand.getTcStatus());
+		carbookingDao.savebrand(masterbrand);
+ 
+  
+	}
+	
+	@Override
+	public List<MasterBrand> listbrand() throws SequenceException {
+
+		return carbookingDao.listbrand();
+ 
+	}
+	
+	@Override
+	public MasterBrand listByIdbrand(int id) throws SequenceException {
+
+		return carbookingDao.listByIdbrand(id);
+ 
+	}
+	
+	@Override
+	public List<MasterBrand> findByCriteriabrand(Query query) throws SequenceException {
+
+		return carbookingDao.findByCriteriabrand(query);
+
+	}
+	
+	
+	//MasterPlace
+		private static final String MasterPlace_SEQ_KEY = "M0_TbPlace";
+		
+	 
+		@Override
+		public void saveplace(MasterPlace masterplace) throws SequenceException {
+			
+			if (masterplace.getId() == 0) {
+				masterplace.setId(sequenceDao.getNextSequenceId(MasterPlace_SEQ_KEY));
+			} else {
+				masterplace.setId(masterplace.getId());
+			}
+			masterplace.setPlaceTH(masterplace.getPlaceTH());
+			masterplace.setPlaceEN(masterplace.getPlaceEN());
+			masterplace.setCEmpIDX(masterplace.getCEmpIDX());
+			masterplace.setCreateDate(masterplace.getCreateDate());
+			masterplace.setAdEmpIDX(masterplace.getAdEmpIDX());
+			masterplace.setUpdateDate(masterplace.getUpdateDate());
+			masterplace.setTcStatus(masterplace.getTcStatus());
+			carbookingDao.saveplace(masterplace);
+	 
+	  
+		}
+		
+		@Override
+		public List<MasterPlace> listplace() throws SequenceException {
+
+			return carbookingDao.listplace();
+	 
+		}
+		
+		@Override
+		public MasterPlace listByIdplace(int id) throws SequenceException {
+
+			return carbookingDao.listByIdplace(id);
+	 
+		}
+		
+		@Override
+		public List<MasterPlace> findByCriteriaplace(Query query) throws SequenceException {
+
+			return carbookingDao.findByCriteriaplace(query);
+
+		}
+		
+		
+		//MasterTypeRent
+				private static final String MasterTypeRent_SEQ_KEY = "M0_TbTypeRent";
+				
+			 
+				@Override
+				public void savetyperent(MasterTypeRent mastertyperent) throws SequenceException {
+					
+					if (mastertyperent.getId() == 0) {
+						mastertyperent.setId(sequenceDao.getNextSequenceId(MasterTypeRent_SEQ_KEY));
+					} else {
+						mastertyperent.setId(mastertyperent.getId());
+					}
+					mastertyperent.setTyperentTH(mastertyperent.getTyperentTH());
+					mastertyperent.setTyperentEN(mastertyperent.getTyperentEN());
+					mastertyperent.setCEmpIDX(mastertyperent.getCEmpIDX());
+					mastertyperent.setCreateDate(mastertyperent.getCreateDate());
+					mastertyperent.setAdEmpIDX(mastertyperent.getAdEmpIDX());
+					mastertyperent.setUpdateDate(mastertyperent.getUpdateDate());
+					mastertyperent.setTcStatus(mastertyperent.getTcStatus());
+					carbookingDao.savetyperent(mastertyperent);
+			 
+			  
+				}
+				
+				@Override
+				public List<MasterTypeRent> listtyperent() throws SequenceException {
+
+					return carbookingDao.listtyperent();
+			 
+				}
+				
+				@Override
+				public MasterTypeRent listByIdtyperent(int id) throws SequenceException {
+
+					return carbookingDao.listByIdtyperent(id);
+			 
+				}
+				
+				@Override
+				public List<MasterTypeRent> findByCriteriatyperent(Query query) throws SequenceException {
+
+					return carbookingDao.findByCriteriatyperent(query);
+
+				}
 }
