@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ข้อมูลประเภทรถยนต์</title>
+<title>ข้อมูลสถานะการอนุมัติ</title>
 
 <script>
 	//Show/Hide search
@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h2>
-					Type Rent<small> (ข้อมูลประเภทการจองรถยนต์)</small>
+					Status Name<small> (ข้อมูลสถานะการอนุมัติ)</small>
 				</h2>
 			</div>
 		</div>
@@ -50,16 +50,16 @@
 
 			<label
 				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">Add
-				Type Rent</label>
+				Status</label>
 
-			<form:form class="form-inline" modelAttribute="addTypeRent"
-				method="POST" 	action="${pageContext.request.contextPath}/typerent/edit">
+			<form:form class="form-inline" modelAttribute="addStatus"
+				method="POST" 	action="${pageContext.request.contextPath}/status/edit">
 				<div class="form-group">
 					<form:hidden path="id" />
 					<label
-						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลประเภทการจองรถยนต์
+						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลสถานะ
 						: </label>
-					<form:input path="typerentTH" class="form-control"
+					<form:input path="statusTH" class="form-control"
 						style="Height: 20pt" />
 				</div>
 				<div class="form-group">
@@ -70,7 +70,7 @@
 						<option value="00">Offline</option>
 					</form:select>
 				</div>
-				<button type="submit" name="btnedit" value="savetyperent"
+				<button type="submit" name="btnedit" value="savestatus"
 					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
 				<button type="submit" name="btnedit" value="cancel"
 					class="btn btn-danger glyphicon glyphicon-remove"
@@ -88,7 +88,7 @@
 				<thead>
 					<tr>
 						<td style="font-weight: bold; font-size: 13pt;">#</td>
-						<td style="font-weight: bold; font-size: 13pt;">Type Rent</td>
+						<td style="font-weight: bold; font-size: 13pt;">Status Name</td>
 						<td style="font-weight: bold; font-size: 13pt;">Status</td>
 						<td style="font-weight: bold; font-size: 13pt;">Management</td>
 
@@ -100,14 +100,14 @@
 							<tr>
 								<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
 								<td style="font-size: 13pt;"><c:out
-										value="${listValue.typerentTH}" /></td>
+										value="${listValue.statusTH}" /></td>
 								<td style="font-size: 13pt;"><c:out
 										value="${listValue.tcStatusDesc}" /></td>
 								 <td><a
-									href="<c:url value='/typerent/edit/${listValue.id}' />"><span
+									href="<c:url value='/status/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/typerent/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/status/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

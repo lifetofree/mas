@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
-import com.dev.mas.model.MasterTypeRent;
+import com.dev.mas.model.MasterStatus;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
-@RequestMapping(value = "/typerent")
-public class MasterTypeRentController {
+@RequestMapping(value = "/status")
+public class MasterStatusController {
 
 	@Autowired
 	private ApplicationContext ctx;
@@ -29,37 +29,37 @@ public class MasterTypeRentController {
 	@Autowired
 	private CarBookingService carbookingService;
 
-	private MasterTypeRent mastertyperent = new MasterTypeRent();
+	private MasterStatus masterstatus = new MasterStatus();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-		List<MasterTypeRent> typerentList = null;
+		List<MasterStatus> statustList = null;
 		try {
-			typerentList = getListMasterTypeRent();
-			modelmap.addAttribute("addTypeRent", new MasterTypeRent());
-			modelmap.addAttribute("retSampleList", typerentList);
+			statustList = getListMasterStatus();
+			modelmap.addAttribute("addStatus", new MasterStatus());
+			modelmap.addAttribute("retSampleList", statustList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			typerentList = null;
+			statustList = null;
 		}
 
-		return "MasterTypeRent";
+		return "MasterStatus";
 	}
 
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-		List<MasterTypeRent> typerentList = null;
+		List<MasterStatus> statustList = null;
 		try {
 
 			// show form
-			mastertyperent = carbookingService.listByIdtyperent(id);
-			modelmap.addAttribute("addTypeRent", mastertyperent);
+			masterstatus = carbookingService.listByIdstatus(id);
+			modelmap.addAttribute("addStatus", masterstatus);
 
 			// all list
-			typerentList = getListMasterTypeRent();
-			modelmap.addAttribute("retSampleList", typerentList);
+			statustList = getListMasterStatus();
+			modelmap.addAttribute("retSampleList", statustList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -68,73 +68,73 @@ public class MasterTypeRentController {
 
 		}
 
-		return "MasterTypeRent";
+		return "MasterStatus";
 	}
 
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
-			@RequestParam String btnedit, MasterTypeRent mastertyperent) {
+			@RequestParam String btnedit, MasterStatus masterstatus) {
 
-		if (btnedit.equals("savetyperent")) {
+		if (btnedit.equals("savestatus")) {
 			try {
 				Date date = new Date();
-				mastertyperent.setCreateDate(date);
-				carbookingService.savetyperent(mastertyperent);
+				masterstatus.setCreateDate(date);
+				carbookingService.savestatus(masterstatus);
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
-				modelmap.addAttribute("addTypeRent", new MasterTypeRent());
+				modelmap.addAttribute("addStatus", new MasterStatus());
 			}
 		} else if (btnedit.equals("cancel")) {
-			modelmap.addAttribute("addTypeRent", new MasterTypeRent());
+			modelmap.addAttribute("addStatus", new MasterStatus());
 		}
 
-		return "redirect:/typerent/";
+		return "redirect:/status/";
 	}
 
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
-			mastertyperent = carbookingService.listByIdtyperent(id);
+			masterstatus = carbookingService.listByIdstatus(id);
 
 			Date date = new Date();
-			mastertyperent.setCreateDate(date);
-			mastertyperent.setTcStatus(9);
-			carbookingService.savetyperent(mastertyperent);
+			masterstatus.setCreateDate(date);
+			masterstatus.setTcStatus(9);
+			carbookingService.savestatus(masterstatus);
 
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("addTypeRent", new MasterTypeRent());
+			modelmap.addAttribute("addStatus", new MasterStatus());
 		}
 
-		return "redirect:/typerent/";
+		return "redirect:/status/";
 	}
 	
 	
-	private List<MasterTypeRent> getListMasterTypeRent() throws SequenceException {
-		List<MasterTypeRent> typerentList = null;
-		MasterTypeRent mastertyperentDesc = null;
+	private List<MasterStatus> getListMasterStatus() throws SequenceException {
+		List<MasterStatus> statusList = null;
+		MasterStatus masterstatusDesc = null;
 		Query query = null;
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			query.with(new Sort(Sort.Direction.DESC, "id"));
-			typerentList = carbookingService.findByCriteriatyperent(query);
+			statusList = carbookingService.findByCriteriastatus(query);
 
-			for (int i = 0; i < typerentList.size(); i++) {
-				mastertyperentDesc = typerentList.get(i);
+			for (int i = 0; i < statusList.size(); i++) {
+				masterstatusDesc = statusList.get(i);
 
-				if (mastertyperentDesc.getTcStatus() == 1) {
-					mastertyperentDesc.setTcStatusDesc("Online");
-				} else if (mastertyperentDesc.getTcStatus() == 0) {
-					mastertyperentDesc.setTcStatusDesc("Offline");
+				if (masterstatusDesc.getTcStatus() == 1) {
+					masterstatusDesc.setTcStatusDesc("Online");
+				} else if (masterstatusDesc.getTcStatus() == 0) {
+					masterstatusDesc.setTcStatusDesc("Offline");
 				}
 			}
-			return typerentList;
+			return statusList;
 		} finally {
-			typerentList = null;
-			mastertyperentDesc = null;
+			statusList = null;
+			masterstatusDesc = null;
 			query = null;
 		}
 	}

@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterTypeCar;
@@ -70,22 +71,26 @@ public class MasterTypeCarController {
 		return "MasterTypeCar";
 	}
 
-	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String processUpdateForm(ModelMap modelmap,
-			MasterTypeCar mastertypecar) {
-		try {
+	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
+	public String processUpsertPost(ModelMap modelmap,
+			@RequestParam String btnedit, MasterTypeCar mastertypecar) {
 
-			Date date = new Date();
-			mastertypecar.setCreateDate(date);
-			carbookingService.save(mastertypecar);
-
-		} catch (SequenceException e) {
-			modelmap.addAttribute("retSamples", e.getErrMsg());
-		} finally {
+		if (btnedit.equals("save")) {
+			try {
+				Date date = new Date();
+				mastertypecar.setCreateDate(date);
+				carbookingService.save(mastertypecar);
+			} catch (SequenceException e) {
+				modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+			}
+		} else if (btnedit.equals("cancel")) {
 			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
 		}
 
 		return "redirect:/typecar/";
+
 	}
 
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
@@ -106,28 +111,6 @@ public class MasterTypeCarController {
 
 		return "redirect:/typecar/";
 	}
-	
-	
-
-//	@RequestMapping(value = { "/cancel" }, method = RequestMethod.GET)
-//	public String cancelSaveContact(ModelMap modelmap, @PathVariable int id) {
-//		List<MasterTypeCar> typecarList = null;
-//		try {
-//			typecarList = getListMasterTypeCar();
-//			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
-//			modelmap.addAttribute("retSampleList", typecarList);
-//			modelmap.addAttribute("retSamples", "---");
-//
-//		} catch (SequenceException e) {
-//			modelmap.addAttribute("retSamples", e.getErrMsg());
-//		} finally {
-//			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
-//		}
-//		
-//		return "redirect:/typecar/";
-//	}
-	
-	
 
 	private List<MasterTypeCar> getListMasterTypeCar() throws SequenceException {
 		List<MasterTypeCar> typecarList = null;

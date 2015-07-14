@@ -59,7 +59,7 @@
 				BRAND</label>
 
 			<form:form class="form-inline" modelAttribute="addBrand"
-				method="POST" 	action="${pageContext.request.contextPath}/brand/edit">
+				method="POST" action="${pageContext.request.contextPath}/brand/edit">
 				<div class="form-group">
 					<form:hidden path="id" />
 					<label
@@ -76,13 +76,15 @@
 						<option value="00">Offline</option>
 					</form:select>
 				</div>
-				<button type="submit"
+				<button type="submit" name="btnedit" value="savebrand"
 					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
-					<button type="submit" value='/brand/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
-				</form:form>
-				
-				
-				
+				<button type="submit" name="btnedit" value="cancel"
+					class="btn btn-danger glyphicon glyphicon-remove"
+					data-original-title="cancel" data-toggle="tooltip"></button>
+			</form:form>
+
+
+
 		</div>
 
 		<br>
@@ -107,12 +109,12 @@
 										value="${listValue.brandTH}" /></td>
 								<td style="font-size: 13pt;"><c:out
 										value="${listValue.tcStatusDesc}" /></td>
-								 <td><a
-									href="<c:url value='/brand/edit/${listValue.id}' />"><span
+								<td><a href="<c:url value='/brand/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
-										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/brand/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
-										 </td>
+										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a> <a
+									href="<c:url value='/brand/delete/${listValue.id}' />"><span
+										class="btn btn-danger glyphicon glyphicon-trash"
+										onclick="Show_Divdelete" aria-hidden="true"></span></a></td>
 							</tr>
 						</c:forEach>
 					</c:when>

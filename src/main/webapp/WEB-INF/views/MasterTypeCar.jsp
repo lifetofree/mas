@@ -76,9 +76,9 @@
 						<option value="00">Offline</option>
 					</form:select>
 				</div>
-				<button type="submit"
+				<button type="submit"  name="btnedit" value="save"
 					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
-					<button type="submit" value='/typecar/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
+					<button type="submit" name="btnedit" value="cancel"	class="btn btn-danger glyphicon glyphicon-remove" data-original-title="cancel" data-toggle="tooltip"></button>
 				</form:form>
 				
 				

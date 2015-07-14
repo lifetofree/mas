@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterBrand;
@@ -70,24 +71,26 @@ public class MasterBrandController {
 		return "MasterBrand";
 	}
 
-	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String processUpdateForm(ModelMap modelmap,
-			MasterBrand masterbrand) {
-		try {
+	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
+	public String processUpsertPost(ModelMap modelmap,
+			@RequestParam String btnedit, MasterBrand masterbrand) {
 
-			Date date = new Date();
-			masterbrand.setCreateDate(date);
-			carbookingService.savebrand(masterbrand);
-
-		} catch (SequenceException e) {
-			modelmap.addAttribute("retSamples", e.getErrMsg());
-		} finally {
+		if (btnedit.equals("savebrand")) {
+			try {
+				Date date = new Date();
+				masterbrand.setCreateDate(date);
+				carbookingService.savebrand(masterbrand);
+			} catch (SequenceException e) {
+				modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addBrand", new MasterBrand());
+			}
+		} else if (btnedit.equals("cancel")) {
 			modelmap.addAttribute("addBrand", new MasterBrand());
 		}
 
 		return "redirect:/brand/";
 	}
-
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {

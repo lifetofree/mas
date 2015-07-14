@@ -70,10 +70,12 @@
 						<option value="00">Offline</option>
 					</form:select>
 				</div>
-				<button type="submit"
+				<button type="submit" name="btnedit" value="saveplace"
 					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
-					<button type="submit" value='/place/cancel' onclick="Show_Divcancel" 	class="btn btn-danger glyphicon glyphicon-remove"></button>
-				</form:form>
+				<button type="submit" name="btnedit" value="cancel"
+					class="btn btn-danger glyphicon glyphicon-remove"
+					data-original-title="cancel" data-toggle="tooltip"></button>
+			</form:form>
 				
 				
 				

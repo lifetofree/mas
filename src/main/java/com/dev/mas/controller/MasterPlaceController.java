@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterPlace;
@@ -70,18 +71,21 @@ public class MasterPlaceController {
 		return "MasterPlace";
 	}
 
-	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String processUpdateForm(ModelMap modelmap,
-			MasterPlace masterplace) {
-		try {
+	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
+	public String processUpsertPost(ModelMap modelmap,
+			@RequestParam String btnedit, MasterPlace masterplace) {
 
-			Date date = new Date();
-			masterplace.setCreateDate(date);
-			carbookingService.saveplace(masterplace);
-
-		} catch (SequenceException e) {
-			modelmap.addAttribute("retSamples", e.getErrMsg());
-		} finally {
+		if (btnedit.equals("saveplace")) {
+			try {
+				Date date = new Date();
+				masterplace.setCreateDate(date);
+				carbookingService.saveplace(masterplace);
+			} catch (SequenceException e) {
+				modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addPlace", new MasterPlace());
+			}
+		} else if (btnedit.equals("cancel")) {
 			modelmap.addAttribute("addPlace", new MasterPlace());
 		}
 

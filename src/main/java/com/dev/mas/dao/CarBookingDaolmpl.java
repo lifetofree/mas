@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
+import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
 
@@ -154,4 +155,37 @@ public class CarBookingDaolmpl implements CarBookingDao {
 
 	}
 
+	
+	// MasterStatus
+		private MasterStatus masterstatus = new MasterStatus();
+
+		@Override
+		public List<MasterStatus> liststatus() {
+
+			List<MasterStatus> TypeRentList = mongoOperation.findAll(MasterStatus.class);
+			return TypeRentList;
+
+		}
+
+		public MasterStatus listByIdstatus(int id) {
+
+			masterstatus = mongoOperation.findById(id, MasterStatus.class);
+			return masterstatus;
+
+		}
+
+		@Override
+		public List<MasterStatus> findByCriteriastatus(Query query) {
+
+			List<MasterStatus> TypeRentList = mongoOperation.find(query,MasterStatus.class);
+			return TypeRentList;
+
+		}
+
+		@Override
+		public void savestatus(MasterStatus masterstatus) {
+
+			mongoOperation.save(masterstatus);
+
+		}
 }
