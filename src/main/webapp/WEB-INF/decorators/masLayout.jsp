@@ -10,11 +10,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<c:url value="/resources/bootstrap/css/bootstrap.min.css" var="cssbootstrap" />
+<c:url value="/resources/bootstrap/css/bootstrap.min.css"
+	var="cssbootstrap" />
 <c:url value="/resources/angular/angular.js" var="scriptangular" />
 <c:url value="/resources/jquery/jquery-2.1.4.min.js" var="scriptjquery" />
-<c:url value="/resources/bootstrap/js/bootstrap.min.js" var="scriptbootstrap" />
-<c:url value="/resources/ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js" var="scriptui" />
+<c:url value="/resources/bootstrap/js/bootstrap.min.js"
+	var="scriptbootstrap" />
+<c:url value="/resources/ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js"
+	var="scriptui" />
 
 <c:url value="/resources/custom/css/custom.css" var="csscustom" />
 <c:url value="/resources/custom/js/custom.js" var="scriptcustom" />
@@ -50,9 +53,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="mas-sidebar-navbar-collapse">
-				<ul class="nav navbar-nav"><!--  class="active" -->
-					<li><a href="#">Home<span
-							style="font-size: 16px;"
+				<ul class="nav navbar-nav">
+					<!--  class="active" -->
+					<li><a href="#">Home<span style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 					<li><a href="#">Profile<span style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
@@ -98,5 +101,12 @@
 		<!-- Content Here -->
 		<decorator:getProperty property="div.panelMain" />
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("body").tooltip({
+				selector : '[data-toggle=tooltip]'
+			});
+		});
+	</script>
 </body>
 </html>
