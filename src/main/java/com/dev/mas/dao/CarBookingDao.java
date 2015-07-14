@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterStatus;
@@ -41,4 +42,11 @@ public interface CarBookingDao {
 	public MasterStatus listByIdstatus(int id);
 	public List<MasterStatus> findByCriteriastatus(Query query);
 	public void savestatus(MasterStatus masterstatus);
+	
+	
+	// CarBooking
+	public List<CarBooking> listcarbooking();
+	public CarBooking listByIdcarbooking(int id);
+	//public List<CarBooking> findByCriteriacarbooking(Query query);
+	public void savecarbooking (CarBooking carbooking);
 }

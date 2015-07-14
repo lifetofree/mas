@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ข้อมูลประเภทรถยนต์</title>
+<title>ข้อมูลประเภทการจองรถยนต์</title>
 
 <script>
 	//Show/Hide search
@@ -40,7 +40,7 @@
 		<br>
 		<div id="btnshow">
 			<button type="button"
-				class="btn btn-success glyphicon glyphicon-plus"
+				class="btn btn-success glyphicon glyphicon-plus" data-original-title="add" data-toggle="tooltip"
 				style="font-size: 11pt; width: 40pt; height: 20pt; text-align: center; font-weight: bold;"
 				onclick="Show_Divadd(insertdata)" id="btndiv1"></button>
 		</div>
@@ -71,7 +71,8 @@
 					</form:select>
 				</div>
 				<button type="submit" name="btnedit" value="savetyperent"
-					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
+					class="btn btn-success glyphicon glyphicon-floppy-disk"
+					data-original-title="update" data-toggle="tooltip"></button>
 				<button type="submit" name="btnedit" value="cancel"
 					class="btn btn-danger glyphicon glyphicon-remove"
 					data-original-title="cancel" data-toggle="tooltip"></button>
@@ -106,8 +107,10 @@
 								 <td><a
 									href="<c:url value='/typerent/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
+										data-original-title="edit" data-toggle="tooltip"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/typerent/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/typerent/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" 
+										 data-original-title="delete" data-toggle="tooltip"onclick="Show_Divdelete" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

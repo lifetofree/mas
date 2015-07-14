@@ -45,7 +45,7 @@
 		</div>
 		<br>
 		<div id="btnshow">
-			<button type="button"
+			<button type="button" data-original-title="add" data-toggle="tooltip"
 				class="btn btn-success glyphicon glyphicon-plus"
 				style="font-size: 11pt; width: 40pt; height: 20pt; text-align: center; font-weight: bold;"
 				onclick="Show_Divadd(insertdata)" id="btndiv1"></button>
@@ -77,7 +77,8 @@
 					</form:select>
 				</div>
 				<button type="submit"  name="btnedit" value="save"
-					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
+					class="btn btn-success glyphicon glyphicon-floppy-disk"
+					data-original-title="update" data-toggle="tooltip"></button>
 					<button type="submit" name="btnedit" value="cancel"	class="btn btn-danger glyphicon glyphicon-remove" data-original-title="cancel" data-toggle="tooltip"></button>
 				</form:form>
 				
@@ -110,8 +111,11 @@
 								 <td><a
 									href="<c:url value='/typecar/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
+										data-original-title="edit" data-toggle="tooltip"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/typecar/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 <a href="<c:url value='/typecar/delete/${listValue.id}' />"><span	
+										 data-original-title="delete" data-toggle="tooltip" class="btn btn-danger glyphicon glyphicon-trash" 
+										 onclick="Show_Divdelete" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

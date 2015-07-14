@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dev.mas.dao.CarBookingDao;
 import com.dev.mas.dao.SequenceDao;
 import com.dev.mas.exception.SequenceException;
+import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterTypeCar;
@@ -208,5 +209,47 @@ public class CarBookingServicelmpl implements CarBookingService {
 			throws SequenceException {
 		return carbookingDao.findByCriteriastatus(query);
 	}
+		
+	// CarBooking
+		private static final String CarBooking_SEQ_KEY = "U0_TbDetailRent";
+		@Override
+		public void savecarbooking(CarBooking carbooking) throws SequenceException {
+			if (carbooking.getId() == 0) { carbooking.setId( sequenceDao.getNextSequenceId(CarBooking_SEQ_KEY));
+			} else {
+				carbooking.setId(carbooking.getId());
+			}
+			carbooking.setEmpidx(carbooking.getEmpidx());
+			carbooking.setTridx(carbooking.getTridx());
+			carbooking.setTcidx(carbooking.getTcidx());
+			carbooking.setTpidx(carbooking.getTpidx());
+			carbooking.setDatestart(carbooking.getDatestart());
+			carbooking.setDateend(carbooking.getDateend());
+			carbooking.setTimestart(carbooking.getTimestart());
+			carbooking.setTimeend(carbooking.getTimeend());
+			carbooking.setResponsible(carbooking.getResponsible());
+			carbooking.setQty(carbooking.getQty());
+			carbooking.setObjective(carbooking.getObjective());
+			carbooking.setTsidx(carbooking.getTsidx());
+			carbooking.setcEmpIDX(carbooking.getcEmpIDX());
+			carbooking.setCreateDate(carbooking.getCreateDate());
+			carbooking.setAdEmpIDX(carbooking.getAdEmpIDX());
+			carbooking.setUpdateDate(carbooking.getUpdateDate());
+			carbooking.setTcStatus(carbooking.getTcStatus());
+			carbooking.setChange(carbooking.getChange());
+			carbookingDao.savecarbooking(carbooking);
+		}
+		@Override
+		public List<CarBooking> listcarbooking() throws SequenceException {
+			return carbookingDao.listcarbooking();
+		}
+		@Override
+		public CarBooking listByIdcarbooking(int id) throws SequenceException {
+			return carbookingDao.listByIdcarbooking(id);
+		}
+//		@Override
+//		public List<CarBooking> findByCriteriacarbooking(Query query)
+//				throws SequenceException {
+//			return carbookingDao.findByCriteriacarbooking(query);
+//		}
 	
 }

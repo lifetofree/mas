@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ข้อมูลประเภทรถยนต์</title>
+<title>ข้อมูลยี่ห้อรถยนต์</title>
 
 <script>
 	//Show/Hide search
@@ -45,8 +45,8 @@
 		</div>
 		<br>
 		<div id="btnshow">
-			<button type="button"
-				class="btn btn-success glyphicon glyphicon-plus"
+			<button type="button" 
+				class="btn btn-success glyphicon glyphicon-plus" data-original-title="add" data-toggle="tooltip"
 				style="font-size: 11pt; width: 40pt; height: 20pt; text-align: center; font-weight: bold;"
 				onclick="Show_Divadd(insertdata)" id="btndiv1"></button>
 		</div>
@@ -77,7 +77,8 @@
 					</form:select>
 				</div>
 				<button type="submit" name="btnedit" value="savebrand"
-					class="btn btn-success glyphicon glyphicon-floppy-disk"></button>
+					class="btn btn-success glyphicon glyphicon-floppy-disk"
+					data-original-title="update" data-toggle="tooltip"></button>
 				<button type="submit" name="btnedit" value="cancel"
 					class="btn btn-danger glyphicon glyphicon-remove"
 					data-original-title="cancel" data-toggle="tooltip"></button>
@@ -111,10 +112,12 @@
 										value="${listValue.tcStatusDesc}" /></td>
 								<td><a href="<c:url value='/brand/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
-										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a> <a
+										onclick="Show_Divedit(editdata)" aria-hidden="true"
+										data-original-title="edit" data-toggle="tooltip"></span></a> <a
 									href="<c:url value='/brand/delete/${listValue.id}' />"><span
 										class="btn btn-danger glyphicon glyphicon-trash"
-										onclick="Show_Divdelete" aria-hidden="true"></span></a></td>
+										onclick="Show_Divdelete" aria-hidden="true"
+										data-original-title="delete" data-toggle="tooltip"></span></a></td>
 							</tr>
 						</c:forEach>
 					</c:when>

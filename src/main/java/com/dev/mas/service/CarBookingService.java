@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.dev.mas.exception.SequenceException;
+import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterStatus;
@@ -42,4 +43,11 @@ public interface CarBookingService {
 	public List<MasterStatus> liststatus() throws SequenceException;
 	public MasterStatus listByIdstatus(int id) throws SequenceException;
 	public List<MasterStatus> findByCriteriastatus(Query query) throws SequenceException;
+	
+	
+	// CarBooking
+	public void savecarbooking(CarBooking masterstatus) throws SequenceException;
+	public List<CarBooking> listcarbooking() throws SequenceException;
+	public CarBooking listByIdcarbooking(int id) throws SequenceException;
+	//public List<CarBooking> findByCriteriastatus(Query query) throws SequenceException;
 }
