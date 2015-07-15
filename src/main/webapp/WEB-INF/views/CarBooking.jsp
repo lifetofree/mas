@@ -16,6 +16,9 @@
 			$(search).hide(250);
 		}
 	}
+	
+	
+	
 
 	//datepickup
 	$(function() {
@@ -1057,43 +1060,51 @@
 									</div>
 								</div>
 
-								
-											<div class="col-sm-4" style="text-align: left">
-												<label>ประเภทการจองรถยนต์:</label>
-											</div>
-								 <c:choose>
-									<c:when test="${not empty retSampleList}">
-										
-											<div class="col-sm-7">
-																				
-											<c:forEach var="listValue" items="${retSampleList}">
-										<%-- 	<select  style="width:130pt;height:20pt" name="typecar"><c:out value="${listValue.typeCarTH}"  /></select> --%>
-										<c:out value="${listValue.id}" />
-										<c:out value="${listValue.typeCarTH}" />
-										
-											 </c:forEach>
-												  
-												</div>
-										
+
+								<div class="col-sm-4" style="text-align: left">
+									<label>ประเภทการจองรถยนต์:</label>
+								</div>
+								<c:choose>
+									<c:when test="${not empty typerent}">
+
+										<div class="col-sm-7">
+											<select style="width: 130pt; height: 20pt">
+												<option>กรุณาเลือกข้อมูล</option>
+												<c:forEach var="listValue" items="${typerent}">
+													<option value="<c:out value='${listValue.typerentTH}' />">
+														<c:out value="${listValue.typerentTH}" />
+													</option>
+												</c:forEach>
+
+											</select>
+										</div>
 									</c:when>
-								</c:choose> 
-
+								</c:choose>
 							</div>
-
-
-
 
 							<div class="form-group">
 								<div class="col-sm-4" style="text-align: left">
 									<label>ประเภทการรถยนต์:</label>
 								</div>
-								<div class="col-sm-7">
-									<select style="Width: 130pt; Height: 20pt">
-										<option value="00">กรุณาเลือกข้อมูล...</option>
-										<option value="1">รถบรรทุก</option>
-										<option value="2">รถตู้</option>
-									</select>
-								</div>
+
+								<c:choose>
+									<c:when test="${not empty typecar}">
+
+										<div class="col-sm-7">
+											<select style="width: 130pt; height: 20pt">
+												<option>กรุณาเลือกข้อมูล</option>
+												<c:forEach var="listValue" items="${typecar}">
+													<option value="<c:out value='${listValue.typeCarTH}' />">
+														<c:out value="${listValue.typeCarTH}" />
+													</option>
+												</c:forEach>
+
+											</select>
+										</div>
+									</c:when>
+								</c:choose>
+
+
 							</div>
 
 
@@ -1102,13 +1113,22 @@
 								<div class="col-sm-4" style="text-align: left">
 									<label>สถานที่เดินทาง:</label>
 								</div>
-								<div class="col-sm-3">
-									<select style="Width: 130pt; Height: 20pt">
-										<option value="00">กรุณาเลือกข้อมูล...</option>
-										<option value="1">เมืองทองธานี</option>
-										<option value="2">นพวงศ์</option>
-									</select>
-								</div>
+								<c:choose>
+									<c:when test="${not empty place}">
+
+										<div class="col-sm-3">
+											<select style="width: 130pt; height: 20pt">
+												<option>กรุณาเลือกข้อมูล</option>
+												<c:forEach var="listValue" items="${place}">
+													<option value="<c:out value='${listValue.placeTH}' />">
+														<c:out value="${listValue.placeTH}" />
+													</option>
+												</c:forEach>
+
+											</select>
+										</div>
+									</c:when>
+								</c:choose>
 								<div class="col-sm-3">
 									<input type="text" placeHolder="อื่นๆ โปรดระบุ..."
 										style="width: 100pt; height: 20pt">
@@ -1125,7 +1145,7 @@
 								<div class="col-sm-5">
 									<input type="text" id="example3"
 										style="background-color: #FFFFFF; width: 130pt; Height: 20pt"
-										name="txtdatestart">
+										name="txtdatestart"> 
 								</div>
 							</div>
 

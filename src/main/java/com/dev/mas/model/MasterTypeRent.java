@@ -106,6 +106,6 @@ public class MasterTypeRent {
 
 @Override
 public String toString() {
-	return "MasterTypeCar [id=" + id + ", TyperentTH=" +typerentTH + ",TyperentEN=" + typerentEN + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
+	return "MasterTypeRent [id=" + id + ", TyperentTH=" +typerentTH + ",TyperentEN=" + typerentEN + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
 }
 }
