@@ -14,7 +14,7 @@ public class MongoConfig {
 	MongoDbFactory mongoDbFactory() throws Exception {
 
 		MongoClient mongo = new MongoClient("127.0.0.1");
-		SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(mongo, "local");
+		SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(mongo, "mas");
 		return simpleMongoDbFactory;
 
 	}

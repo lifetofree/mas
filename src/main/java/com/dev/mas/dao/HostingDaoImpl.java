@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.dev.mas.model.Hosting;
 
-@Service
+@Repository("hostingDao")
 public class HostingDaoImpl implements HostingDao {
 
 	@Autowired
