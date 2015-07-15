@@ -47,6 +47,6 @@ public interface CarBookingDao {
 	// CarBooking
 	public List<CarBooking> listcarbooking();
 	public CarBooking listByIdcarbooking(int id);
-	//public List<CarBooking> findByCriteriacarbooking(Query query);
+	public List<CarBooking> findByCriteriacarbooking(Query query);
 	public void savecarbooking (CarBooking carbooking);
 }

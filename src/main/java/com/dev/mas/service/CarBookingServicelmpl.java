@@ -246,10 +246,10 @@ public class CarBookingServicelmpl implements CarBookingService {
 		public CarBooking listByIdcarbooking(int id) throws SequenceException {
 			return carbookingDao.listByIdcarbooking(id);
 		}
-//		@Override
-//		public List<CarBooking> findByCriteriacarbooking(Query query)
-//				throws SequenceException {
-//			return carbookingDao.findByCriteriacarbooking(query);
-//		}
+		@Override
+		public List<CarBooking> findByCriteriacarbooking(Query query)
+				throws SequenceException {
+			return carbookingDao.findByCriteriacarbooking(query);
+		}
 	
 }

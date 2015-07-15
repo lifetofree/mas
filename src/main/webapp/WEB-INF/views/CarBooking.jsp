@@ -111,7 +111,6 @@
 <body>
 	<div id="panelMain">
 		<!--div master-->
-
 		<div class="form-horizontal">
 			<!--div form-->
 
@@ -1058,16 +1057,27 @@
 									</div>
 								</div>
 
-								<div class="col-sm-4" style="text-align: left">
-									<label>ประเภทการจองรถยนต์:</label>
-								</div>
-								<div class="col-sm-7">
-									<select style="Width: 130pt; Height: 20pt">
-										<option value="00">กรุณาเลือกข้อมูล...</option>
-										<option value="1">เหมา</option>
-										<option value="2">ไปรับ-ไปส่ง</option>
-									</select>
-								</div>
+								
+											<div class="col-sm-4" style="text-align: left">
+												<label>ประเภทการจองรถยนต์:</label>
+											</div>
+								 <c:choose>
+									<c:when test="${not empty retSampleList}">
+										
+											<div class="col-sm-7">
+																				
+											<c:forEach var="listValue" items="${retSampleList}">
+										<%-- 	<select  style="width:130pt;height:20pt" name="typecar"><c:out value="${listValue.typeCarTH}"  /></select> --%>
+										<c:out value="${listValue.id}" />
+										<c:out value="${listValue.typeCarTH}" />
+										
+											 </c:forEach>
+												  
+												</div>
+										
+									</c:when>
+								</c:choose> 
+
 							</div>
 
 
@@ -1341,6 +1351,7 @@
 							</div>
 						</div>
 						<!-- div class="col-lg-9" -->
+
 					</div>
 					<!-- div pane3-->
 
@@ -1592,6 +1603,7 @@
 
 		</div>
 		<!--div form-->
+
 	</div>
 	<!--div master-->
 

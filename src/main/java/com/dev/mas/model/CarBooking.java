@@ -1,6 +1,5 @@
 package com.dev.mas.model;
 
-import java.sql.Time;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -18,8 +17,8 @@ public class CarBooking {
 	private int tpidx;
 	private Date datestart;
 	private Date dateend;
-	private Time timestart;
-	private Time timeend;
+	private String timestart;
+	private String timeend;
 	private String responsible;
 	private String qty;
 	private String objective;
@@ -73,16 +72,16 @@ public class CarBooking {
 	public void setDateend(Date dateend) {
 		this.dateend = dateend;
 	}
-	public Time getTimestart() {
+	public String getTimestart() {
 		return timestart;
 	}
-	public void setTimestart(Time timestart) {
+	public void setTimestart(String timestart) {
 		this.timestart = timestart;
 	}
-	public Time getTimeend() {
+	public String getTimeend() {
 		return timeend;
 	}
-	public void setTimeend(Time timeend) {
+	public void setTimeend(String timeend) {
 		this.timeend = timeend;
 	}
 	public String getResponsible() {
@@ -146,12 +145,105 @@ public class CarBooking {
 		this.change = change;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx + ", Datestart=" + datestart + ", Dateend=" + dateend + ", Timestart=" + timestart + ", Timeend=" + timeend + ", Responsible=" + responsible + ", Qty=" + qty + ", Objective=" + objective + ", Tsidx=" + tsidx + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + ", Change=" + change + "]";
-	}	
-	
-	
 	}
+	
+	
+	@Document(collection = "M0_TbTypeCar") 
+	public class MasterTypeCar {
+		@Id
+		private long id;
+		
+		private String typeCarTH;
+		private String typeCarEN;
+		
+		private int cEmpIDX;
+		private Date createDate;
+		private int adEmpIDX;
+		private Date updateDate;
+		private int tcStatus;
+		private String tcStatusDesc;
+
+		public String getTcStatusDesc() {
+			return tcStatusDesc;
+		}
+
+		public void setTcStatusDesc(String tcStatusDesc) {
+			this.tcStatusDesc = tcStatusDesc;
+		}
+
+		public long getId() {
+			return id;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		public String getTypeCarTH() {
+			return typeCarTH;
+		}
+
+		public void setTypeCarTH(String typeCarTH) {
+			this.typeCarTH = typeCarTH;
+		}
+
+		public String getTypeCarEN() {
+			return typeCarEN;
+		}
+
+		public void setTypeCarEN(String typeCarEN) {
+			this.typeCarEN = typeCarEN;
+		}
+
+		
+		public int getCEmpIDX() {
+			return cEmpIDX;
+		}
+
+		public void setCEmpIDX(int cEmpIDX) {
+			this.cEmpIDX = cEmpIDX;
+		}
+
+		
+		public Date getCreateDate() {
+			return createDate;
+		}
+
+		public void setCreateDate(Date createDate) {
+			this.createDate = createDate;
+		}
+
+		public int getAdEmpIDX() {
+			return adEmpIDX;
+		}
+
+		public void setAdEmpIDX(int adEmpIDX) {
+			this.adEmpIDX = adEmpIDX;
+		}
+
+		public Date getUpdateDate() {
+			return updateDate;
+		}
+
+		public void setUpdateDate(Date updateDate) {
+			this.updateDate = updateDate;
+		}
+
+		public int getTcStatus() {
+			return tcStatus;
+		}
+
+		public void setTcStatus(int tcStatus) {
+			this.tcStatus = tcStatus;
+		}
+
+		@Override
+		public String toString() {
+			return "CarBooking [id=" + id + ", TypeCarTH=" + typeCarTH + ", TypeCarEN=" + typeCarEN + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
+		}
+	}
+}
 

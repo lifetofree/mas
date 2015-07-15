@@ -149,11 +149,11 @@ public class CarBookingDaolmpl implements CarBookingDao {
 			carbooking = mongoOperation.findById(id, CarBooking.class);
 		return carbooking;
 		}
-//		@Override
-//		public List<CarBooking> findByCriteriacarbooking(Query query) {
-//			List<CarBooking> TypeRentList = mongoOperation.find(query,CarBooking.class);
-//		return TypeRentList;
-//		}
+		@Override
+		public List<CarBooking> findByCriteriacarbooking(Query query) {
+			List<CarBooking> carbookingList = mongoOperation.find(query,CarBooking.class);
+		return carbookingList;
+		}
 		@Override
 		public void savecarbooking(CarBooking carbooking) {
 				mongoOperation.save(carbooking);

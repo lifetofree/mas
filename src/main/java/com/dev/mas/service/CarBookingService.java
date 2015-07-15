@@ -46,8 +46,8 @@ public interface CarBookingService {
 	
 	
 	// CarBooking
-	public void savecarbooking(CarBooking masterstatus) throws SequenceException;
+	public void savecarbooking(CarBooking carbooking) throws SequenceException;
 	public List<CarBooking> listcarbooking() throws SequenceException;
 	public CarBooking listByIdcarbooking(int id) throws SequenceException;
-	//public List<CarBooking> findByCriteriastatus(Query query) throws SequenceException;
+	public List<CarBooking> findByCriteriacarbooking(Query query) throws SequenceException;
 }
