@@ -22,6 +22,7 @@ public class CarBooking {
 	private String responsible;
 	private String qty;
 	private String objective;
+	private String tel;
 	private int tsidx;
 	private int cEmpIDX;
 	private Date createDate;
@@ -125,6 +126,13 @@ public class CarBooking {
 	public void setObjective(String objective) {
 		this.objective = objective;
 	}
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 
 	public int getTsidx() {
 		return tsidx;
@@ -189,7 +197,8 @@ public class CarBooking {
 				+ ", Datestart=" + datestart + ", Dateend=" + dateend
 				+ ", Timestart=" + timestart + ", Timeend=" + timeend
 				+ ", Responsible=" + responsible + ", Qty=" + qty
-				+ ", Objective=" + objective + ", Tsidx=" + tsidx
+				+ ", Objective=" + objective + ", Tel=" + tel 
+				+ ",, Tsidx=" + tsidx 
 				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX
 				+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
 				+ ", Change=" + change + "]";
