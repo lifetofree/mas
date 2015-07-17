@@ -17,6 +17,7 @@
 		}
 	}
 
+	
 	//datepickup
 	$(function() {
 
@@ -123,8 +124,10 @@
 			<!-- Search Box -->
 
 			<div>
-				<button type="button" class="btn btn-success glyphicon glyphicon-plus" data-original-title="add" data-toggle="tooltip"
-					style="font-size: 11pt;  width: 40pt; height: 20pt;"
+				<button type="button"
+					class="btn btn-success glyphicon glyphicon-plus"
+					data-original-title="add" data-toggle="tooltip"
+					style="font-size: 11pt; width: 40pt; height: 20pt;"
 					onclick="Show_Divsearch(search)" id="btndiv1"></button>
 			</div>
 			<br>
@@ -153,9 +156,7 @@
 						<div class="col-sm-2">
 							<select style="Width: 160pt; Height: 20pt">
 								<option value="00">กรุณาเลือกข้อมูล...</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
+
 							</select>
 						</div>
 					</div>
@@ -217,8 +218,9 @@
 
 					<div class="form-group">
 						<div class="col-sm-11">
-							<button type="button" class="btn btn-defualt glyphicon glyphicon-search"
-							data-original-title="search" data-toggle="tooltip"
+							<button type="button"
+								class="btn btn-defualt glyphicon glyphicon-search"
+								data-original-title="search" data-toggle="tooltip"
 								style="font-size: 11pt; width: 40pt; height: 20pt"></button>
 						</div>
 					</div>
@@ -823,12 +825,15 @@
 
 									<div class="row">
 										<div class="col-sm-6" style="text-align: left">
-										<button type="submit" style="font-size: 11pt; width: 50pt; height: 20pt" class="btn btn-danger glyphicon glyphicon-remove"
-											data-original-title="cancel" data-toggle="tooltip"
+											<button type="submit"
+												style="font-size: 11pt; width: 50pt; height: 20pt"
+												class="btn btn-danger glyphicon glyphicon-remove"
+												data-original-title="cancel" data-toggle="tooltip"
 												onclick="Show_Div('main')" id="btndiv1" value="main"></button>
-										
-											<button type="submit" class="btn btn-success glyphicon glyphicon-ok"
-											data-original-title="save" data-toggle="tooltip"
+
+											<button type="submit"
+												class="btn btn-success glyphicon glyphicon-ok"
+												data-original-title="save" data-toggle="tooltip"
 												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
 										</div>
 									</div>
@@ -1020,11 +1025,10 @@
 
 
 							</div>
+							
 						</fieldset>
-
-
-
 					</div>
+				
 					<!-- div pane2-->
 
 
@@ -1372,6 +1376,14 @@
 										<textarea class="form-control" rows="5" id="comment"></textarea>
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-sm-4" style="text-align: left">
+										<label>แนบไฟล์รูปภาพ:</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="file" name="upload_file" />
+									</div>
+								</div>
 
 
 
@@ -1406,17 +1418,23 @@
 						<!-- div pane4-->
 
 						<div class="row" id="reportdata">
+
+							<div>
+								<button type="submit"
+									class="btn btn-primary glyphicon glyphicon-list-alt"
+									data-original-title="view" data-toggle="tooltip"
+									style="font-size: 11pt; width: 50pt; height: 20pt"
+									onclick="Show_Div2('reporttable')"></button>
+							</div>
+							<br>
 							<div>
 								<fieldset
 									style="width: 750pt; height: 50pt; margin-top: 3px; border: 0px dashed #009900; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left; text-align: center;">
 									<br>
 									<h4 style="font-size: 24pt; text-align: center;">---ไม่มีข้อมูลแสดง---</h4>
 								</fieldset>
+
 							</div>
-							<button type="submit" class="btn btn-primary glyphicon glyphicon-list-alt"
-							data-original-title="view" data-toggle="tooltip"
-								style="font-size: 11pt; width: 50pt; height: 20pt"
-								onclick="Show_Div2('reporttable')"></button>
 						</div>
 
 						<div id="reporttable" style="display: none">
@@ -1442,8 +1460,9 @@
 
 								</tbody>
 							</table>
-							<button type="button" class="btn btn-danger glyphicon glyphicon-arrow-left"
-											data-original-title="back" data-toggle="tooltip"
+							<button type="button"
+								class="btn btn-danger glyphicon glyphicon-arrow-left"
+								data-original-title="back" data-toggle="tooltip"
 								style="font-size: 11pt; width: 50pt; height: 20pt"
 								onclick="Show_Div2('reportdata')"></button>
 						</div>
@@ -1585,15 +1604,20 @@
 
 								<div class="row">
 									<div class="col-sm-4" style="text-align: left">
-										<button type="button" class="btn btn-success glyphicon glyphicon-floppy-disk"
-										 data-original-title="accept" data-toggle="tooltip"	style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+										<button type="submit"
+											class="btn btn-success glyphicon glyphicon-floppy-disk"
+											data-original-title="accept" data-toggle="tooltip"
+											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+										<button type="submit"
+											class="btn btn-danger glyphicon glyphicon-arrow-left"
+											style="font-size: 11pt; width: 50pt; height: 20pt"
+											data-original-title="back" data-toggle="tooltip"
+											onclick="Show_Div1('tablepro')"></button>
 									</div>
 								</div>
 
 
-								<button type="button" class="btn btn-danger glyphicon glyphicon-arrow-left"
-									style="font-size: 11pt; width: 50pt; height: 20pt" data-original-title="back" data-toggle="tooltip"
-									onclick="Show_Div1('tablepro')"></button>
+
 							</div>
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
@@ -1614,8 +1638,8 @@
 											<td>John</td>
 											<td>Carter</td>
 											<td style="text-align: center;"><button type="submit"
-													 class=" btn-primary glyphicon glyphicon-list-alt"
-											data-original-title="view" data-toggle="tooltip"
+													class=" btn-primary glyphicon glyphicon-list-alt"
+													data-original-title="view" data-toggle="tooltip"
 													style="font-size: 11pt; width: 40pt; height: 20pt"
 													onclick="Show_Div1('adminproblem')"></button></td>
 

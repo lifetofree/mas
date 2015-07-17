@@ -40,6 +40,7 @@ public class CarBookingController {
 			List<MasterTypeRent> typerentList = carbookingService.listtyperent();
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
 			List<MasterPlace> placeList = carbookingService.listplace();
+			
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			
