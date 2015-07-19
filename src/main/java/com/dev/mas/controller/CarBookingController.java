@@ -1,5 +1,6 @@
 package com.dev.mas.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,16 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+
+
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.CarBooking;
@@ -29,14 +36,15 @@ public class CarBookingController {
 
 	@Autowired
 	private CarBookingService carbookingService;
-
 	private CarBooking carbooking = new CarBooking();
+	
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
-	public String defaultPage(ModelMap modelmap) {
+	public String rentpage(ModelMap modelmap) {
 		Query query = null;
 		modelmap.addAttribute("addCarBooking", carbooking);
 		try {
 			
+			List<CarBooking> carbookingList = carbookingService.listcarbooking();
 			List<MasterTypeRent> typerentList = carbookingService.listtyperent();
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
 			List<MasterPlace> placeList = carbookingService.listplace();
@@ -48,9 +56,12 @@ public class CarBookingController {
 			typecarList = carbookingService.findByCriteria(query);
 			placeList = carbookingService.findByCriteriaplace(query);
 			
-			modelmap.addAttribute("typerentTH", typerentList);
+			modelmap.addAttribute("retSampleList", carbookingList);
+			modelmap.addAttribute("typerent", typerentList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
+			
+			
 			
 		} catch (SequenceException e) {
 			// System.out.println(e.getErrMsg());
@@ -62,7 +73,7 @@ public class CarBookingController {
 		return "CarBooking";
 	}
 
-	/*@RequestMapping(value = { "/save" }, params = { "btnsave" },method = RequestMethod.POST)
+	@RequestMapping(value = { "/save" }, params = { "btnsave" },method = RequestMethod.POST)
 	public String processForm(ModelMap modelmap, @RequestParam String btnsave, 
 			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
 			BindingResult result) {
@@ -71,21 +82,10 @@ public class CarBookingController {
 		if (btnsave.equals("savecarbooking")) {
 		try {
 			
+			
 			// add data
 			Date date = new Date();
 			carbooking.setCreateDate(date);
-			carbooking.getTridx();
-			carbooking.getTcidx();
-			carbooking.getTpidx();
-			carbooking.getTpidx();
-			carbooking.getDatestart();
-			carbooking.getDateend();
-			carbooking.getTimestart();
-			carbooking.getTimeend();
-			carbooking.getResponsible();
-			carbooking.getQty();
-			carbooking.getTel();
-			carbooking.getObjective();
 			carbooking.setTsidx(2);
 			carbookingService.savecarbooking(carbooking);
 			modelmap.addAttribute("addCarBooking",new CarBooking());
@@ -101,5 +101,5 @@ public class CarBookingController {
 
 			return "redirect:/carbookings/";
 		
-	}*/
+	}
 }

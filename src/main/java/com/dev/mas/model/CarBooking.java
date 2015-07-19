@@ -12,9 +12,11 @@ public class CarBooking {
 	private long id;
 
 	private int empidx;
+	private int departidx;
 	private int tridx;
 	private int tcidx;
 	private int tpidx;
+	private String etcname;
 	private Date datestart;
 	private Date dateend;
 	private String timestart;
@@ -47,6 +49,15 @@ public class CarBooking {
 		this.empidx = empidx;
 	}
 
+	
+	public int getDepartidx() {
+		return departidx;
+	}
+
+	public void setDepartidx(int departidx) {
+		this.departidx = departidx;
+	}
+
 	public int getTridx() {
 		return tridx;
 	}
@@ -69,6 +80,14 @@ public class CarBooking {
 
 	public void setTpidx(int tpidx) {
 		this.tpidx = tpidx;
+	}
+
+		public String getEtcname() {
+		return etcname;
+	}
+
+	public void setEtcname(String etcname) {
+		this.etcname = etcname;
 	}
 
 	public Date getDatestart() {
@@ -192,9 +211,9 @@ public class CarBooking {
 
 	@Override
 	public String toString() {
-		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", Tridx="
-				+ tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx
-				+ ", Datestart=" + datestart + ", Dateend=" + dateend
+		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
+				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx
+				+ ", Etcname=" + etcname + ", Datestart=" + datestart + ", Dateend=" + dateend
 				+ ", Timestart=" + timestart + ", Timeend=" + timeend
 				+ ", Responsible=" + responsible + ", Qty=" + qty
 				+ ", Objective=" + objective + ", Tel=" + tel 
@@ -203,311 +222,40 @@ public class CarBooking {
 				+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
 				+ ", Change=" + change + "]";
 	}
-
-	// MasterTypeRent
-	@Document(collection = "M0_TbTypeRent")
-	public class MasterTypeRent {
-		@Id
-		private long id;
-
-		private String typerentTH;
-		private String typerentEN;
-
-		private int cEmpIDX;
-		private Date createDate;
-		private int adEmpIDX;
-		private Date updateDate;
-		private int tcStatus;
-		private String tcStatusDesc;
-
-		public String getTcStatusDesc() {
-			return tcStatusDesc;
-		}
-
-		public void setTcStatusDesc(String tcStatusDesc) {
-			this.tcStatusDesc = tcStatusDesc;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public String getTyperentTH() {
-			return typerentTH;
-		}
-
-		public void setTyperentTH(String typerentTH) {
-			this.typerentTH = typerentTH;
-		}
-
-		public String getTyperentEN() {
-			return typerentEN;
-		}
-
-		public void setTyperentEN(String typerentEN) {
-			this.typerentEN = typerentEN;
-		}
-
-		public int getcEmpIDX() {
-			return cEmpIDX;
-		}
-
-		public void setcEmpIDX(int cEmpIDX) {
-			this.cEmpIDX = cEmpIDX;
-		}
-
-		public int getCEmpIDX() {
-			return cEmpIDX;
-		}
-
-		public void setCEmpIDX(int cEmpIDX) {
-			this.cEmpIDX = cEmpIDX;
-		}
-
-		public Date getCreateDate() {
-			return createDate;
-		}
-
-		public void setCreateDate(Date createDate) {
-			this.createDate = createDate;
-		}
-
-		public int getAdEmpIDX() {
-			return adEmpIDX;
-		}
-
-		public void setAdEmpIDX(int adEmpIDX) {
-			this.adEmpIDX = adEmpIDX;
-		}
-
-		public Date getUpdateDate() {
-			return updateDate;
-		}
-
-		public void setUpdateDate(Date updateDate) {
-			this.updateDate = updateDate;
-		}
-
-		public int getTcStatus() {
-			return tcStatus;
-		}
-
-		public void setTcStatus(int tcStatus) {
-			this.tcStatus = tcStatus;
-		}
-
-		@Override
-		public String toString() {
-			return "CarBooking [id=" + id + ", TyperentTH=" + typerentTH
-					+ ",TyperentEN=" + typerentEN + ", CreateDate="
-					+ createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate="
-					+ updateDate + ", TcStatus=" + tcStatus + "]";
-		}
+	
+	//MasterTypeRent
+	private MasterTypeRent mastertyperent;
+	
+	public MasterTypeRent getMastertyperent() {
+		return mastertyperent;
 	}
+
+	public void setMastertyperent(MasterTypeRent mastertyperent) {
+		this.mastertyperent = mastertyperent;
+	}
+
 
 	// MasterTypeCar
-	@Document(collection = "M0_TbTypeCar")
-	public class MasterTypeCar {
-		@Id
-		private long id;
-
-		private String typeCarTH;
-		private String typeCarEN;
-
-		private int cEmpIDX;
-		private Date createDate;
-		private int adEmpIDX;
-		private Date updateDate;
-		private int tcStatus;
-		private String tcStatusDesc;
-
-		public String getTcStatusDesc() {
-			return tcStatusDesc;
-		}
-
-		public void setTcStatusDesc(String tcStatusDesc) {
-			this.tcStatusDesc = tcStatusDesc;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public String getTypeCarTH() {
-			return typeCarTH;
-		}
-
-		public void setTypeCarTH(String typeCarTH) {
-			this.typeCarTH = typeCarTH;
-		}
-
-		public String getTypeCarEN() {
-			return typeCarEN;
-		}
-
-		public void setTypeCarEN(String typeCarEN) {
-			this.typeCarEN = typeCarEN;
-		}
-
-		public int getCEmpIDX() {
-			return cEmpIDX;
-		}
-
-		public void setCEmpIDX(int cEmpIDX) {
-			this.cEmpIDX = cEmpIDX;
-		}
-
-		public Date getCreateDate() {
-			return createDate;
-		}
-
-		public void setCreateDate(Date createDate) {
-			this.createDate = createDate;
-		}
-
-		public int getAdEmpIDX() {
-			return adEmpIDX;
-		}
-
-		public void setAdEmpIDX(int adEmpIDX) {
-			this.adEmpIDX = adEmpIDX;
-		}
-
-		public Date getUpdateDate() {
-			return updateDate;
-		}
-
-		public void setUpdateDate(Date updateDate) {
-			this.updateDate = updateDate;
-		}
-
-		public int getTcStatus() {
-			return tcStatus;
-		}
-
-		public void setTcStatus(int tcStatus) {
-			this.tcStatus = tcStatus;
-		}
-
-		@Override
-		public String toString() {
-			return "CarBooking [id=" + id + ", TypeCarTH=" + typeCarTH
-					+ ", TypeCarEN=" + typeCarEN + ", CreateDate=" + createDate
-					+ ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate
-					+ ", TcStatus=" + tcStatus + "]";
-		}
+	private MasterTypeCar mastertypecar;
+	
+	public MasterTypeCar getMastertypecar() {
+		return mastertypecar;
 	}
 
+	public void setMastertypecar(MasterTypeCar mastertypecar) {
+		this.mastertypecar = mastertypecar;
+	}
+
+	
 	//MasterPlace
-	@Document(collection = "M0_TbPlace")
-	public class MasterPlace {
-		@Id
-		private long id;
+	private MasterPlace masterplace;
+	
+	
+	public MasterPlace getMasterplace() {
+		return masterplace;
+	}
 
-		private String placeTH;
-		private String placeEN;
-
-		private int cEmpIDX;
-		private Date createDate;
-		private int adEmpIDX;
-		private Date updateDate;
-		private int tcStatus;
-		private String tcStatusDesc;
-
-		public String getTcStatusDesc() {
-			return tcStatusDesc;
-		}
-
-		public void setTcStatusDesc(String tcStatusDesc) {
-			this.tcStatusDesc = tcStatusDesc;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public String getPlaceTH() {
-			return placeTH;
-		}
-
-		public void setPlaceTH(String placeTH) {
-			this.placeTH = placeTH;
-		}
-
-		public String getPlaceEN() {
-			return placeEN;
-		}
-
-		public void setPlaceEN(String placeEN) {
-			this.placeEN = placeEN;
-		}
-
-		public int getcEmpIDX() {
-			return cEmpIDX;
-		}
-
-		public void setcEmpIDX(int cEmpIDX) {
-			this.cEmpIDX = cEmpIDX;
-		}
-
-		public int getCEmpIDX() {
-			return cEmpIDX;
-		}
-
-		public void setCEmpIDX(int cEmpIDX) {
-			this.cEmpIDX = cEmpIDX;
-		}
-
-		public Date getCreateDate() {
-			return createDate;
-		}
-
-		public void setCreateDate(Date createDate) {
-			this.createDate = createDate;
-		}
-
-		public int getAdEmpIDX() {
-			return adEmpIDX;
-		}
-
-		public void setAdEmpIDX(int adEmpIDX) {
-			this.adEmpIDX = adEmpIDX;
-		}
-
-		public Date getUpdateDate() {
-			return updateDate;
-		}
-
-		public void setUpdateDate(Date updateDate) {
-			this.updateDate = updateDate;
-		}
-
-		public int getTcStatus() {
-			return tcStatus;
-		}
-
-		public void setTcStatus(int tcStatus) {
-			this.tcStatus = tcStatus;
-		}
-
-		@Override
-		public String toString() {
-			return "CarBooking [id=" + id + ", PlaceTH=" + placeTH
-					+ ",PlaceEN=" + placeEN + ", CreateDate=" + createDate
-					+ ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate
-					+ ", TcStatus=" + tcStatus + "]";
-		}
+	public void setMasterplace(MasterPlace masterplace) {
+		this.masterplace = masterplace;
 	}
 }

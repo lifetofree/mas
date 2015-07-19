@@ -248,7 +248,7 @@
 					<br>
 					<div id="pane1" class="tab-pane active">
 						<!-- div pane1หน้าตารางจอง  แถบใหญ่-->
-
+				<form:form modelAttribute="addCarBooking">
 						<div id="main">
 							<!-- หน้าแรก-->
 
@@ -268,29 +268,50 @@
 										<th style="text-align: center;">รายละเอียด</th>
 									</tr>
 								</thead>
-								<tbody>
-
-									<tr>
-
-										<td>17/07/58</td>
-										<td>เมืองทองธานี</td>
-										<td>ประชุม</td>
-										<td>14:00</td>
-										<td>อนุมัติ</td>
-										<td style="text-align: center;"><button type="button"
+								<c:choose>
+					<c:when test="${not empty retSampleList}">
+						<c:forEach var="listValue" items="${retSampleList}">
+							<tr>
+								<td style="font-size: 13pt;"><c:out value="${listValue.datestart}" /></td>
+								<td style="font-size: 13pt;"><c:out	value="${listValue.tpidx}" /></td>
+								<td style="font-size: 13pt;"><c:out	value="${listValue.objective}" /></td>
+								<td style="font-size: 13pt;"><c:out	value="${listValue.timestart}" /></td>
+								<td style="font-size: 13pt;"><c:out	value="${listValue.tsidx}" /></td>
+								<td style="text-align:center"><%-- <a
+									href="<c:url value='/status/edit/${listValue.id}' />"><span
+										class="btn btn-primary glyphicon glyphicon-edit"
+										data-original-title="edit" data-toggle="tooltip"
+										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a> --%>
+								
+								
+								
+								
+								<button type="button"
 												class="btn btn-primary glyphicon glyphicon-list-alt"
 												style="font-size: 11pt; width: 50pt; height: 20pt"
 												id="btndiv2" onclick="Show_Div('showdatarent')"
 												value="showdatarent" data-original-title="view"
 												data-toggle="tooltip"></button></td>
-									</tr>
-								</tbody>
-							</table>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+								</table>
 
 
 						</div>
 						<!-- ตาราง-->
-
+				</form:form>
 
 
 
@@ -619,7 +640,7 @@
 										<div class="col-sm-5">
 											<select name="start_time" id="start_time"
 												style="width: 130pt; height: 20pt">
-												<option value="">- เวลาไป -</option>
+												<option value="none">- เวลาไป -</option>
 												<option value="1">00:00</option>
 												<option value="2">00:30</option>
 												<option value="3">01:00</option>
@@ -1040,8 +1061,7 @@
 					<!-- Tab3 -->
 					<div id="pane3" class="tab-pane">
 						<!-- div pan3-->
-						<form:form modelAttribute="addCarBooking">
-							<%-- method="POST"action="${pageContext.request.contextPath}/carbookings/save" --%>
+						<form:form modelAttribute="addCarBooking" method="POST" action="${pageContext.request.contextPath}/carbookings/save">
 							<div class="row">
 								<h4
 									style="font-size: 16pt; font-weight: bold; text-align: center">ขั้นตอนการจองรถยนต์</h4>
@@ -1057,7 +1077,7 @@
 											<label>ชื่อผู้จอง:</label>
 										</div>
 										<div class="col-sm-7">
-											<label style="width: 130pt; height: 20pt">ชื่อ</label>
+											<form:label path="empidx" style="width: 130pt; height: 20pt">ชื่อ</form:label>
 										</div>
 									</div>
 
@@ -1066,7 +1086,7 @@
 											<label>แผนก:</label>
 										</div>
 										<div class="col-sm-7">
-											<label style="width: 130pt; height: 20pt">แผนก</label>
+											<form:label path="departidx" style="width: 130pt; height: 20pt">แผนก</form:label>
 										</div>
 									</div>
 
@@ -1074,30 +1094,20 @@
 									<div class="col-sm-4" style="text-align: left">
 										<label>ประเภทการจองรถยนต์:</label>
 									</div>
-									<%--<c:choose>
-										<c:when test="${not empty typerent}"> 
-
-									<div class="col-sm-7">
-										 <select style="width: 130pt; height: 20pt">
-												<option>กรุณาเลือกข้อมูล</option>
-												 <c:forEach var="listValue" items="${typerent}">
-													<option value="<c:out value='${listValue.id}' />">
-														<c:out value="${listValue.typerentTH}" />
-													</option>
-												</c:forEach>
-											</select> 
+									<c:choose>
+										<c:when test="${not empty typerent}">
+											<div class="col-sm-7">
+											    <form:select path="tridx" style="width: 130pt; height: 20pt">
+													<option>กรุณาเลือกข้อมูล</option>
+													 <c:forEach var="listValue" items="${typerent}">
+														<option value="<c:out value='${listValue.id}' />">
+															<c:out value="${listValue.typerentTH}" />
+														</option>
+													</c:forEach>
+												</form:select>	
 											</div>
-											 </c:when>
-									</c:choose> --%>
-
-									<div class="col-sm-7">
-										<form:hidden path="id" />
-										<form:select path="${listValue.typerent}"
-											style="width: 130pt; height: 20pt">
-											<form:option value="none" label="กรุณาเลือกข้อมูล" />
-											<form:options items="${typerentTH}" />
-										</form:select>
-									</div>
+										</c:when>
+									</c:choose>
 
 								</div>
 
@@ -1110,7 +1120,7 @@
 										<c:when test="${not empty typecar}">
 
 											<div class="col-sm-7">
-												<select style="width: 130pt; height: 20pt">
+												<form:select path="tcidx" style="width: 130pt; height: 20pt">
 													<option>กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${typecar}">
 														<option value="<c:out value='${listValue.id}' />">
@@ -1118,7 +1128,7 @@
 														</option>
 													</c:forEach>
 
-												</select>
+												</form:select>	
 											</div>
 										</c:when>
 									</c:choose>
@@ -1136,7 +1146,7 @@
 										<c:when test="${not empty place}">
 
 											<div class="col-sm-3">
-												<select style="width: 130pt; height: 20pt">
+											<form:select path="tpidx" style="width: 130pt; height: 20pt">
 													<option>กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${place}">
 														<option value="<c:out value='${listValue.id}' />">
@@ -1144,13 +1154,12 @@
 														</option>
 													</c:forEach>
 
-												</select>
+												</form:select>
 											</div>
 										</c:when>
 									</c:choose>
 									<div class="col-sm-3">
-										<input type="text" placeHolder="อื่นๆ โปรดระบุ..."
-											style="width: 100pt; height: 20pt">
+										<form:input path="etcname" placeHolder="อื่นๆ โปรดระบุ..." 	style="width: 100pt; height: 20pt"></form:input>
 									</div>
 								</div>
 
@@ -1162,8 +1171,8 @@
 										<label>วันที่เริ่ม:</label>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" id="example3"
-											style="background-color: #FFFFFF; width: 130pt; Height: 20pt">
+										<form:input path="datestart" id="example3"
+											style="background-color: #FFFFFF; width: 130pt; Height: 20pt"></form:input>
 									</div>
 								</div>
 
@@ -1175,9 +1184,9 @@
 										<label>วันที่สิ้นสุด:</label>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" id="example4"
+										<form:input path="dateend" id="example4"
 											style="background-color: #FFFFFF; width: 130pt; Height: 20pt"
-											name="txtdateend">
+											name="txtdateend"></form:input>
 									</div>
 								</div>
 
@@ -1188,7 +1197,7 @@
 										<label>เวลาเริ่ม:</label>
 									</div>
 									<div class="col-sm-5">
-										<select name="start_time" id="start_time"
+										<form:select path="timestart"
 											style="width: 130pt; height: 20pt">
 											<option value="">- เวลาไป -</option>
 											<option value="1">00:00</option>
@@ -1240,7 +1249,7 @@
 											<option value="47">23:00</option>
 											<option value="48">23:30</option>
 											<option value="49">24:00</option>
-										</select>
+										</form:select>
 
 									</div>
 								</div>
@@ -1250,7 +1259,7 @@
 										<label>เวลาสิ้นสุด:</label>
 									</div>
 									<div class="col-sm-5">
-										<select name="end_time" id="end_time"
+										<form:select path="timeend"
 											style="width: 130pt; height: 20pt">
 											<option value="">- เวลากลับ -</option>
 											<option value="1">00:00</option>
@@ -1302,7 +1311,7 @@
 											<option value="47">23:00</option>
 											<option value="48">23:30</option>
 											<option value="49">24:00</option>
-										</select>
+										</form:select>
 									</div>
 								</div>
 
@@ -1313,17 +1322,7 @@
 										<label>ผู้รับผิดชอบ:</label>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" style="width: 130pt; Height: 20pt">
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<div class="col-sm-4" style="text-align: left">
-										<label>ผู้ร่วมเดินทาง:</label>
-									</div>
-									<div class="col-sm-5">
-										<input type="text" style="width: 130pt; Height: 20pt">
+										<form:input path="responsible" style="width: 130pt; Height: 20pt"></form:input>
 									</div>
 								</div>
 
@@ -1333,7 +1332,7 @@
 										<label>จำนวนผู้เดินทาง:</label>
 									</div>
 									<div class="col-sm-5">
-										<select style="Width: 130pt; Height: 20pt">
+										<form:select path="qty" style="Width: 130pt; Height: 20pt">
 											<option value="00">กรุณาเลือกจำนวนคน...</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -1350,7 +1349,7 @@
 											<option value="13">13</option>
 											<option value="14">14</option>
 											<option value="15">15</option>
-										</select>
+										</form:select>
 									</div>
 								</div>
 
@@ -1362,8 +1361,8 @@
 										<label>เบอร์โทรศัพท์ :</label>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" style="width: 130pt; Height: 20pt"
-											PlaceHolder="เบอร์โทรศัพท์ มือถือ">
+										<form:input path="tel" style="width: 130pt; Height: 20pt"
+											PlaceHolder="เบอร์โทรศัพท์ มือถือ"></form:input>
 									</div>
 								</div>
 
@@ -1373,7 +1372,7 @@
 										<label>วัตถุประสงค์เดินทาง:</label>
 									</div>
 									<div class="col-sm-7">
-										<textarea class="form-control" rows="5" id="comment"></textarea>
+										<form:textarea path="objective" class="form-control" rows="5" id="comment"></form:textarea>
 									</div>
 								</div>
 								<div class="form-group">
