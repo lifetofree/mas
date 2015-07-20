@@ -8,7 +8,7 @@ import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
-import com.dev.mas.model.MasterStatus;
+import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
 
@@ -38,11 +38,11 @@ public interface CarBookingService {
 	public List<MasterTypeRent> findByCriteriatyperent(Query query) throws SequenceException;
 	
 	
-	// MasterStatus
-	public void savestatus(MasterStatus masterstatus) throws SequenceException;
-	public List<MasterStatus> liststatus() throws SequenceException;
-	public MasterStatus listByIdstatus(int id) throws SequenceException;
-	public List<MasterStatus> findByCriteriastatus(Query query) throws SequenceException;
+	// MasterDataCar
+	public void savedatacar(MasterDataCar masterdatacar) throws SequenceException;
+	public List<MasterDataCar> listdatacar() throws SequenceException;
+	public MasterDataCar listByIddatacar(int id) throws SequenceException;
+	public List<MasterDataCar> findByCriteriadatacar(Query query) throws SequenceException;
 	
 	
 	// CarBooking

@@ -72,11 +72,10 @@
 				
 				<div class="form-group">
 					<label style="font-weight: bold">สถานะ : </label>
-					<form:select path="tcStatus" style="Width: 80pt; Height: 20pt"
-						id="tcStatus" name="tcStatus">
-						<option value="01">Online</option>
-						<option value="00">Offline</option>
-						</form:select>
+					<form:select path="tcStatus" style="Width: 80pt; Height: 20pt">
+						<option value="1">Online</option>
+						<option value="0">Offline</option>
+					</form:select>
 					
 						
 				</div>

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
-import com.dev.mas.model.MasterStatus;
+import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
 
@@ -116,25 +116,25 @@ public class CarBookingDaolmpl implements CarBookingDao {
 	}
 
 	
-	// MasterStatus
-		private MasterStatus masterstatus = new MasterStatus();
+	// MasterDataCar
+		private MasterDataCar masterdatacar = new MasterDataCar();
 		@Override
-		public List<MasterStatus> liststatus() {
-			List<MasterStatus> TypeRentList = mongoOperation.findAll(MasterStatus.class);
-			return TypeRentList;
+		public List<MasterDataCar> listdatacar() {
+			List<MasterDataCar> DatacarList = mongoOperation.findAll(MasterDataCar.class);
+			return DatacarList;
 		}
-		public MasterStatus listByIdstatus(int id) {
-			masterstatus = mongoOperation.findById(id, MasterStatus.class);
-			return masterstatus;
-		}
-		@Override
-		public List<MasterStatus> findByCriteriastatus(Query query) {
-			List<MasterStatus> TypeRentList = mongoOperation.find(query,MasterStatus.class);
-			return TypeRentList;
+		public MasterDataCar listByIddatacar(int id) {
+			masterdatacar = mongoOperation.findById(id, MasterDataCar.class);
+			return masterdatacar;
 		}
 		@Override
-		public void savestatus(MasterStatus masterstatus) {
-			mongoOperation.save(masterstatus);
+		public List<MasterDataCar> findByCriteriadatacar(Query query) {
+			List<MasterDataCar> DatacarList = mongoOperation.find(query,MasterDataCar.class);
+			return DatacarList;
+		}
+		@Override
+		public void savedatacar(MasterDataCar masterdatacar) {
+			mongoOperation.save(masterdatacar);
 		}
 		
 				

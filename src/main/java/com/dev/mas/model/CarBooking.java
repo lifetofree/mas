@@ -16,13 +16,16 @@ public class CarBooking {
 	private int tridx;
 	private int tcidx;
 	private int tpidx;
-	private String etcname;
+	private String tpidxDesc;
+	private String etcplace;
 	private Date datestart;
 	private Date dateend;
 	private String timestart;
+	private String timestartDisplay;
 	private String timeend;
 	private String responsible;
 	private String qty;
+	private String nametip;
 	private String objective;
 	private String tel;
 	private int tsidx;
@@ -33,12 +36,28 @@ public class CarBooking {
 	private int tcStatus;
 	private String change;
 
+	public String getTimestartDisplay() {
+		return timestartDisplay;
+	}
+
+	public void setTimestartDisplay(String timestartDisplay) {
+		this.timestartDisplay = timestartDisplay;
+	}
+
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getTpidxDesc() {
+		return tpidxDesc;
+	}
+
+	public void setTpidxDesc(String tpidxDesc) {
+		this.tpidxDesc = tpidxDesc;
 	}
 
 	public int getEmpidx() {
@@ -82,12 +101,12 @@ public class CarBooking {
 		this.tpidx = tpidx;
 	}
 
-		public String getEtcname() {
-		return etcname;
+	public String getEtcplace() {
+		return etcplace;
 	}
 
-	public void setEtcname(String etcname) {
-		this.etcname = etcname;
+	public void setEtcplace(String etcplace) {
+		this.etcplace = etcplace;
 	}
 
 	public Date getDatestart() {
@@ -136,6 +155,16 @@ public class CarBooking {
 
 	public void setQty(String qty) {
 		this.qty = qty;
+	}
+	
+	
+
+	public String getNametip() {
+		return nametip;
+	}
+
+	public void setNametip(String nametip) {
+		this.nametip = nametip;
 	}
 
 	public String getObjective() {
@@ -213,9 +242,9 @@ public class CarBooking {
 	public String toString() {
 		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
 				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx
-				+ ", Etcname=" + etcname + ", Datestart=" + datestart + ", Dateend=" + dateend
+				+ ", Etcname=" + etcplace + ", Datestart=" + datestart + ", Dateend=" + dateend
 				+ ", Timestart=" + timestart + ", Timeend=" + timeend
-				+ ", Responsible=" + responsible + ", Qty=" + qty
+				+ ", Responsible=" + responsible + ", Qty=" + qty + ", nametip=" + nametip 
 				+ ", Objective=" + objective + ", Tel=" + tel 
 				+ ",, Tsidx=" + tsidx 
 				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX

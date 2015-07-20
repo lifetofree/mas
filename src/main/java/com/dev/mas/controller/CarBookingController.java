@@ -42,12 +42,15 @@ public class CarBookingController {
 	public String rentpage(ModelMap modelmap) {
 		Query query = null;
 		modelmap.addAttribute("addCarBooking", carbooking);
+		CarBooking 		carbookingDesc = null;
+		MasterPlace 	masterplace = null;
+		String			timestart   = null;
 		try {
 			
-			List<CarBooking> carbookingList = carbookingService.listcarbooking();
+			List<CarBooking> carbookingList   = carbookingService.listcarbooking();
 			List<MasterTypeRent> typerentList = carbookingService.listtyperent();
-			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
-			List<MasterPlace> placeList = carbookingService.listplace();
+			List<MasterTypeCar> typecarList   = carbookingService.listtypecar();
+			List<MasterPlace> placeList       = carbookingService.listplace();
 			
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
@@ -55,6 +58,16 @@ public class CarBookingController {
 			typerentList = carbookingService.findByCriteriatyperent(query);
 			typecarList = carbookingService.findByCriteria(query);
 			placeList = carbookingService.findByCriteriaplace(query);
+
+			for (int i = 0; i < carbookingList.size(); i++) {
+				carbookingDesc = carbookingList.get(i);
+				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
+				carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
+				
+				timestart = carbookingDesc.getTimestart();				
+				timestart = timestart.substring(0,2) + ":" + timestart.substring(2,4);
+				carbookingDesc.setTimestartDisplay(timestart);
+			}
 			
 			modelmap.addAttribute("retSampleList", carbookingList);
 			modelmap.addAttribute("typerent", typerentList);

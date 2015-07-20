@@ -14,7 +14,7 @@ import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
-import com.dev.mas.model.MasterStatus;
+import com.dev.mas.model.MasterDataCar;
 
 @Service
 public class CarBookingServicelmpl implements CarBookingService {
@@ -178,36 +178,39 @@ public class CarBookingServicelmpl implements CarBookingService {
 
 	
 	// MasterStatus
-	private static final String MasterStatus_SEQ_KEY = "M0_TbStatus";
+	private static final String MasterDataCar_SEQ_KEY = "M0_TbDataCar";
 	@Override
-	public void savestatus(MasterStatus masterstatus) throws SequenceException {
-		if (masterstatus.getId() == 0) {
-			masterstatus.setId(sequenceDao
-					.getNextSequenceId(MasterStatus_SEQ_KEY));
+	public void savedatacar(MasterDataCar masterdatacar) throws SequenceException {
+		if (masterdatacar.getId() == 0) {
+			masterdatacar.setId(sequenceDao
+					.getNextSequenceId(MasterDataCar_SEQ_KEY));
 		} else {
-			masterstatus.setId(masterstatus.getId());
+			masterdatacar.setId(masterdatacar.getId());
 		}
-		masterstatus.setStatusTH(masterstatus.getStatusTH());
-		masterstatus.setStatusEN(masterstatus.getStatusEN());
-		masterstatus.setCEmpIDX(masterstatus.getCEmpIDX());
-		masterstatus.setCreateDate(masterstatus.getCreateDate());
-		masterstatus.setAdEmpIDX(masterstatus.getAdEmpIDX());
-		masterstatus.setUpdateDate(masterstatus.getUpdateDate());
-		masterstatus.setTcStatus(masterstatus.getTcStatus());
-		carbookingDao.savestatus(masterstatus);
+		masterdatacar.setTcidx(masterdatacar.getTcidx());
+		masterdatacar.setTbidx(masterdatacar.getTbidx());
+		masterdatacar.setColor(masterdatacar.getColor());
+		masterdatacar.setCarli(masterdatacar.getCarli());
+		masterdatacar.setQty(masterdatacar.getQty());
+		masterdatacar.setcEmpIDX(masterdatacar.getcEmpIDX());
+		masterdatacar.setCreateDate(masterdatacar.getCreateDate());
+		masterdatacar.setAdEmpIDX(masterdatacar.getAdEmpIDX());
+		masterdatacar.setUpdateDate(masterdatacar.getUpdateDate());
+		masterdatacar.setTcStatus(masterdatacar.getTcStatus());
+		carbookingDao.savedatacar(masterdatacar);
 	}
 	@Override
-	public List<MasterStatus> liststatus() throws SequenceException {
-		return carbookingDao.liststatus();
+	public List<MasterDataCar> listdatacar() throws SequenceException {
+		return carbookingDao.listdatacar();
 	}
 	@Override
-	public MasterStatus listByIdstatus(int id) throws SequenceException {
-		return carbookingDao.listByIdstatus(id);
+	public MasterDataCar listByIddatacar(int id) throws SequenceException {
+		return carbookingDao.listByIddatacar(id);
 	}
 	@Override
-	public List<MasterStatus> findByCriteriastatus(Query query)
+	public List<MasterDataCar> findByCriteriadatacar(Query query)
 			throws SequenceException {
-		return carbookingDao.findByCriteriastatus(query);
+		return carbookingDao.findByCriteriadatacar(query);
 	}
 		
 	// CarBooking

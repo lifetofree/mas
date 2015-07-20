@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
+import com.dev.mas.model.MasterBrand;
+import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
-@RequestMapping(value = "/typecar")
-public class MasterTypeCarController {
+@RequestMapping(value = "/datacar")
+public class MasterDataCarController {
 
 	@Autowired
 	private ApplicationContext ctx;
@@ -29,39 +31,49 @@ public class MasterTypeCarController {
 	@Autowired
 	private CarBookingService carbookingService;
 
-	private MasterTypeCar mastertypecar = new MasterTypeCar();
+	private MasterDataCar masterdatacar = new MasterDataCar();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-		List<MasterTypeCar> typecarList = null;
+		List<MasterDataCar> datacarList = null;
+		Query query = null;
+		
 		try {
-			typecarList = getListMasterTypeCar();
-			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
-			modelmap.addAttribute("retSampleList", typecarList);
+			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
+			List<MasterBrand> brandList = carbookingService.listbrand();
+			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			typecarList = carbookingService.findByCriteria(query);
+			brandList = carbookingService.findByCriteriabrand(query);
+			
+			datacarList = getListMasterDataCar();
+			modelmap.addAttribute("addDataCar", new MasterDataCar());
+			modelmap.addAttribute("retSampleList", datacarList);
 			modelmap.addAttribute("retSamples", "---");
+			modelmap.addAttribute("typecar", typecarList);
+			modelmap.addAttribute("brand", brandList);
+			
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			typecarList = null;
+			datacarList = null;
 		}
 
-		return "MasterTypeCar";
+		return "MasterDataCar";
 	}
 
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-		List<MasterTypeCar> typecarList = null;
-		
+		List<MasterDataCar> datacarList = null;
 		try {
 
 			// show form
-			mastertypecar = carbookingService.listById(id);
-System.out.println(mastertypecar.getTypeCarTH() + ":" + mastertypecar.getTcStatus());
-			modelmap.addAttribute("addTypeCar", mastertypecar);
+			masterdatacar = carbookingService.listByIddatacar(id);
+			modelmap.addAttribute("addDataCar", masterdatacar);
 
 			// all list
-			typecarList = getListMasterTypeCar();
-			modelmap.addAttribute("retSampleList", typecarList);
+			datacarList = getListMasterDataCar();
+			modelmap.addAttribute("retSampleList",datacarList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -70,73 +82,76 @@ System.out.println(mastertypecar.getTypeCarTH() + ":" + mastertypecar.getTcStatu
 
 		}
 
-		return "MasterTypeCar";
+		return "MasterDataCar";
 	}
 
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
-			@RequestParam String btnedit, MasterTypeCar mastertypecar) {
+			@RequestParam String btnedit, MasterDataCar masterdatacar) {
 
-		if (btnedit.equals("save")) {
+		if (btnedit.equals("savedatacar")) {
 			try {
 				Date date = new Date();
-				mastertypecar.setCreateDate(date);
-				carbookingService.save(mastertypecar);
+				masterdatacar.setCreateDate(date);
+				carbookingService.savedatacar(masterdatacar);
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
-				modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+				modelmap.addAttribute("addDataCar", new MasterDataCar());
 			}
 		} else if (btnedit.equals("cancel")) {
-			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+			modelmap.addAttribute("addDataCar", new MasterDataCar());
 		}
 
-		return "redirect:/typecar/";
-
+		return "redirect:/datacar/";
 	}
 
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
-			mastertypecar = carbookingService.listById(id);
+			masterdatacar = carbookingService.listByIddatacar(id);
 
 			Date date = new Date();
-			mastertypecar.setCreateDate(date);
-			mastertypecar.setTcStatus(9);
-			carbookingService.save(mastertypecar);
+			masterdatacar.setCreateDate(date);
+			masterdatacar.setTcStatus(9);
+			carbookingService.savedatacar(masterdatacar);
 
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("addTypeCar", new MasterTypeCar());
+			modelmap.addAttribute("addDataCar", new MasterDataCar());
 		}
 
-		return "redirect:/typecar/";
+		return "redirect:/datacar/";
 	}
-
-	private List<MasterTypeCar> getListMasterTypeCar() throws SequenceException {
-		List<MasterTypeCar> typecarList = null;
-		MasterTypeCar mastertypecarDesc = null;
+	
+	
+	private List<MasterDataCar> getListMasterDataCar() throws SequenceException {
+		
+		List<MasterDataCar> datacarList = null;
+		MasterDataCar masterdatacarDesc = null;
 		Query query = null;
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			query.with(new Sort(Sort.Direction.DESC, "id"));
-			typecarList = carbookingService.findByCriteria(query);
+			datacarList = carbookingService.findByCriteriadatacar(query);
+			
+			
+			for (int i = 0; i < datacarList.size(); i++) {
+				masterdatacarDesc = datacarList.get(i);
 
-			for (int i = 0; i < typecarList.size(); i++) {
-				mastertypecarDesc = typecarList.get(i);
-
-				if (mastertypecarDesc.getTcStatus() == 1) {
-					mastertypecarDesc.setTcStatusDesc("Online");
-				} else if (mastertypecarDesc.getTcStatus() == 0) {
-					mastertypecarDesc.setTcStatusDesc("Offline");
+				if (masterdatacarDesc.getTcStatus() == 1) {
+					masterdatacarDesc.setTcStatusDesc("Online");
+				} else if (masterdatacarDesc.getTcStatus() == 0) {
+					masterdatacarDesc.setTcStatusDesc("Offline");
 				}
 			}
-			return typecarList;
+			
+			return datacarList;
 		} finally {
-			typecarList = null;
-			mastertypecarDesc = null;
+			datacarList = null;
+			masterdatacarDesc = null;
 			query = null;
 		}
 	}
