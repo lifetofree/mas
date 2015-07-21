@@ -11,7 +11,7 @@ import com.dev.mas.dao.SequenceDao;
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.Hosting;
 
-@Service
+@Service("hostingService")
 public class HostingServiceImpl implements HostingService {
 
 	private static final String HOSTING_SEQ_KEY = "hosting";
