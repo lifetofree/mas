@@ -11,6 +11,7 @@ import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterDataCar;
+import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
 
@@ -136,6 +137,30 @@ public class CarBookingDaolmpl implements CarBookingDao {
 		public void savedatacar(MasterDataCar masterdatacar) {
 			mongoOperation.save(masterdatacar);
 		}
+		
+		
+		// MasterStatus
+				private MasterStatus masterstatus = new MasterStatus();
+				@Override
+				public List<MasterStatus> liststatus() {
+					List<MasterStatus> StatusList = mongoOperation.findAll(MasterStatus.class);
+					return StatusList;
+				}
+				public MasterStatus listByIdstatus(int id) {
+					masterstatus = mongoOperation.findById(id, MasterStatus.class);
+					return masterstatus;
+				}
+				@Override
+				public List<MasterStatus> findByCriteriastatus(Query query) {
+					List<MasterStatus> StatusList = mongoOperation.find(query,MasterStatus.class);
+					return StatusList;
+				}
+				@Override
+				public void savestatus(MasterStatus masterstatus) {
+					mongoOperation.save(masterstatus);
+				}
+		
+		
 		
 				
 		// CarBooking

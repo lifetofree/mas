@@ -23,15 +23,18 @@ public class CarBooking {
 	private String timestart;
 	private String timestartDisplay;
 	private String timeend;
+	private String TimeendDisplay;
 	private String responsible;
 	private String qty;
 	private String nametip;
 	private String objective;
 	private String tel;
 	private int tsidx;
+	private String tsidxDesc;
 	private int cEmpIDX;
 	private Date createDate;
 	private int adEmpIDX;
+	private Date adCreateDate;
 	private Date updateDate;
 	private int tcStatus;
 	private String change;
@@ -141,6 +144,14 @@ public class CarBooking {
 		this.timeend = timeend;
 	}
 
+	public String getTimeendDisplay() {
+		return TimeendDisplay;
+	}
+
+	public void setTimeendDisplay(String timeendDisplay) {
+		TimeendDisplay = timeendDisplay;
+	}
+
 	public String getResponsible() {
 		return responsible;
 	}
@@ -158,7 +169,6 @@ public class CarBooking {
 	}
 	
 	
-
 	public String getNametip() {
 		return nametip;
 	}
@@ -190,6 +200,14 @@ public class CarBooking {
 		this.tsidx = tsidx;
 	}
 
+	public String getTsidxDesc() {
+		return tsidxDesc;
+	}
+
+	public void setTsidxDesc(String tsidxDesc) {
+		this.tsidxDesc = tsidxDesc;
+	}
+
 	public int getcEmpIDX() {
 		return cEmpIDX;
 	}
@@ -212,6 +230,14 @@ public class CarBooking {
 
 	public void setAdEmpIDX(int adEmpIDX) {
 		this.adEmpIDX = adEmpIDX;
+	}
+
+	public Date getAdCreateDate() {
+		return adCreateDate;
+	}
+
+	public void setAdCreateDate(Date adCreateDate) {
+		this.adCreateDate = adCreateDate;
 	}
 
 	public Date getUpdateDate() {
@@ -248,7 +274,7 @@ public class CarBooking {
 				+ ", Objective=" + objective + ", Tel=" + tel 
 				+ ",, Tsidx=" + tsidx 
 				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX
-				+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
+				+ ", AdCreateDate=" + adCreateDate	+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
 				+ ", Change=" + change + "]";
 	}
 	
@@ -263,6 +289,8 @@ public class CarBooking {
 		this.mastertyperent = mastertyperent;
 	}
 
+	
+	
 
 	// MasterTypeCar
 	private MasterTypeCar mastertypecar;

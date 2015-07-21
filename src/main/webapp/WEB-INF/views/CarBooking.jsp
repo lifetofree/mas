@@ -43,7 +43,11 @@
 			format : "dd/mm/yyyy"
 
 		});
-
+		var Check_url = document.URL;
+        Check_url = Check_url.split("test=");
+		Show_Div(Check_url[1]);
+		
+		$(".testx").val("");
 	});
 
 	//hide div
@@ -247,10 +251,9 @@
 					<br>
 					<div id="pane1" class="tab-pane active">
 						<!-- div pane1หน้าตารางจอง  แถบใหญ่-->
-						<form:form modelAttribute="addCarBooking">
+						<form:form modelAttribute="addCarBooking" method="POST" action="${pageContext.request.contextPath}/carbookings/view">
 							<div id="main">
 								<!-- หน้าแรก-->
-
 								<p
 									style="text-align: center; font-weight: bold; font-size: 17pt;">รายการจองรถ</p>
 
@@ -258,7 +261,7 @@
 									class="table table-striped table-bordered table-hover table-responsive">
 									<thead>
 										<tr>
-
+											<th style="text-align: center;">#</th>
 											<th style="text-align: center;">วันเดือนปี</th>
 											<th style="text-align: center;">สถานที่</th>
 											<th style="text-align: center;">วัตถุประสงค์</th>
@@ -271,23 +274,23 @@
 										<c:when test="${not empty retSampleList}">
 											<c:forEach var="listValue" items="${retSampleList}">
 												<tr>
-													 		<td style="font-size: 13pt;"><c:out value="${listValue.datestart}" /></td>
-								<td style="font-size: 13pt;text-align: center"><c:out	value="${listValue.tpidxDesc}" /></td>
-								<td style="font-size: 13pt;text-align: center"><c:out	value="${listValue.objective}" /></td>
-								<td style="font-size: 13pt;text-align: center"><c:out	value="${listValue.timestartDisplay}" /></td>
-								<td style="font-size: 13pt;text-align: center"><c:out	value="${listValue.tsidx}" /></td>
-													
+												<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
+													<td style="font-size: 13pt;"><c:out
+															value="${listValue.datestart}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tpidxDesc}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.objective}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.timestartDisplay}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tsidxDesc}" /></td>
+
 													<td style="text-align: center">
-
-
-
-														<button type="button"
-															class="btn btn-primary glyphicon glyphicon-list-alt"
-															style="font-size: 11pt; width: 50pt; height: 20pt"
-															id="btndiv2" onclick="Show_Div('showdatarent')"
-															value="showdatarent" data-original-title="view"
-															data-toggle="tooltip"></button>
-													</td>
+										<a href="<c:url value='/carbookings/view/${listValue.id}'/>?test=showdatarent"><span
+										class="btn btn-primary glyphicon glyphicon-list-alt" 
+										id="btndiv2" aria-hidden="true" 
+										data-original-title="view" data-toggle="tooltip"></span></a></td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -310,10 +313,6 @@
 						</form:form>
 
 
-
-
-
-
 						<div id="datarent">
 							<!--div id="datarent"  -->
 
@@ -326,204 +325,204 @@
 								</div>
 
 								<br>
+								
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>รูปภาพ:</label>
+										</div>
 
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>รูปภาพ:</label>
+										<div class="col-sm-7">
+
+											<img id="myImg" name="myImg" class="img-rounded"
+												src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImage}'/>">
+										</div>
 									</div>
 
-									<div class="col-sm-7">
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ชื่อผู้จอง:</label>
+										</div>
+										<div class="col-sm-7">
+											<label  style="width: 130pt; height: 20pt">กานต์ธิดา</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>แผนก:</label>
+										</div>
+										<div class="col-sm-7">
+											<label style="width: 130pt; height: 20pt">MIS</label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ประเภทการจองรถยนต์:</label>
+										</div>
+										<div class="col-sm-7">
+											<label  style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ประเภทรถยนต์:</label>
+										</div>
+										<div class="col-sm-7">
+											<label  style="width: 130pt; height: 20pt"> </label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>สถานที่เดินทาง:</label>
+										</div>
+										<div class="col-sm-9">
+											<label  style="width: 130pt; height: 20pt"> </label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>วันที่เริ่ม:</label>
+										</div>
+										<div class="col-sm-2">
+											<label  style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>วันที่สิ้นสุด:</label>
+										</div>
+										<div class="col-sm-4">
+											<label  style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>เวลาเเริ่ม:</label>
+										</div>
+										<div class="col-sm-2">
+											<label style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>เวลาสิ้นสุด:</label>
+										</div>
+										<div class="col-sm-4">
+											<label style="width: 130pt; height: 20pt">17.30</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ผู้รับผิดชอบ:</label>
+										</div>
+										<div class="col-sm-3">
+											<label style="width: 500pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>จำนวนผู้เดินทาง :</label>
+										</div>
+										<div class="col-sm-3">
+											<label style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ผู้ร่วมเดินทาง:</label>
+										</div>
+										<div class="col-sm-9">
+											<label  style="width: 300pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>เบอร์โทรศัพท์ :</label>
+										</div>
+										<div class="col-sm-3">
+											<label style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>วัตถุประสงค์ในการเดินทาง:</label>
+										</div>
+										<div class="col-sm-7">
+											<label  style="width: 130pt; height: 20pt"></label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ผลการอนุมัติ:</label>
+										</div>
+										<div class="col-sm-7">
+											<label   style="width: 130pt; height: 20pt">ผลการอนุมัติ</label>
+										</div>
 										
-										<img id="myImg" name="myImg" class="img-rounded"
-											src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImage}'/>">
+										<%-- <c:choose>
+										<c:when test="${not empty status}">
+											<div class="col-sm-9">
+												<form:select path="tridx" style="width: 130pt; height: 20pt">
+													<option>เลือกผลอนุมัติ...</option>
+													<c:forEach var="listValue" items="${status}">
+														<option value="<c:out value='${listValue.id}' />">
+															<c:out value="${listValue.statusTH}" />
+														</option>
+													</c:forEach>
+												</form:select>
+											</div>
+										</c:when>
+									</c:choose>  --%>
+																					
 									</div>
-								</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-1" style="text-align: left">
+										
+											<button type="submit"
+												class="btn btn-danger glyphicon glyphicon-arrow-left"
+												data-original-title="back" data-toggle="tooltip" 
+												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+										</div>
 
 
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ชื่อผู้จอง:</label>
+										<div class="col-sm-1">
+											<button type="submit"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="save" data-toggle="tooltip" 
+												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+										</div>
+										<div class="col-sm-1" id="edit">
+											<button type="submit"
+												class="btn btn-primary glyphicon glyphicon-edit"
+												data-original-title="edit" data-toggle="tooltip" 
+												style="font-size: 11pt; width: 50pt; height: 20pt"
+												id="btndiv3" onclick="Show_Div('editdatarent')"
+												value="editdatarent"></button>
+										</div>
 									</div>
-									<div class="col-sm-7">
-										<label style="width: 130pt; height: 20pt">กานต์ธิดา</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>แผนก:</label>
-									</div>
-									<div class="col-sm-7">
-										<label style="width: 130pt; height: 20pt">MIS</label>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ประเภทการจองรถยนต์:</label>
-									</div>
-									<div class="col-sm-7">
-										<label style="width: 130pt; height: 20pt">เหมา</label>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ประเภทรถยนต์:</label>
-									</div>
-									<div class="col-sm-7">
-										<label style="width: 130pt; height: 20pt">รถตู้ </label>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>สถานที่เดินทาง:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="width: 130pt; height: 20pt">ลาดพร้าว </label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>วันที่เริ่ม:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="width: 130pt; height: 20pt">22/July/2015</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>วันที่สิ้นสุด:</label>
-									</div>
-									<div class="col-sm-4">
-										<label style="width: 130pt; height: 20pt">22/July/2015</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>เวลาเเริ่ม:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="width: 130pt; height: 20pt">08:30</label>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>เวลาสิ้นสุด:</label>
-									</div>
-									<div class="col-sm-4">
-										<label style="width: 130pt; height: 20pt">17.30</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ผู้รับผิดชอบ:</label>
-									</div>
-									<div class="col-sm-3">
-										<label style="width: 500pt; height: 20pt">กานต์ธิดา
-											ตระกูลบุญรักษ์</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>จำนวนผู้เดินทาง :</label>
-									</div>
-									<div class="col-sm-3">
-										<label style="width: 130pt; height: 20pt">6</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ผู้ร่วมเดินทาง:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="width: 300pt; height: 20pt">MIS</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>เบอร์โทรศัพท์ :</label>
-									</div>
-									<div class="col-sm-3">
-										<label style="width: 130pt; height: 20pt">0894033620</label>
-									</div>
-								</div>
-
-
-
-
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>วัตถุประสงค์ในการเดินทาง:</label>
-									</div>
-									<div class="col-sm-7">
-										<label style="width: 130pt; height: 20pt">ประชุมงาน</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ผลการอนุมัติ:</label>
-									</div>
-									<div class="col-sm-7" style="display: none">
-										<label style="width: 130pt; height: 20pt">ผลการอนุมัติ</label>
-									</div>
-									<div class="col-sm-9">
-										<select style="Width: 130pt; Height: 20pt">
-											<option value="00">เลือกผลอนุมัติ...</option>
-											<option value="1">อนุมัติแล้ว</option>
-											<option value="2">รออนุมัติ</option>
-											<option value="3">ไม่อนุมัติ</option>
-											<option value="3">ยกเลิก</option>
-										</select>
-									</div>
-								</div>
-								<br>
-								<div class="row">
-									<div class="col-sm-1" style="text-align: left">
-										<button type="submit"
-											class="btn btn-danger glyphicon glyphicon-arrow-left"
-											data-original-title="back" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-									</div>
-
-
-									<div class="col-sm-1">
-										<button type="submit"
-											class="btn btn-success glyphicon glyphicon-floppy-disk"
-											data-original-title="save" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-									</div>
-									<div class="col-sm-1" id="edit">
-										<button type="submit"
-											class="btn btn-primary glyphicon glyphicon-edit"
-											data-original-title="edit" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"
-											id="btndiv3" onclick="Show_Div('editdatarent')"
-											value="editdatarent"></button>
-									</div>
-								</div>
-
-								<br>
-
-
-
+								
+									<br>
 							</div>
 							<!--div id="content"  -->
 
@@ -644,55 +643,55 @@
 											<select name="start_time" id="start_time"
 												style="width: 130pt; height: 20pt">
 												<option value="none">- เวลาไป -</option>
-												<option value="1">00:00</option>
-												<option value="2">00:30</option>
-												<option value="3">01:00</option>
-												<option value="4">01:30</option>
-												<option value="5">02:00</option>
-												<option value="6">02:30</option>
-												<option value="7">03:00</option>
-												<option value="8">03:30</option>
-												<option value="9">04:00</option>
-												<option value="10">04:30</option>
-												<option value="11">05:00</option>
-												<option value="12">05:30</option>
-												<option value="13">06:00</option>
-												<option value="14">06:30</option>
-												<option value="15">07:00</option>
-												<option value="16">07:30</option>
-												<option value="17">08:00</option>
-												<option value="18">08:30</option>
-												<option value="19">09:00</option>
-												<option value="20">09:30</option>
-												<option value="21">10:00</option>
-												<option value="22">10:30</option>
-												<option value="23">11:00</option>
-												<option value="24">11:30</option>
-												<option value="25">12:00</option>
-												<option value="26">12:30</option>
-												<option value="27">13:00</option>
-												<option value="28">13:30</option>
-												<option value="29">14:00</option>
-												<option value="30">14:30</option>
-												<option value="31">15:00</option>
-												<option value="32">15:30</option>
-												<option value="33">16:00</option>
-												<option value="34">16:30</option>
-												<option value="35">17:00</option>
-												<option value="36">17:30</option>
-												<option value="37">18:00</option>
-												<option value="38">18:30</option>
-												<option value="39">19:00</option>
-												<option value="40">19:30</option>
-												<option value="41">20:00</option>
-												<option value="42">20:30</option>
-												<option value="43">21:00</option>
-												<option value="44">21:30</option>
-												<option value="45">22:00</option>
-												<option value="46">22:30</option>
-												<option value="47">23:00</option>
-												<option value="48">23:30</option>
-												<option value="49">24:00</option>
+												<option value="0000">00:00</option>
+											<option value="0030">00:30</option>
+											<option value="0100">01:00</option>
+											<option value="0130">01:30</option>
+											<option value="0200">02:00</option>
+											<option value="0230">02:30</option>
+											<option value="0300">03:00</option>
+											<option value="0330">03:30</option>
+											<option value="0400">04:00</option>
+											<option value="0430">04:30</option>
+											<option value="0500">05:00</option>
+											<option value="0530">05:30</option>
+											<option value="0600">06:00</option>
+											<option value="0630">06:30</option>
+											<option value="0700">07:00</option>
+											<option value="0730">07:30</option>
+											<option value="0800">08:00</option>
+											<option value="0830">08:30</option>
+											<option value="0900">09:00</option>
+											<option value="0930">09:30</option>
+											<option value="1000">10:00</option>
+											<option value="1030">10:30</option>
+											<option value="1100">11:00</option>
+											<option value="1130">11:30</option>
+											<option value="1200">12:00</option>
+											<option value="1230">12:30</option>
+											<option value="1300">13:00</option>
+											<option value="1330">13:30</option>
+											<option value="1400">14:00</option>
+											<option value="1430">14:30</option>
+											<option value="1500">15:00</option>
+											<option value="1530">15:30</option>
+											<option value="1600">16:00</option>
+											<option value="1630">16:30</option>
+											<option value="1700">17:00</option>
+											<option value="1730">17:30</option>
+											<option value="1800">18:00</option>
+											<option value="1830">18:30</option>
+											<option value="1900">19:00</option>
+											<option value="1930">19:30</option>
+											<option value="2000">20:00</option>
+											<option value="2030">20:30</option>
+											<option value="2100">21:00</option>
+											<option value="2130">21:30</option>
+											<option value="2200">22:00</option>
+											<option value="2230">22:30</option>
+											<option value="2300">23:00</option>
+											<option value="2330">23:30</option>
+											<option value="2400">24:00</option>
 											</select>
 
 										</div>
@@ -705,56 +704,55 @@
 										<div class="col-sm-5">
 											<select name="end_time" id="end_time"
 												style="width: 130pt; height: 20pt">
-												<option value="">- เวลากลับ -</option>
-												<option value="1">00:00</option>
-												<option value="2">00:30</option>
-												<option value="3">01:00</option>
-												<option value="4">01:30</option>
-												<option value="5">02:00</option>
-												<option value="6">02:30</option>
-												<option value="7">03:00</option>
-												<option value="8">03:30</option>
-												<option value="9">04:00</option>
-												<option value="10">04:30</option>
-												<option value="11">05:00</option>
-												<option value="12">05:30</option>
-												<option value="13">06:00</option>
-												<option value="14">06:30</option>
-												<option value="15">07:00</option>
-												<option value="16">07:30</option>
-												<option value="17">08:00</option>
-												<option value="18">08:30</option>
-												<option value="19">09:00</option>
-												<option value="20">09:30</option>
-												<option value="21">10:00</option>
-												<option value="22">10:30</option>
-												<option value="23">11:00</option>
-												<option value="24">11:30</option>
-												<option value="25">12:00</option>
-												<option value="26">12:30</option>
-												<option value="27">13:00</option>
-												<option value="28">13:30</option>
-												<option value="29">14:00</option>
-												<option value="30">14:30</option>
-												<option value="31">15:00</option>
-												<option value="32">15:30</option>
-												<option value="33">16:00</option>
-												<option value="34">16:30</option>
-												<option value="35">17:00</option>
-												<option value="36">17:30</option>
-												<option value="37">18:00</option>
-												<option value="38">18:30</option>
-												<option value="39">19:00</option>
-												<option value="40">19:30</option>
-												<option value="41">20:00</option>
-												<option value="42">20:30</option>
-												<option value="43">21:00</option>
-												<option value="44">21:30</option>
-												<option value="45">22:00</option>
-												<option value="46">22:30</option>
-												<option value="47">23:00</option>
-												<option value="48">23:30</option>
-												<option value="49">24:00</option>
+												<option value="0000">00:00</option>
+											<option value="0030">00:30</option>
+											<option value="0100">01:00</option>
+											<option value="0130">01:30</option>
+											<option value="0200">02:00</option>
+											<option value="0230">02:30</option>
+											<option value="0300">03:00</option>
+											<option value="0330">03:30</option>
+											<option value="0400">04:00</option>
+											<option value="0430">04:30</option>
+											<option value="0500">05:00</option>
+											<option value="0530">05:30</option>
+											<option value="0600">06:00</option>
+											<option value="0630">06:30</option>
+											<option value="0700">07:00</option>
+											<option value="0730">07:30</option>
+											<option value="0800">08:00</option>
+											<option value="0830">08:30</option>
+											<option value="0900">09:00</option>
+											<option value="0930">09:30</option>
+											<option value="1000">10:00</option>
+											<option value="1030">10:30</option>
+											<option value="1100">11:00</option>
+											<option value="1130">11:30</option>
+											<option value="1200">12:00</option>
+											<option value="1230">12:30</option>
+											<option value="1300">13:00</option>
+											<option value="1330">13:30</option>
+											<option value="1400">14:00</option>
+											<option value="1430">14:30</option>
+											<option value="1500">15:00</option>
+											<option value="1530">15:30</option>
+											<option value="1600">16:00</option>
+											<option value="1630">16:30</option>
+											<option value="1700">17:00</option>
+											<option value="1730">17:30</option>
+											<option value="1800">18:00</option>
+											<option value="1830">18:30</option>
+											<option value="1900">19:00</option>
+											<option value="1930">19:30</option>
+											<option value="2000">20:00</option>
+											<option value="2030">20:30</option>
+											<option value="2100">21:00</option>
+											<option value="2130">21:30</option>
+											<option value="2200">22:00</option>
+											<option value="2230">22:30</option>
+											<option value="2300">23:00</option>
+											<option value="2330">23:30</option>
+											<option value="2400">24:00</option>
 											</select>
 										</div>
 									</div>
@@ -850,7 +848,7 @@
 									<div class="row" style="padding-left: 200pt">
 										<div class="col-sm-6" style="text-align: left">
 
-											<button type="submit"
+											<button type="submit" 
 												class="btn btn-success glyphicon glyphicon-ok"
 												data-original-title="save" data-toggle="tooltip"
 												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
@@ -1058,11 +1056,6 @@
 					<!-- div pane2-->
 
 
-
-
-
-
-
 					<!-- Tab3 -->
 					<div id="pane3" class="tab-pane">
 						<!-- div pan3-->
@@ -1166,7 +1159,7 @@
 										</c:when>
 									</c:choose>
 									<div class="col-sm-3">
-										<form:input path="etcplace" placeHolder="อื่นๆ โปรดระบุ..."
+										<form:input path="etcplace" class="testx" placeHolder="อื่นๆ โปรดระบุ..."
 											style="width: 100pt; height: 20pt"></form:input>
 									</div>
 								</div>
@@ -1179,7 +1172,7 @@
 										<label>วันที่เริ่ม:</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="datestart" id="example3"
+										<form:input path="datestart" class="testx" id="example3"
 											style="background-color: #FFFFFF; width: 130pt; Height: 20pt"></form:input>
 									</div>
 								</div>
@@ -1192,7 +1185,7 @@
 										<label>วันที่สิ้นสุด:</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="dateend" id="example4"
+										<form:input path="dateend" class="testx" id="example4"
 											style="background-color: #FFFFFF; width: 130pt; Height: 20pt"
 											name="txtdateend"></form:input>
 									</div>
@@ -1269,55 +1262,55 @@
 									<div class="col-sm-5">
 										<form:select path="timeend" style="width: 130pt; height: 20pt">
 											<option value="">- เวลากลับ -</option>
-											<option value="1">00:00</option>
-											<option value="2">00:30</option>
-											<option value="3">01:00</option>
-											<option value="4">01:30</option>
-											<option value="5">02:00</option>
-											<option value="6">02:30</option>
-											<option value="7">03:00</option>
-											<option value="8">03:30</option>
-											<option value="9">04:00</option>
-											<option value="10">04:30</option>
-											<option value="11">05:00</option>
-											<option value="12">05:30</option>
-											<option value="13">06:00</option>
-											<option value="14">06:30</option>
-											<option value="15">07:00</option>
-											<option value="16">07:30</option>
-											<option value="17">08:00</option>
-											<option value="18">08:30</option>
-											<option value="19">09:00</option>
-											<option value="20">09:30</option>
-											<option value="21">10:00</option>
-											<option value="22">10:30</option>
-											<option value="23">11:00</option>
-											<option value="24">11:30</option>
-											<option value="25">12:00</option>
-											<option value="26">12:30</option>
-											<option value="27">13:00</option>
-											<option value="28">13:30</option>
-											<option value="29">14:00</option>
-											<option value="30">14:30</option>
-											<option value="31">15:00</option>
-											<option value="32">15:30</option>
-											<option value="33">16:00</option>
-											<option value="34">16:30</option>
-											<option value="35">17:00</option>
-											<option value="36">17:30</option>
-											<option value="37">18:00</option>
-											<option value="38">18:30</option>
-											<option value="39">19:00</option>
-											<option value="40">19:30</option>
-											<option value="41">20:00</option>
-											<option value="42">20:30</option>
-											<option value="43">21:00</option>
-											<option value="44">21:30</option>
-											<option value="45">22:00</option>
-											<option value="46">22:30</option>
-											<option value="47">23:00</option>
-											<option value="48">23:30</option>
-											<option value="49">24:00</option>
+											<option value="0000">00:00</option>
+											<option value="0030">00:30</option>
+											<option value="0100">01:00</option>
+											<option value="0130">01:30</option>
+											<option value="0200">02:00</option>
+											<option value="0230">02:30</option>
+											<option value="0300">03:00</option>
+											<option value="0330">03:30</option>
+											<option value="0400">04:00</option>
+											<option value="0430">04:30</option>
+											<option value="0500">05:00</option>
+											<option value="0530">05:30</option>
+											<option value="0600">06:00</option>
+											<option value="0630">06:30</option>
+											<option value="0700">07:00</option>
+											<option value="0730">07:30</option>
+											<option value="0800">08:00</option>
+											<option value="0830">08:30</option>
+											<option value="0900">09:00</option>
+											<option value="0930">09:30</option>
+											<option value="1000">10:00</option>
+											<option value="1030">10:30</option>
+											<option value="1100">11:00</option>
+											<option value="1130">11:30</option>
+											<option value="1200">12:00</option>
+											<option value="1230">12:30</option>
+											<option value="1300">13:00</option>
+											<option value="1330">13:30</option>
+											<option value="1400">14:00</option>
+											<option value="1430">14:30</option>
+											<option value="1500">15:00</option>
+											<option value="1530">15:30</option>
+											<option value="1600">16:00</option>
+											<option value="1630">16:30</option>
+											<option value="1700">17:00</option>
+											<option value="1730">17:30</option>
+											<option value="1800">18:00</option>
+											<option value="1830">18:30</option>
+											<option value="1900">19:00</option>
+											<option value="1930">19:30</option>
+											<option value="2000">20:00</option>
+											<option value="2030">20:30</option>
+											<option value="2100">21:00</option>
+											<option value="2130">21:30</option>
+											<option value="2200">22:00</option>
+											<option value="2230">22:30</option>
+											<option value="2300">23:00</option>
+											<option value="2330">23:30</option>
+											<option value="2400">24:00</option>
 										</form:select>
 									</div>
 								</div>
@@ -1329,7 +1322,7 @@
 										<label>ผู้รับผิดชอบ:</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="responsible"
+										<form:input path="responsible" class="testx"
 											style="width: 130pt; Height: 20pt"></form:input>
 									</div>
 								</div>
@@ -1367,7 +1360,7 @@
 										<label>รายชื่อผู้เดินทาง :</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="nametip" style="width: 130pt; Height: 20pt"></form:input>
+										<form:input path="nametip" style="width: 130pt; Height: 20pt" class="testx"></form:input>
 									</div>
 								</div>
 
@@ -1377,7 +1370,7 @@
 										<label>เบอร์โทรศัพท์ :</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="tel" style="width: 130pt; Height: 20pt"
+										<form:input path="tel" style="width: 130pt; Height: 20pt" class="testx"
 											PlaceHolder="เบอร์โทรศัพท์ มือถือ"></form:input>
 									</div>
 								</div>
@@ -1388,7 +1381,7 @@
 										<label>วัตถุประสงค์เดินทาง:</label>
 									</div>
 									<div class="col-sm-7">
-										<form:textarea path="objective" class="form-control" rows="5"
+										<form:textarea path="objective" rows="5" class="testx"
 											id="comment"></form:textarea>
 									</div>
 								</div>
@@ -1420,13 +1413,6 @@
 						</form:form>
 					</div>
 					<!-- div pane3-->
-
-
-
-
-
-
-
 
 
 					<!-- Tab4 -->
@@ -1511,54 +1497,57 @@
 						</div>
 
 						<!-- ส่วนแจ้งปัญหา user-->
-						<div id="user"  style="display:none;">
-						<div>
-							<div class="row">
-								<div class="col-sm-3" style="text-align: left">
-									<label>หัวข้อ :</label>
+						<div id="user" style="display: none;">
+							<div>
+								<div class="row">
+									<div class="col-sm-3" style="text-align: left">
+										<label>หัวข้อ :</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" style="width: 150pt; Height: 20pt">
+									</div>
 								</div>
-								<div class="col-sm-7">
-									<input type="text" style="width: 150pt; Height: 20pt">
-								</div>
-							</div>
 
-							<br>
+								<br>
 
 
-							<div class="row">
-								<div class="col-sm-3" style="text-align: left">
-									<label> ข้อความ :</label>
+								<div class="row">
+									<div class="col-sm-3" style="text-align: left">
+										<label> ข้อความ :</label>
+									</div>
+									<div class="col-sm-7">
+										<textarea class="form-control" rows="5" id="comment"
+											style="width: 150pt"></textarea>
+									</div>
 								</div>
-								<div class="col-sm-7">
-									<textarea class="form-control" rows="5" id="comment"
-										style="width: 150pt"></textarea>
+								<br>
+								<div class="row">
+									<div class="col-sm-3" style="text-align: left">
+										<label> ติดต่อ :</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" style="width: 150pt; Height: 20pt;"
+											PlaceHolder="กรุณาระบุเบอร์โทรศัพท์">
+									</div>
 								</div>
-							</div>
-<br>
-							<div class="row">
-								<div class="col-sm-3" style="text-align: left">
-									<label> ติดต่อ :</label>
-								</div>
-								<div class="col-sm-7">
-									<input type="text"
-										style="width: 150pt; Height: 20pt;"
-										PlaceHolder="กรุณาระบุเบอร์โทรศัพท์">
-								</div>
-							</div>
-<br>
-							<div class="row">
-								<div style="text-align: left;padding-left:225pt ">
-									<button type="submit" class="btn btn-success glyphicon glyphicon-floppy-disk"
+								<br>
+								<div class="row">
+									<div style="text-align: left; padding-left: 225pt">
+										<button type="submit"
+											class="btn btn-success glyphicon glyphicon-floppy-disk"
 											data-original-title="send" data-toggle="tooltip"
-										style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-										
-										<button type="submit" class="btn btn-danger glyphicon glyphicon-remove"
+											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+
+										<button type="submit"
+											class="btn btn-danger glyphicon glyphicon-remove"
 											data-original-title="cancel" data-toggle="tooltip"
-										style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+									</div>
 								</div>
 							</div>
-						</div>
-<br><br><br>
+							<br>
+							<br>
+							<br>
 							<div id="tableuser">
 								<table
 									class="table table-striped table-bordered table-hover table-responsive;">
@@ -1589,7 +1578,7 @@
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
 						<div id="admin">
-							
+
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
 							<div id="tablepro">
@@ -1621,14 +1610,14 @@
 							</div>
 
 							<br>
-							
+
 							<div id="adminproblem" style="display: none">
 								<div class="row">
 									<div class="col-sm-3" style="text-align: left">
 										<label>ชื่อผู้แจ้ง :</label>
 									</div>
 									<div class="col-sm-7">
-										<label>นางสาว กานต์ธิดา  ตระกูลบุญรักษ์</label>
+										<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
 									</div>
 								</div>
 								<br>
@@ -1663,24 +1652,24 @@
 									</div>
 								</div>
 
-									<div class="row" >
-										<div class="col-sm-3" style="text-align: left">
-											<label>ผลการอนุมัติ:</label>
-										</div>
-
-										<div class="col-sm-9">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">เลือกผลอนุมัติ...</option>
-												<option value="1">รับทราบ</option>
-												
-											</select>
-										</div>
+								<div class="row">
+									<div class="col-sm-3" style="text-align: left">
+										<label>ผลการอนุมัติ:</label>
 									</div>
+
+									<div class="col-sm-9">
+										<select style="Width: 130pt; Height: 20pt">
+											<option value="00">เลือกผลอนุมัติ...</option>
+											<option value="1">รับทราบ</option>
+
+										</select>
+									</div>
+								</div>
 
 
 								<br>
 
-								<div class="row" style="padding-left:220pt">
+								<div class="row" style="padding-left: 220pt">
 									<div class="col-sm-4" style="text-align: left">
 										<button type="submit"
 											class="btn btn-success glyphicon glyphicon-floppy-disk"

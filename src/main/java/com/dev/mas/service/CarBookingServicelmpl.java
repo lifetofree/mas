@@ -12,6 +12,7 @@ import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
+import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
 import com.dev.mas.model.MasterDataCar;
@@ -177,7 +178,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	
-	// MasterStatus
+	// MasterDataCar
 	private static final String MasterDataCar_SEQ_KEY = "M0_TbDataCar";
 	@Override
 	public void savedatacar(MasterDataCar masterdatacar) throws SequenceException {
@@ -212,6 +213,37 @@ public class CarBookingServicelmpl implements CarBookingService {
 			throws SequenceException {
 		return carbookingDao.findByCriteriadatacar(query);
 	}
+	
+	
+	
+	// MasterStatus
+		private static final String MasterStatus_SEQ_KEY = "M0_TbStatus";
+		@Override
+		public void savestatus(MasterStatus masterstatus) throws SequenceException {
+			if (masterstatus.getId() == 0) {
+				masterstatus.setId(sequenceDao
+						.getNextSequenceId(MasterStatus_SEQ_KEY));
+			} else {
+				masterstatus.setId(masterstatus.getId());
+			}
+			masterstatus.setStatusTH(masterstatus.getStatusTH());
+			masterstatus.setStatusEN(masterstatus.getStatusEN());
+			carbookingDao.savestatus(masterstatus);
+		}
+		@Override
+		public List<MasterStatus> liststatus() throws SequenceException {
+			return carbookingDao.liststatus();
+		}
+		@Override
+		public MasterStatus listByIdstatus(int id) throws SequenceException {
+			return carbookingDao.listByIdstatus(id);
+		}
+		@Override
+		public List<MasterStatus> findByCriteriastatus(Query query)
+				throws SequenceException {
+			return carbookingDao.findByCriteriastatus(query);
+		}
+			
 		
 	// CarBooking
 		private static final String CarBooking_SEQ_KEY = "U0_TbDetailRent";

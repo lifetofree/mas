@@ -8,6 +8,7 @@ import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterDataCar;
+import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeRent;
 import com.dev.mas.model.MasterTypeCar;
 
@@ -42,6 +43,14 @@ public interface CarBookingDao {
 	public MasterDataCar listByIddatacar(int id);
 	public List<MasterDataCar> findByCriteriadatacar(Query query);
 	public void savedatacar(MasterDataCar masterdatacar);
+	
+	
+	//MasterStatus
+	public List<MasterStatus> liststatus();
+	public MasterStatus listByIdstatus(int id);
+	public List<MasterStatus> findByCriteriastatus(Query query);
+	public void savestatus(MasterStatus masterstatus);
+	
 	
 	
 	// CarBooking
