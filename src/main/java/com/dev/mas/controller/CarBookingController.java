@@ -125,23 +125,54 @@ public class CarBookingController {
 	
 	@RequestMapping(value = { "/view/{id}" }, method = RequestMethod.GET)
 	public String processView(ModelMap modelmap, @PathVariable int id) {
-		List<CarBooking> carbookingList = null;
+		//List<CarBooking> carbookingList = null;
 		Query query = null;
+		CarBooking carbookingDesc = null;
+		MasterPlace masterplace = null;
+		MasterStatus masterstatus = null;
+		String timestart = null;
+		
 		try {
-
-			// show form
-			carbooking = carbookingService.listByIdcarbooking(id);
-			modelmap.addAttribute("addCarBooking", carbooking);
-
-			// all list
 			
+			List<CarBooking> carbookingList = carbookingService
+					.listcarbooking();
+			List<MasterTypeRent> typerentList = carbookingService
+					.listtyperent();
+			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
+			List<MasterPlace> placeList = carbookingService.listplace();
+
 			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+
+			typerentList = carbookingService.findByCriteriatyperent(query);
+			typecarList = carbookingService.findByCriteria(query);
+			placeList = carbookingService.findByCriteriaplace(query);
 			carbookingList = carbookingService.findByCriteriacarbooking(query);
 			
-			
+			// show form
+						carbooking = carbookingService.listByIdcarbooking(id);
 						
+
+			for (int i = 0; i < carbookingList.size(); i++) {
+				carbookingDesc = carbookingList.get(i);
+				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
+				carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
+
+				masterstatus = carbookingService.listByIdstatus(carbookingDesc.getTsidx());
+				carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
+
+				timestart = carbookingDesc.getTimestart();
+				timestart = timestart.substring(0, 2) + ":"
+						+ timestart.substring(2, 4);
+				carbookingDesc.setTimestartDisplay(timestart);
+
+			}
+			modelmap.addAttribute("addCarBooking", carbooking);
 			modelmap.addAttribute("retSampleList", carbookingList);
-			modelmap.addAttribute("retSamples", "---");
+			modelmap.addAttribute("typerent", typerentList);
+			modelmap.addAttribute("typecar", typecarList);
+			modelmap.addAttribute("place", placeList);
+
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());
