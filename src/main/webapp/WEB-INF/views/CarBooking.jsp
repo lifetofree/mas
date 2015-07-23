@@ -319,6 +319,7 @@
 
 							<div id="showdatarent" style="display: none">
 								<!--div id="content"  -->
+								<form:form modelAttribute="addCarBooking">
 								<div>
 									<h4
 										style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
@@ -364,7 +365,8 @@
 											<label>ประเภทการจองรถยนต์:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.tridxDesc}</label>
+											
 										</div>
 									</div>
 
@@ -374,7 +376,7 @@
 											<label>ประเภทรถยนต์:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"> </label>
+											<form:label path="tcidxDesc" style="width: 130pt; height: 20pt"> </form:label>
 										</div>
 									</div>
 
@@ -384,7 +386,7 @@
 											<label>สถานที่เดินทาง:</label>
 										</div>
 										<div class="col-sm-9">
-											<label  style="width: 130pt; height: 20pt"> </label>
+											<form:label path="tpidxDesc" style="width: 130pt; height: 20pt"> </form:label>
 										</div>
 									</div>
 
@@ -393,7 +395,7 @@
 											<label>วันที่เริ่ม:</label>
 										</div>
 										<div class="col-sm-2">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<form:label path="datestart"  style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -402,7 +404,7 @@
 											<label>วันที่สิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<form:label path="dateend" style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -411,7 +413,7 @@
 											<label>เวลาเเริ่ม:</label>
 										</div>
 										<div class="col-sm-2">
-											<label style="width: 130pt; height: 20pt"></label>
+											<form:label path="timestartDisplay" style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -421,7 +423,7 @@
 											<label>เวลาสิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<label style="width: 130pt; height: 20pt">17.30</label>
+											<form:label path="timeendDisplay" style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -430,7 +432,7 @@
 											<label>ผู้รับผิดชอบ:</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 500pt; height: 20pt"></label>
+											<form:label path="responsible" style="width: 500pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -439,7 +441,7 @@
 											<label>จำนวนผู้เดินทาง :</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 130pt; height: 20pt"></label>
+											<form:label path="qty" style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -448,7 +450,7 @@
 											<label>ผู้ร่วมเดินทาง:</label>
 										</div>
 										<div class="col-sm-9">
-											<label  style="width: 300pt; height: 20pt"></label>
+											<form:label path="nametip"  style="width: 300pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -457,7 +459,7 @@
 											<label>เบอร์โทรศัพท์ :</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 130pt; height: 20pt"></label>
+											<form:label path="tel" style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -467,7 +469,7 @@
 											<label>วัตถุประสงค์ในการเดินทาง:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<form:label path="objective"  style="width: 130pt; height: 20pt"></form:label>
 										</div>
 									</div>
 
@@ -476,13 +478,13 @@
 											<label>ผลการอนุมัติ:</label>
 										</div>
 										<div class="col-sm-7">
-											<label   style="width: 130pt; height: 20pt">ผลการอนุมัติ</label>
+											<form:label path="tsidx"   style="width: 130pt; height: 20pt"></form:label>
 										</div>
 										
-										<%-- <c:choose>
+										<c:choose>
 										<c:when test="${not empty status}">
 											<div class="col-sm-9">
-												<form:select path="tridx" style="width: 130pt; height: 20pt">
+												<form:select path="tsidxDesc" style="width: 130pt; height: 20pt">
 													<option>เลือกผลอนุมัติ...</option>
 													<c:forEach var="listValue" items="${status}">
 														<option value="<c:out value='${listValue.id}' />">
@@ -492,7 +494,7 @@
 												</form:select>
 											</div>
 										</c:when>
-									</c:choose>  --%>
+									</c:choose> 
 																					
 									</div>
 									<br>
@@ -523,6 +525,7 @@
 									</div>
 								
 									<br>
+									</form:form>
 							</div>
 							<!--div id="content"  -->
 

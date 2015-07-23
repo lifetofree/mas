@@ -14,7 +14,9 @@ public class CarBooking {
 	private int empidx;
 	private int departidx;
 	private int tridx;
+	private String tridxDesc;
 	private int tcidx;
+	private String tcidxDesc;
 	private int tpidx;
 	private String tpidxDesc;
 	private String etcplace;
@@ -23,7 +25,7 @@ public class CarBooking {
 	private String timestart;
 	private String timestartDisplay;
 	private String timeend;
-	private String TimeendDisplay;
+	private String timeendDisplay;
 	private String responsible;
 	private String qty;
 	private String nametip;
@@ -61,6 +63,22 @@ public class CarBooking {
 
 	public void setTpidxDesc(String tpidxDesc) {
 		this.tpidxDesc = tpidxDesc;
+	}
+
+	public String getTridxDesc() {
+		return tridxDesc;
+	}
+
+	public void setTridxDesc(String tridxDesc) {
+		this.tridxDesc = tridxDesc;
+	}
+
+	public String getTcidxDesc() {
+		return tcidxDesc;
+	}
+
+	public void setTcidxDesc(String tcidxDesc) {
+		this.tcidxDesc = tcidxDesc;
 	}
 
 	public int getEmpidx() {
@@ -144,12 +162,13 @@ public class CarBooking {
 		this.timeend = timeend;
 	}
 
+	
 	public String getTimeendDisplay() {
-		return TimeendDisplay;
+		return timeendDisplay;
 	}
 
 	public void setTimeendDisplay(String timeendDisplay) {
-		TimeendDisplay = timeendDisplay;
+		this.timeendDisplay = timeendDisplay;
 	}
 
 	public String getResponsible() {
