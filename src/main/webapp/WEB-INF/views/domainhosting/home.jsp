@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="panelMain">
-		<h4>Domain & Hosting</h4>
+		<h4>Domain &amp; Hosting</h4>
         <hr />
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
