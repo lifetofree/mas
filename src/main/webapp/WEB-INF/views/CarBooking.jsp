@@ -376,7 +376,7 @@
 											<label>ประเภทรถยนต์:</label>
 										</div>
 										<div class="col-sm-7">
-											<form:label path="tcidxDesc" style="width: 130pt; height: 20pt"> </form:label>
+											<label>${carbooking.tcidxDesc} </label>
 										</div>
 									</div>
 
@@ -386,7 +386,7 @@
 											<label>สถานที่เดินทาง:</label>
 										</div>
 										<div class="col-sm-9">
-											<form:label path="tpidxDesc" style="width: 130pt; height: 20pt"> </form:label>
+											<label>${carbooking.tpidxDesc}</label>
 										</div>
 									</div>
 
@@ -395,7 +395,7 @@
 											<label>วันที่เริ่ม:</label>
 										</div>
 										<div class="col-sm-2">
-											<form:label path="datestart"  style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.datestart}</label>
 										</div>
 									</div>
 
@@ -404,7 +404,7 @@
 											<label>วันที่สิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<form:label path="dateend" style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.dateend}</label>
 										</div>
 									</div>
 
@@ -413,7 +413,7 @@
 											<label>เวลาเเริ่ม:</label>
 										</div>
 										<div class="col-sm-2">
-											<form:label path="timestartDisplay" style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.timestartDisplay}</label>
 										</div>
 									</div>
 
@@ -423,7 +423,7 @@
 											<label>เวลาสิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<form:label path="timeendDisplay" style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.timeendDisplay}</label>
 										</div>
 									</div>
 
@@ -432,7 +432,7 @@
 											<label>ผู้รับผิดชอบ:</label>
 										</div>
 										<div class="col-sm-3">
-											<form:label path="responsible" style="width: 500pt; height: 20pt"></form:label>
+											<label>${carbooking.responsible}</label>
 										</div>
 									</div>
 
@@ -441,7 +441,7 @@
 											<label>จำนวนผู้เดินทาง :</label>
 										</div>
 										<div class="col-sm-3">
-											<form:label path="qty" style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.qty}</label>
 										</div>
 									</div>
 
@@ -450,7 +450,7 @@
 											<label>ผู้ร่วมเดินทาง:</label>
 										</div>
 										<div class="col-sm-9">
-											<form:label path="nametip"  style="width: 300pt; height: 20pt"></form:label>
+											<label>${carbooking.nametip}</label>
 										</div>
 									</div>
 
@@ -459,7 +459,7 @@
 											<label>เบอร์โทรศัพท์ :</label>
 										</div>
 										<div class="col-sm-3">
-											<form:label path="tel" style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.tel}</label>
 										</div>
 									</div>
 
@@ -469,7 +469,7 @@
 											<label>วัตถุประสงค์ในการเดินทาง:</label>
 										</div>
 										<div class="col-sm-7">
-											<form:label path="objective"  style="width: 130pt; height: 20pt"></form:label>
+											<label>${carbooking.objective}</label>
 										</div>
 									</div>
 
@@ -477,13 +477,13 @@
 										<div class="col-sm-3" style="text-align: left">
 											<label>ผลการอนุมัติ:</label>
 										</div>
-										<div class="col-sm-7">
-											<form:label path="tsidx"   style="width: 130pt; height: 20pt"></form:label>
+										<div class="col-sm-3" style="display:none">
+											<label>${carbooking.tsidxDesc}</label>
 										</div>
 										
 										<c:choose>
 										<c:when test="${not empty status}">
-											<div class="col-sm-9">
+											<div class="col-sm-3">
 												<form:select path="tsidxDesc" style="width: 130pt; height: 20pt">
 													<option>เลือกผลอนุมัติ...</option>
 													<c:forEach var="listValue" items="${status}">

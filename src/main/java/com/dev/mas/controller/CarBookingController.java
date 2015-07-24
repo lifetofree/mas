@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.CarBooking;
+import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
@@ -140,10 +143,11 @@ public class CarBookingController {
 		MasterStatus masterstatus = null;
 		String timestart = null;
 		String timeend = null;
+		
+		try {			
+		//	System.out.println("id ==> " + id);		
 
-		try {
-System.out.println("id ==> " + id);		
-/*
+ 			
 			List<CarBooking> carbookingList = carbookingService.listcarbooking();
 			List<MasterTypeRent> typerentList = carbookingService.listtyperent();
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
@@ -157,14 +161,14 @@ System.out.println("id ==> " + id);
 			typecarList = carbookingService.findByCriteria(query);
 			placeList = carbookingService.findByCriteriaplace(query);
 			carbookingList = carbookingService.findByCriteriacarbooking(query);
-*/
+
 			// show form
 			carbooking    = carbookingService.listByIdcarbooking(id);
 
-System.out.println("carbooking.getTcidx() ==> " + carbooking.getTcidx());			
+//System.out.println("carbooking.getTcidx() ==> " + carbooking.getTcidx());			
 			mastertypecar = carbookingService.listById(carbooking.getTcidx());
 			carbooking.setTcidxDesc(mastertypecar.getTypeCarTH());
-System.out.println("carbooking.getTcidxDesc() ==> " + carbooking.getTcidxDesc());			
+//System.out.println("carbooking.getTcidxDesc() ==> " + carbooking.getTcidxDesc());			
 			
 			mastertyperent = carbookingService.listByIdtyperent(carbooking.getTridx());
 			carbooking.setTridxDesc(mastertyperent.getTyperentTH());
@@ -182,20 +186,14 @@ System.out.println("carbooking.getTcidxDesc() ==> " + carbooking.getTcidxDesc())
 			timeend = carbooking.getTimeend();
 			timeend = timeend.substring(0, 2) + ":"	+ timeend.substring(2, 4);
 			carbooking.setTimeendDisplay(timeend);
-/*
-			for (int i = 0; i < carbookingList.size(); i++) {
-				carbookingDesc = carbookingList.get(i);
-*/
-/*
-			}
-*/			
+
 			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ tab อื่นเมิงใช้ พอมันไม่รู้จักเลย error
 			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะ สำหรับแสดงบนหน้าจอ (Label)
-//			modelmap.addAttribute("retSampleList", carbookingList);
-//			modelmap.addAttribute("typerent", typerentList);
-//			modelmap.addAttribute("typecar", typecarList);
-//			modelmap.addAttribute("place", placeList);
-//			modelmap.addAttribute("status", statusList);
+			modelmap.addAttribute("retSampleList", carbookingList);
+			modelmap.addAttribute("typerent", typerentList);
+			modelmap.addAttribute("typecar", typecarList);
+			modelmap.addAttribute("place", placeList);
+			modelmap.addAttribute("status", statusList);
 
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -206,5 +204,4 @@ System.out.println("carbooking.getTcidxDesc() ==> " + carbooking.getTcidxDesc())
 
 		return "CarBooking";
 	}
-
 }
