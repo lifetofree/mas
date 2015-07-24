@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.CarBooking;
-import com.dev.mas.model.MasterBrand;
 import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
@@ -136,7 +134,112 @@ public class CarBookingController {
 	public String processView(ModelMap modelmap, @PathVariable int id) {
 		// List<CarBooking> carbookingList = null;
 		Query query = null;
-		CarBooking carbookingDesc = null;
+		//CarBooking carbookingDesc = null;
+		MasterTypeCar mastertypecar = null;
+		MasterTypeRent mastertyperent = null;
+		MasterPlace masterplace = null;
+		MasterStatus masterstatus = null;
+		String timestart = null;
+		String timeend = null;
+		
+		try {			
+		//	System.out.println("id ==> " + id);		
+
+ 			
+			List<CarBooking> carbookingList = carbookingService.listcarbooking();
+			List<MasterTypeRent> typerentList = carbookingService.listtyperent();
+			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
+			List<MasterPlace> placeList = carbookingService.listplace();
+			List<MasterStatus> statusList = carbookingService.liststatus();
+
+			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+
+			typerentList = carbookingService.findByCriteriatyperent(query);
+			typecarList = carbookingService.findByCriteria(query);
+			placeList = carbookingService.findByCriteriaplace(query);
+			carbookingList = carbookingService.findByCriteriacarbooking(query);
+
+			// show form
+			carbooking    = carbookingService.listByIdcarbooking(id);
+
+//System.out.println("carbooking.getTcidx() ==> " + carbooking.getTcidx());			
+			mastertypecar = carbookingService.listById(carbooking.getTcidx());
+			carbooking.setTcidxDesc(mastertypecar.getTypeCarTH());
+//System.out.println("carbooking.getTcidxDesc() ==> " + carbooking.getTcidxDesc());			
+			
+			mastertyperent = carbookingService.listByIdtyperent(carbooking.getTridx());
+			carbooking.setTridxDesc(mastertyperent.getTyperentTH());
+			
+			masterplace = carbookingService.listByIdplace(carbooking.getTpidx());
+			carbooking.setTpidxDesc(masterplace.getPlaceTH());
+
+			masterstatus = carbookingService.listByIdstatus(carbooking.getTsidx());
+			carbooking.setTsidxDesc(masterstatus.getStatusTH());
+
+			timestart = carbooking.getTimestart();
+			timestart = timestart.substring(0, 2) + ":"	+ timestart.substring(2, 4);
+			carbooking.setTimestartDisplay(timestart);
+			
+			timeend = carbooking.getTimeend();
+			timeend = timeend.substring(0, 2) + ":"	+ timeend.substring(2, 4);
+			carbooking.setTimeendDisplay(timeend);
+
+			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ tab อื่นเมิงใช้ พอมันไม่รู้จักเลย error
+			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะ สำหรับแสดงบนหน้าจอ (Label)
+			modelmap.addAttribute("retSampleList", carbookingList);
+			modelmap.addAttribute("typerent", typerentList);
+			modelmap.addAttribute("typecar", typecarList);
+			modelmap.addAttribute("place", placeList);
+			modelmap.addAttribute("status", statusList);
+
+		} catch (SequenceException e) {
+			System.out.println(e.getErrMsg());
+			modelmap.addAttribute("retSamples", e.getErrMsg());
+		} finally {
+
+		}
+
+		return "CarBooking";
+	}
+	
+	@RequestMapping(value = { "/savestatus" }, params = { "btnsavestatus" }, method = RequestMethod.POST)
+	public String processSavestatus(ModelMap modelmap, @RequestParam String btnsavestatus,
+			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
+			BindingResult result) {
+		// list data
+		if (btnsavestatus.equals("savestatus")) {
+			CarBooking newCarbooking    = null;
+			try {
+//System.out.println("carbooking.id ==> " + carbooking.getId());
+				newCarbooking    = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
+				Date date = new Date();
+				newCarbooking.setAdCreateDate(date);
+				newCarbooking.setTsidx(carbooking.getTsidx());
+				
+				carbookingService.savecarbooking(newCarbooking);
+			
+				
+			} catch (SequenceException e) {
+				// modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addCarBooking", new CarBooking());
+			}
+		} else if (btnsavestatus.equals("back")) {
+			modelmap.addAttribute("addCarBooking", new CarBooking());
+		}
+
+		return "redirect:/carbookings/";
+
+	}
+	
+	
+	
+	@RequestMapping(value = { "/savestatus/{id}" }, method = RequestMethod.GET)
+	public String processEdit(ModelMap modelmap, @PathVariable int id) {
+		//List<CarBooking> carbookingList = null;
+		Query query = null;
+		//CarBooking carbookingDesc = null;
 		MasterTypeCar mastertypecar = null;
 		MasterTypeRent mastertyperent = null;
 		MasterPlace masterplace = null;
