@@ -35,6 +35,7 @@ public class CarBookingController {
 	private CarBookingService carbookingService;
 	private CarBooking carbooking = new CarBooking();
 
+	// หน้าแรกแสดงรายการ tab 1
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String rentpage(ModelMap modelmap) {
 
@@ -102,6 +103,7 @@ public class CarBookingController {
 		return "CarBooking";
 	}
 
+	//ปุ่ม save ทำรายการจองรายการ tab3
 	@RequestMapping(value = { "/save" }, params = { "btnsave" }, method = RequestMethod.POST)
 	public String processForm(ModelMap modelmap, @RequestParam String btnsave,
 			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
@@ -130,6 +132,7 @@ public class CarBookingController {
 
 	}
 
+	//ปุ่ม view ใช้ดูรายละเอียดข้อมูล
 	@RequestMapping(value = { "/view/{id}" }, method = RequestMethod.GET)
 	public String processView(ModelMap modelmap, @PathVariable int id) {
 		// List<CarBooking> carbookingList = null;
@@ -203,6 +206,7 @@ public class CarBookingController {
 		return "CarBooking";
 	}
 	
+	//ปุ่ม save statusเลือกสถานะอนุมัติ
 	@RequestMapping(value = { "/savestatus" }, params = { "btnsavestatus" }, method = RequestMethod.POST)
 	public String processSavestatus(ModelMap modelmap, @RequestParam String btnsavestatus,
 			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
@@ -234,7 +238,7 @@ public class CarBookingController {
 	}
 	
 	
-	
+	//ดึงค่ามาแสดง edit
 	@RequestMapping(value = { "/savestatus/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
 		//List<CarBooking> carbookingList = null;
@@ -290,7 +294,7 @@ public class CarBookingController {
 			timeend = timeend.substring(0, 2) + ":"	+ timeend.substring(2, 4);
 			carbooking.setTimeendDisplay(timeend);
 
-			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ tab อื่นเมิงใช้ พอมันไม่รู้จักเลย error
+			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ tab อื่นเมิงใช้ พอมันไม่รู้จักเลย error >>> ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist tab3
 			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะ สำหรับแสดงบนหน้าจอ (Label)
 			modelmap.addAttribute("retSampleList", carbookingList);
 			modelmap.addAttribute("typerent", typerentList);
@@ -306,5 +310,44 @@ public class CarBookingController {
 		}
 
 		return "CarBooking";
+	}
+	
+	//ปุ่มแก้ไขข้อมูลบันทึก
+	@RequestMapping(value = { "/editdata" }, params = { "btnedit" }, method = RequestMethod.POST)
+	public String processEditdata(ModelMap modelmap, @RequestParam String btnedit,
+			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
+			BindingResult result) {
+		// list data
+		if (btnedit.equals("edit")) {
+			CarBooking newCarbooking    = null;
+			try {
+				
+				newCarbooking    = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
+			    Date date = new Date();
+				newCarbooking.setUpdateDate(date);
+				carbookingService.savecarbooking(newCarbooking);
+				
+				
+				
+				//ไปเพิ่มค่าอันใหม่เลย แต่เข้าใน loop if
+				/*//CarBooking newCarbooking    = null;
+				//newCarbooking    = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
+				Date date = new Date();
+				carbooking.setUpdateDate(date);
+				carbookingService.savecarbooking(carbooking);*/ 
+				
+				
+				
+			} catch (SequenceException e) {
+				// modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addCarBooking", new CarBooking());
+			}
+		} 
+		else if (btnedit.equals("main")) {
+			modelmap.addAttribute("addCarBooking", new CarBooking());
+		}
+		return "redirect:/carbookings/";
+
 	}
 }

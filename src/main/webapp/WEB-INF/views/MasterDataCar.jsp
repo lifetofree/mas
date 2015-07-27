@@ -16,6 +16,8 @@
 			$(insertdata).hide(250);
 		}
 	}
+	
+
 </script>
 
 <link
@@ -56,7 +58,7 @@
 					<form:hidden path="id" />
 					<div class="col-sm-6" style="text-align:right">
 
-						<label>ประเภทรถยนต์:</label>
+						<label style="font-weight: bold;">ประเภทรถยนต์:</label>
 
 					</div>
 					<div class="col-sm-3">
@@ -82,7 +84,7 @@
 				
 				<div class="form-group" style="text-align:right">
 					<div class="col-sm-6">
-						<label>ประเภทยี่ห้อรถยนต์:</label>
+						<label style="font-weight: bold;">ประเภทยี่ห้อรถยนต์:</label>
 					</div>
 					<div class="col-sm-3">
 
@@ -90,7 +92,7 @@
 							<c:when test="${not empty brand}">
 
 
-								<form:select path="tcidx" style="width: 130pt; height: 20pt">
+								<form:select path="tbidx" style="width: 130pt; height: 20pt">
 									<option>กรุณาเลือกข้อมูล...</option>
 									<c:forEach var="listValue" items="${brand}">
 										<option value="<c:out value='${listValue.id}' />">
@@ -120,7 +122,7 @@
 <br><br>
 				<div class="form-group">
 					<div class="col-sm-6">
-					<label	style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ทะเบียนรถ: </label></div>
+					<label	style="font-weight: bold; padding-top: 10pt;">เลขทะเบียนรถยนต์: </label></div>
 						<div class="col-sm-3">
 					<form:input path="carli" class="form-control" style="Height: 20pt" /></div>
 					
@@ -133,7 +135,7 @@
 						: </label></div>
 						<div class="col-sm-3">
 					<form:select path="qty" style="Width: 130pt; Height: 20pt">
-						<option value="00">เลือกจำนวนคน</option>
+						<option value="none">เลือกจำนวนคน</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>

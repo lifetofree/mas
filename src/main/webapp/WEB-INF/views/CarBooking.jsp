@@ -531,7 +531,8 @@
 
 							<div id="editdatarent" style="display: none">
 								<!-- div edit dataren -->
-								<form:form modelAttribute="addCarBooking">
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/editdata">
 									<h4
 										style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
 
@@ -568,7 +569,6 @@
 													<div class="col-sm-7">
 														<form:select path="tridx"
 															style="width: 130pt; height: 20pt">
-															<option>กรุณาเลือกข้อมูล</option>
 															<c:forEach var="listValue" items="${typerent}">
 																<option value="<c:out value='${listValue.id}' />">
 																	<c:out value="${listValue.typerentTH}" />
@@ -578,6 +578,8 @@
 													</div>
 												</c:when>
 											</c:choose>
+											
+											<form:input path="tridx"></form:input>
 										</div>
 
 
@@ -593,7 +595,6 @@
 													<div class="col-sm-7">
 														<form:select path="tcidx"
 															style="width: 130pt; height: 20pt">
-															<option>กรุณาเลือกข้อมูล</option>
 															<c:forEach var="listValue" items="${typecar}">
 																<option value="<c:out value='${listValue.id}' />">
 																	<c:out value="${listValue.typeCarTH}" />
@@ -619,7 +620,6 @@
 													<div class="col-sm-3">
 														<form:select path="tpidx"
 															style="width: 130pt; height: 20pt">
-															<option>กรุณาเลือกข้อมูล</option>
 															<c:forEach var="listValue" items="${place}">
 																<option value="<c:out value='${listValue.id}' />">
 																	<c:out value="${listValue.placeTH}" />
@@ -644,7 +644,8 @@
 												<label>วันที่เริ่ม:</label>
 											</div>
 											<div class="col-sm-5">
-												<form:input path="datestart"  style="width: 130pt; height: 20pt" id="example5"></form:input>
+												<form:input path="datestart"
+													style="width: 130pt; height: 20pt" id="example5"></form:input>
 											</div>
 										</div>
 
@@ -656,7 +657,8 @@
 												<label>วันที่สิ้นสุด:</label>
 											</div>
 											<div class="col-sm-5">
-												<form:input path="dateend" style="width: 130pt; height: 20pt" id="example6"></form:input>
+												<form:input path="dateend"
+													style="width: 130pt; height: 20pt" id="example6"></form:input>
 											</div>
 										</div>
 
@@ -880,16 +882,15 @@
 										<div class="row" style="padding-left: 200pt">
 											<div class="col-sm-6" style="text-align: left">
 
-												<button type="submit"
+												 <button type="submit"
 													class="btn btn-success glyphicon glyphicon-ok"
 													data-original-title="save" data-toggle="tooltip"
-													style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+													name="btnedit" value="edit"></button>
 
 												<button type="submit"
-													style="font-size: 11pt; width: 50pt; height: 20pt"
 													class="btn btn-danger glyphicon glyphicon-remove"
 													data-original-title="cancel" data-toggle="tooltip"
-													onclick="Show_Div('main')" id="btndiv1" value="main"></button>
+													 value="main" name="btnedit"></button>
 
 
 											</div>

@@ -11,8 +11,10 @@ public class MasterDataCar {
 	@Id
 	private long id;
 	
-	private String tcidx;
-	private String tbidx;
+	private int tcidx;
+	private String tcidxDesc;
+	private int tbidx;
+	private String tbidxDesc;
 	private String color;
 	private String carli;
 	private String qty;
@@ -73,26 +75,55 @@ public long getId() {
 
 
 
-	public String getTcidx() {
+
+
+	public int getTcidx() {
 		return tcidx;
 	}
 
 
 
-	public void setTcidx(String tcidx) {
+	public void setTcidx(int tcidx) {
 		this.tcidx = tcidx;
 	}
 
 
 
-	public String getTbidx() {
+	public String getTcidxDesc() {
+		return tcidxDesc;
+	}
+
+
+
+	public void setTcidxDesc(String tcidxDesc) {
+		this.tcidxDesc = tcidxDesc;
+	}
+
+
+
+	
+
+
+	public int getTbidx() {
 		return tbidx;
 	}
 
 
 
-	public void setTbidx(String tbidx) {
+	public void setTbidx(int tbidx) {
 		this.tbidx = tbidx;
+	}
+
+
+
+	public String getTbidxDesc() {
+		return tbidxDesc;
+	}
+
+
+
+	public void setTbidxDesc(String tbidxDesc) {
+		this.tbidxDesc = tbidxDesc;
 	}
 
 
