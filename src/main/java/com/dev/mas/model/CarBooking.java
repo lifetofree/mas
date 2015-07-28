@@ -40,7 +40,7 @@ public class CarBooking {
 	private Date updateDate;
 	private int tcStatus;
 	private String change;
-
+	
 	public String getTimestartDisplay() {
 		return timestartDisplay;
 	}
@@ -283,6 +283,7 @@ public class CarBooking {
 		this.change = change;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
@@ -334,4 +335,17 @@ public class CarBooking {
 	public void setMasterplace(MasterPlace masterplace) {
 		this.masterplace = masterplace;
 	}
+	
+	//Problem
+	private Problem problem;
+
+	public Problem getProblem() {
+		return problem;
+	}
+
+	public void setProblem(Problem problem) {
+		this.problem = problem;
+	}
+	
+	
 }

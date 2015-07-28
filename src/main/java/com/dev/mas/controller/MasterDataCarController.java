@@ -35,14 +35,15 @@ public class MasterDataCarController {
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
+		//List<MasterDataCar> datacarList = null;
+		MasterDataCar masterdatacarDesc = null;
 		Query query = null;
-		/*MasterDataCar masterdatacarDesc = null;
 		MasterTypeCar mastertypecar = null;
-		MasterBrand masterbrand = null;*/
+		MasterBrand masterbrand = null;
 		
 		
 		try {
-			List<MasterDataCar> datacarList   = carbookingService.listdatacar();
+			List <MasterDataCar> datacarList = carbookingService.listdatacar();
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
 			List<MasterBrand> brandList = carbookingService.listbrand();
 			
@@ -52,10 +53,12 @@ public class MasterDataCarController {
 			//datacarList = carbookingService.findByCriteriadatacar(query);
 			typecarList = carbookingService.findByCriteria(query);
 			brandList = carbookingService.findByCriteriabrand(query);
-			
 
-			/*for (int i = 0; i < datacarList.size(); i++) {
+			
+			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);
+				
+				
 				mastertypecar = carbookingService.listById(masterdatacarDesc.getTcidx());
 				if (mastertypecar != null) {
 					masterdatacarDesc.setTcidxDesc(mastertypecar.getTypeCarTH());
@@ -63,18 +66,23 @@ public class MasterDataCarController {
 					masterdatacarDesc.setTcidxDesc("รายการที่ไม่มีคือ " + masterdatacarDesc.getTcidx());
 				}
 				
+				System.out.println("masterdatacarDesc.getTcidx() ==> " + masterdatacarDesc.getTcidxDesc());	
+				
+				
 				masterbrand = carbookingService.listByIdbrand(masterdatacarDesc.getTbidx());
 				if (masterbrand != null) {
 					masterdatacarDesc.setTbidxDesc(masterbrand.getBrandTH());
 				} else {
 					masterdatacarDesc.setTbidxDesc("รายการที่ไม่มีคือ " + masterdatacarDesc.getTbidx());
 				}
-			}*/
+				System.out.println("masterdatacarDesc.getTbidx() ==> " + masterdatacarDesc.getTbidxDesc());
+				
+			}
 			
-		System.out.println("masterdatacar.getTcidx() ==> " + masterdatacar.getTcidxDesc());				
 			
-		modelmap.addAttribute("addDataCar", new MasterDataCar());
-		datacarList = getListMasterDataCar();
+			
+			datacarList = getListMasterDataCar();
+			modelmap.addAttribute("addDataCar", new MasterDataCar());
 			modelmap.addAttribute("retSampleList", datacarList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("brand", brandList);
@@ -109,8 +117,6 @@ public class MasterDataCarController {
 			typecarList = carbookingService.findByCriteria(query);
 			brandList = carbookingService.findByCriteriabrand(query);
 			
-			
-			
 			datacarList = getListMasterDataCar();
 			modelmap.addAttribute("addDataCar", new MasterDataCar());
 			modelmap.addAttribute("retSampleList", datacarList);
@@ -119,12 +125,6 @@ public class MasterDataCarController {
 			modelmap.addAttribute("brand", brandList);
 			modelmap.addAttribute("addDataCar", masterdatacar);
 
-			// all list
-			/*datacarList = getListMasterDataCar();
-			modelmap.addAttribute("retSampleList",datacarList);
-			modelmap.addAttribute("retSamples", "---");
-			*/
-			
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
 			modelmap.addAttribute("retSamples", e.getErrMsg());

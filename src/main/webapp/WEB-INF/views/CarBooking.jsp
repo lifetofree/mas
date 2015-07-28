@@ -1003,90 +1003,6 @@
 
 							</div>
 						</fieldset>
-
-						<!-- <fieldset
-							style="margin-top: 30px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
-							class="col-lg-11">
-							<br>
-
-							 <div class="col-lg-3">
-								<div class="col-xs-6 col-md-3">
-									<a href="#" class="thumbnail"> <img	src="Image/download.jpg"></a>
-
-								</div>
-							</div>
-
-							<div>
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">รถตู้</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">Toyota</label>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">สีรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">บรอนด์เงิน</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">ฮฉ 2398</label>
-									</div>
-								</div>
-
-
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">12 ที่นั่ง</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">พร้อมบริการ</label>
-									</div>
-								</div>
-
-
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">พนักงานขับรถ
-											:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="font-weight: bold">วิรัช สุพรรณคง(วิรัช)</label>
-									</div>
-								</div>
-
-
-
-							</div>
-							
-						</fieldset> -->
 					</div>
 
 					<!-- div pane2-->
@@ -1520,12 +1436,6 @@
 					<!-- div pane4-->
 
 
-
-
-
-
-
-
 					<!-- Tab 5 -->
 					<div id="pane5" class="tab-pane">
 						<!-- div pane5-->
@@ -1535,7 +1445,8 @@
 						</div>
 
 						<!-- ส่วนแจ้งปัญหา user-->
-						<div id="user" style="display: none;">
+						
+						<div id="user">
 							<div>
 								<div class="row">
 									<div class="col-sm-3" style="text-align: left">
@@ -1583,7 +1494,9 @@
 									</div>
 								</div>
 							</div>
-							<br> <br> <br>
+							<br>
+							<br>
+							<br>
 							<div id="tableuser">
 								<table
 									class="table table-striped table-bordered table-hover table-responsive;">
@@ -1613,11 +1526,11 @@
 
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
-						<div id="admin">
+						<div id="admin" style="display:none">
 
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
-							<div id="tablepro">
+							<div id="tablepro" >
 								<table
 									class="table table-striped table-bordered table-hover table-responsive">
 									<thead>
@@ -1630,9 +1543,9 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center;">1</td>
-											<td style="text-align: center;">จองรถยนต์</td>
-											<td style="text-align: center;">รอการตรวจสอบ</td>
+											<td style="text-align: center;"></td>
+											<td style="text-align: center;"></td>
+											<td style="text-align: center;"></td>
 											<td style="text-align: center;"><button type="submit"
 													class=" btn-primary glyphicon glyphicon-list-alt"
 													data-original-title="view" data-toggle="tooltip"

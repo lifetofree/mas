@@ -18,7 +18,7 @@ public class MasterDataCar {
 	private String color;
 	private String carli;
 	private String qty;
-	private int cEmpIDX;
+	private int cempIDX;
 	private Date createDate;
 	private int adEmpIDX;
 	private Date updateDate;
@@ -126,16 +126,14 @@ public long getId() {
 		this.tbidxDesc = tbidxDesc;
 	}
 
-
-
-	public int getcEmpIDX() {
-		return cEmpIDX;
+	public int getCempIDX() {
+		return cempIDX;
 	}
 
 
 
-	public void setcEmpIDX(int cEmpIDX) {
-		this.cEmpIDX = cEmpIDX;
+	public void setCempIDX(int cempIDX) {
+		this.cempIDX = cempIDX;
 	}
 
 
@@ -202,7 +200,7 @@ public long getId() {
 
 @Override
 public String toString() {
-	return "MasterDataCar [id=" + id + ", Tcidx=" +tcidx + ",Tbidx=" + tbidx + ", Color=" +color + ",Carli=" + carli +", Qty=" +qty + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
+	return "MasterDataCar [id=" + id + ", Tcidx=" +tcidx + ",Tbidx=" + tbidx + ", Color=" +color + ",Carli=" + carli +", Qty=" +qty + ", CempIDX=" + cempIDX + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
 }
 
 //MasterTypeCar

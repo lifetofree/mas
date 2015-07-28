@@ -64,7 +64,7 @@ public class CarBookingController {
 			for (int i = 0; i < carbookingList.size(); i++) {
 				carbookingDesc = carbookingList.get(i);
 				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
-				if (masterplace != null) {
+			if (masterplace != null) {
 					carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
 				} else {
 					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ " + carbookingDesc.getTpidx());
@@ -350,4 +350,36 @@ public class CarBookingController {
 		return "redirect:/carbookings/";
 
 	}
+	
+	
+	//tab problem ปุ่มsend user
+	/*@RequestMapping(value = { "/problem" }, params = { "btnproblem" }, method = RequestMethod.POST)
+	public String processProblem(ModelMap modelmap, @RequestParam String btnproblem,
+			@ModelAttribute(value = "addCarBooking") Problem problem,
+			BindingResult result) {
+		// list data
+		if (btnproblem.equals("saveproblem")) {
+			try {
+
+				// add data
+				Date date = new Date();
+				problem.setCreateDate(date);
+				problem.setTsidx(2);
+				carbookingService.saveproblem(problem);
+				List<Problem> problemList = carbookingService.listproblem();
+				modelmap.addAttribute("addCarBooking", new Problem());
+				modelmap.addAttribute("problemList", problemList);
+
+			} catch (SequenceException e) {
+				// modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addCarBooking", new Problem());
+			}
+		} else if (btnproblem.equals("cancel")) {
+			modelmap.addAttribute("addCarBooking", new Problem());
+		}
+
+		return "redirect:/carbookings/";
+
+	}*/
 }

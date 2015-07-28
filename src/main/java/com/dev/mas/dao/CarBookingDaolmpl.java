@@ -14,6 +14,7 @@ import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
+import com.dev.mas.model.Problem;
 
 @Service
 public class CarBookingDaolmpl implements CarBookingDao {
@@ -183,4 +184,29 @@ public class CarBookingDaolmpl implements CarBookingDao {
 		public void savecarbooking(CarBooking carbooking) {
 				mongoOperation.save(carbooking);
 		}
+		
+		
+		
+		
+		
+		// Problem
+				private Problem problem = new Problem();
+				@Override
+				public List<Problem> listproblem() {
+					List<Problem> problemList = mongoOperation.findAll(Problem.class);
+				return problemList;
+				}
+				public Problem listByIdproblem(int id) {
+					problem = mongoOperation.findById(id, Problem.class);
+				return problem;
+				}
+				@Override
+				public List<Problem> findByCriteriaproblem(Query query) {
+					List<Problem> problemList = mongoOperation.find(query,Problem.class);
+				return problemList;
+				}
+				@Override
+				public void saveproblem(Problem problem) {
+						mongoOperation.save(problem);
+				}
 }

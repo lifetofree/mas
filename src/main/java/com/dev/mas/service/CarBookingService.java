@@ -12,6 +12,7 @@ import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
+import com.dev.mas.model.Problem;
 
 public interface CarBookingService {
 	// MasterTypeCar
@@ -57,4 +58,11 @@ public interface CarBookingService {
 	public List<CarBooking> listcarbooking() throws SequenceException;
 	public CarBooking listByIdcarbooking(int id) throws SequenceException;
 	public List<CarBooking> findByCriteriacarbooking(Query query) throws SequenceException;
+	
+	
+	// Problem
+		public void saveproblem(Problem problem) throws SequenceException;
+		public List<Problem> listproblem() throws SequenceException;
+		public Problem listByIdproblem(int id) throws SequenceException;
+		public List<Problem> findByCriteriaproblem(Query query) throws SequenceException;
 }
