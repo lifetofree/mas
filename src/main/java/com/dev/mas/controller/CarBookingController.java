@@ -24,6 +24,7 @@ import com.dev.mas.model.MasterPlace;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
+import com.dev.mas.model.Problem;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
@@ -49,6 +50,7 @@ public class CarBookingController {
 		MasterDataCar masterdatacarDesc = null;
 		MasterTypeCar mastertypecar = null;
 		MasterBrand masterbrand = null;
+		Problem problemDesc = null;
 		String timestart = null;
 
 		try {
@@ -60,6 +62,7 @@ public class CarBookingController {
 			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
 			List<MasterPlace> placeList = carbookingService.listplace();
 			List<MasterDataCar> datacarList = carbookingService.listdatacar();
+			List<Problem> problemList = carbookingService.listproblem();
 
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
@@ -68,6 +71,7 @@ public class CarBookingController {
 			typerentList = carbookingService.findByCriteriatyperent(query);
 			typecarList = carbookingService.findByCriteria(query);
 			placeList = carbookingService.findByCriteriaplace(query);
+			problemList = carbookingService.findByCriteriaproblem(query);
 
 			// สำหรับ tab2 ดึงข้อมูลมาโชว์
 			datacarList = carbookingService.findByCriteriadatacar(query);
@@ -138,6 +142,16 @@ public class CarBookingController {
 				}
 			}
 
+			// ส่วนแสดงสถานะของแจ้งปัญหา Tab5
+			for (int i = 0; i < problemList.size(); i++) {
+				problemDesc = problemList.get(i);
+				if (problemDesc.getTspidx() == 1) {
+					problemDesc.setTspidxDesc("รอการตรวจสอบ");
+				} else if (problemDesc.getTspidx() == 2) {
+					problemDesc.setTspidxDesc("รับทราบ");
+				}
+			}
+
 			// สำหรับ tab1 โชว์ข้อมูล
 			modelmap.addAttribute("retSampleList", carbookingList);
 			// สำหรับ dropdownlist
@@ -146,6 +160,8 @@ public class CarBookingController {
 			modelmap.addAttribute("place", placeList);
 			// สำหรับ tab2 ดึงข้อมูลแสดง
 			modelmap.addAttribute("datacarList", datacarList);
+			// สำหรับดึงค่ามาแสดง tab5
+			modelmap.addAttribute("problemList", problemList);
 
 		} catch (SequenceException e) {
 			// System.out.println(e.getErrMsg());
@@ -198,6 +214,7 @@ public class CarBookingController {
 		MasterStatus masterstatus = null;
 		String timestart = null;
 		String timeend = null;
+		Problem problemDesc = null;
 
 		try {
 			// System.out.println("id ==> " + id);
@@ -210,6 +227,9 @@ public class CarBookingController {
 			List<MasterPlace> placeList = carbookingService.listplace();
 			List<MasterStatus> statusList = carbookingService.liststatus();
 
+			List<Problem> problemList = carbookingService.listproblem();
+			
+			
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 
@@ -217,7 +237,7 @@ public class CarBookingController {
 			typecarList = carbookingService.findByCriteria(query);
 			placeList = carbookingService.findByCriteriaplace(query);
 			carbookingList = carbookingService.findByCriteriacarbooking(query);
-
+			problemList = carbookingService.findByCriteriaproblem(query);
 			// show form
 			carbooking = carbookingService.listByIdcarbooking(id);
 
@@ -248,20 +268,27 @@ public class CarBookingController {
 			timeend = carbooking.getTimeend();
 			timeend = timeend.substring(0, 2) + ":" + timeend.substring(2, 4);
 			carbooking.setTimeendDisplay(timeend);
+			
+			// ส่วนแสดงสถานะของแจ้งปัญหา Tab5
+			for (int i = 0; i < problemList.size(); i++) {
+				problemDesc = problemList.get(i);
+				if (problemDesc.getTspidx() == 1) {
+					problemDesc.setTspidxDesc("รอการตรวจสอบ");
+				} else if (problemDesc.getTspidx() == 2) {
+					problemDesc.setTspidxDesc("รับทราบ");
+				}
+			}
 
-			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ
-																// tab
-																// อื่นเมิงใช้
-																// พอมันไม่รู้จักเลย
-																// error
-			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะ
-																// สำหรับแสดงบนหน้าจอ
-																// (Label)
+			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นเมิงใช้พอมันไม่รู้จักเลยerror
+			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			modelmap.addAttribute("retSampleList", carbookingList);
+			// dropdown tab3
 			modelmap.addAttribute("typerent", typerentList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
 			modelmap.addAttribute("status", statusList);
+			// สำหรับดึงค่ามาแสดง tab5
+			modelmap.addAttribute("problemList", problemList);
 
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -369,16 +396,8 @@ public class CarBookingController {
 			timeend = timeend.substring(0, 2) + ":" + timeend.substring(2, 4);
 			carbooking.setTimeendDisplay(timeend);
 
-			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะ
-																// tab
-																// อื่นเมิงใช้
-																// พอมันไม่รู้จักเลย
-																// error >>>
-																// ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist
-																// tab3
-			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะ
-																// สำหรับแสดงบนหน้าจอ
-																// (Label)
+			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นเมิงใช้พอมันไม่รู้จักเลยerror >>>ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist tab3
+			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			modelmap.addAttribute("retSampleList", carbookingList);
 			modelmap.addAttribute("typerent", typerentList);
 			modelmap.addAttribute("typecar", typecarList);
@@ -435,27 +454,59 @@ public class CarBookingController {
 	}
 
 	// tab problem ปุ่มsend user
-	/*
-	 * @RequestMapping(value = { "/problem" }, params = { "btnproblem" }, method
-	 * = RequestMethod.POST) public String processProblem(ModelMap modelmap,
-	 * @RequestParam String btnproblem,
-	 * 
-	 * @ModelAttribute(value = "addCarBooking") Problem problem, BindingResult
-	 * result) { // list data if (btnproblem.equals("saveproblem")) { try {
-	 * 
-	 * // add data Date date = new Date(); problem.setCreateDate(date);
-	 * problem.setTsidx(2); carbookingService.saveproblem(problem);
-	 * List<Problem> problemList = carbookingService.listproblem();
-	 * modelmap.addAttribute("addCarBooking", new Problem());
-	 * modelmap.addAttribute("problemList", problemList);
-	 * 
-	 * } catch (SequenceException e) { // modelmap.addAttribute("retSamples",
-	 * e.getErrMsg()); } finally { modelmap.addAttribute("addCarBooking", new
-	 * Problem()); } } else if (btnproblem.equals("cancel")) {
-	 * modelmap.addAttribute("addCarBooking", new Problem()); }
-	 * 
-	 * return "redirect:/carbookings/";
-	 * 
-	 * }
-	 */
+	@RequestMapping(value = { "/problem" }, params = { "btnproblem" }, method = RequestMethod.POST)
+	public String processForm(ModelMap modelmap,
+			@RequestParam String btnproblem,
+			@ModelAttribute(value = "addCarBooking") Problem problem,
+			BindingResult result) {
+		// list data
+		if (btnproblem.equals("saveproblem")) {
+			try {
+
+				// add data
+				Date date = new Date();
+				problem.setCreateDate(date);
+				problem.setTspidx(1);
+				carbookingService.saveproblem(problem);
+				modelmap.addAttribute("addCarBooking", new Problem());
+
+			} catch (SequenceException e) {
+				// modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+				modelmap.addAttribute("addCarBooking", new Problem());
+			}
+		} else if (btnproblem.equals("cancel")) {
+			modelmap.addAttribute("addCarBooking", new Problem());
+		}
+		return "redirect:/carbookings/";
+	}
+	
+	
+	@RequestMapping(value = { "/viewproblem/{id}" }, method = RequestMethod.GET)
+	public String processProblemView(ModelMap modelmap, @PathVariable int id) {
+		//Problem problem = null;
+		Query query = null;
+		
+
+		try {
+			
+			
+		
+			List <Problem> problemList = carbookingService.listproblem();
+			query = new Query();
+			problemList = carbookingService.findByCriteriaproblem(query);
+			// show form
+			//problem = carbookingService.listByIdproblem(id);
+			modelmap.addAttribute("addCarBooking", problemList); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+			modelmap.addAttribute("problem", problemList);
+			
+		} catch (SequenceException e) {
+			System.out.println(e.getErrMsg());
+			modelmap.addAttribute("retSamples", e.getErrMsg());
+		} finally {
+
+		}
+
+		return "CarBooking";
+	}
 }

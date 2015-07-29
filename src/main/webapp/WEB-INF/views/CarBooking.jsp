@@ -47,6 +47,10 @@
 		var Check_url = document.URL;
 		Check_url = Check_url.split("test=");
 		Show_Div(Check_url[1]);
+		
+		var Check_url = document.URL;
+		Check_url = Check_url.split("tests=");
+		Show_Div1(Check_url[1]);
 
 		$(".testx").val("");
 	});
@@ -1009,6 +1013,84 @@
 										</fieldset>
 									</c:forEach>
 								</c:when>
+
+								<c:otherwise>
+									<fieldset
+										style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+										class="col-lg-11">
+										<br>
+
+										<div>
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+
+
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">สีรถยนต์
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+
+
+
+
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+
+
+
+
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">พนักงานขับรถ
+														:</label>
+												</div>
+												<div class="col-sm-9">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+
+
+
+										</div>
+									</fieldset>
+								</c:otherwise>
 							</c:choose>
 						</form:form>
 					</div>
@@ -1447,6 +1529,7 @@
 					<!-- Tab 5 -->
 					<div id="pane5" class="tab-pane">
 						<!-- div pane5-->
+
 						<div class="row">
 							<p style="text-align: center; font-weight: bold; font-size: 17pt">แจ้งปัญหา</p>
 							<br>
@@ -1454,89 +1537,111 @@
 
 						<!-- ส่วนแจ้งปัญหา user-->
 
-						<div id="user">
-							<div>
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>หัวข้อ :</label>
+						<div id="user" style="display: none">
+							<form:form modelAttribute="addCarBooking" method="POST"
+								action="${pageContext.request.contextPath}/carbookings/problem">
+								<div>
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>หัวข้อ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:input path="topic" style="width: 150pt; Height: 20pt"></form:input>
+										</div>
 									</div>
-									<div class="col-sm-7">
-										<input type="text" style="width: 150pt; Height: 20pt">
+
+									<br>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label> ข้อความ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:textarea path="context" rows="5" id="comment"
+												style="width: 150pt"></form:textarea>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label> ติดต่อ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:input path="tel" style="width: 150pt; Height: 20pt;"
+												PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div style="text-align: left; padding-left: 225pt">
+											<button type="submit" name="btnproblem" value="saveproblem"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="send" data-toggle="tooltip"
+												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+
+											<button type="submit"
+												class="btn btn-danger glyphicon glyphicon-remove"
+												name="btnproblem" value="cancel"
+												data-original-title="cancel" data-toggle="tooltip"
+												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+										</div>
 									</div>
 								</div>
-
 								<br>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label> ข้อความ :</label>
-									</div>
-									<div class="col-sm-7">
-										<textarea class="form-control" rows="5" id="comment"
-											style="width: 150pt"></textarea>
-									</div>
-								</div>
 								<br>
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label> ติดต่อ :</label>
-									</div>
-									<div class="col-sm-7">
-										<input type="text" style="width: 150pt; Height: 20pt;"
-											PlaceHolder="กรุณาระบุเบอร์โทรศัพท์">
-									</div>
-								</div>
 								<br>
-								<div class="row">
-									<div style="text-align: left; padding-left: 225pt">
-										<button type="submit"
-											class="btn btn-success glyphicon glyphicon-floppy-disk"
-											data-original-title="send" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+								<div id="tableuser">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive;">
+										<thead>
+											<tr>
+												<th style="text-align: center;">ลำดับที่</th>
+												<th style="text-align: center;">หัวข้อ</th>
+												<th style="text-align: center;">ปัญหาที่เกิดขึ้น</th>
+												<th style="text-align: center;">สถานะ</th>
+											</tr>
+										</thead>
+										<c:choose>
+											<c:when test="${not empty problemList}">
+												<c:forEach var="listValue" items="${problemList}">
+													<tr>
+														<td style="text-align: center;"><c:out
+																value="${listValue.id}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.topic}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.context}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.tspidxDesc}" /></td>
 
-										<button type="submit"
-											class="btn btn-danger glyphicon glyphicon-remove"
-											data-original-title="cancel" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-									</div>
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</table>
 								</div>
-							</div>
-							<br> <br> <br>
-							<div id="tableuser">
-								<table
-									class="table table-striped table-bordered table-hover table-responsive;">
-									<thead>
-										<tr>
-											<th style="text-align: center;">ลำดับที่</th>
-											<th style="text-align: center;">หัวข้อ</th>
-											<th style="text-align: center;">ปัญหาที่เกิดขึ้น</th>
-											<th style="text-align: center;">สถานะ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="text-align: center;">1</td>
-											<td style="text-align: center;">จองรถยนต์</td>
-											<td style="text-align: center;">ไม่สามารถทำรายการจองรถยนต์ได้เนื่องจากรหัสพนักงานไม่สามารถทำรายการได้</td>
-											<td style="text-align: center;">รอทำการตรวจสอบ</td>
-
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
+							</form:form>
 						</div>
 
 
 
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
-						<div id="admin" style="display: none">
-
+						<div id="admin">
+					
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
 							<div id="tablepro">
+							<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/viewproblem">
 								<table
 									class="table table-striped table-bordered table-hover table-responsive">
 									<thead>
@@ -1549,25 +1654,49 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center;"></td>
-											<td style="text-align: center;"></td>
-											<td style="text-align: center;"></td>
-											<td style="text-align: center;"><button type="submit"
-													class=" btn-primary glyphicon glyphicon-list-alt"
-													data-original-title="view" data-toggle="tooltip"
-													style="font-size: 11pt; width: 40pt; height: 20pt"
-													onclick="Show_Div1('adminproblem')"></button></td>
+											<c:choose>
+											<c:when test="${not empty problemList}">
+												<c:forEach var="listValue" items="${problemList}">
+													<tr>
+														<td style="text-align: center;"><c:out
+																value="${listValue.id}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.topic}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.tspidxDesc}" /></td>
+																<td style="text-align: center;">
+												<a	href="<c:url value='/carbookings/problem/${listValue.id}'/>?tests=adminproblem"><span
+															class="btn btn-primary glyphicon glyphicon-list-alt"
+															id="btndiv2" aria-hidden="true"
+															data-original-title="view" data-toggle="tooltip"></span></a></td>
+
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+											
 
 										</tr>
 									</tbody>
 								</table>
+								</form:form>
+								</div>
 
-							</div>
-
+							
 							<br>
 
 							<div id="adminproblem" style="display: none">
+							<form:form modelAttribute="addCarBooking">
 								<div class="row">
+									<form:hidden path="id" />
 									<div class="col-sm-3" style="text-align: left">
 										<label>ชื่อผู้แจ้ง :</label>
 									</div>
@@ -1582,7 +1711,7 @@
 										<label>ชื่อหัวข้อ</label>
 									</div>
 									<div class="col-sm-7">
-										<label>จองรถยนต์</label>
+										<label>${problem.topic}</label>
 									</div>
 
 								</div>
@@ -1592,7 +1721,7 @@
 										<label>เนื้อหาข้อความ</label>
 									</div>
 									<div class="col-sm-9">
-										<label>ไม่สามารถทำรายการจองรถยนต์ได้เนื่องจากรหัสพนักงานไม่สามารถทำรายการได้</label>
+										<label>${problem.context}</label>
 									</div>
 								</div>
 
@@ -1603,7 +1732,7 @@
 										<label>เบอร์โทรศัพท์ติดต่อ</label>
 									</div>
 									<div class="col-sm-9">
-										<label>234</label>
+										<label>${problem.telproblem}</label>
 									</div>
 								</div>
 
@@ -1614,8 +1743,8 @@
 
 									<div class="col-sm-9">
 										<select style="Width: 130pt; Height: 20pt">
-											<option value="00">เลือกผลอนุมัติ...</option>
-											<option value="1">รับทราบ</option>
+											<option value="none">เลือกผลอนุมัติ...</option>
+											<option value="2">รับทราบ</option>
 
 										</select>
 									</div>
@@ -1639,8 +1768,9 @@
 								</div>
 
 
-
+</form:form>
 							</div>
+							
 						</div>
 						<!-- ปิดส่วน Admin -->
 

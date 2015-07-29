@@ -35,6 +35,8 @@ public class CarBooking {
 	private String tel;
 	private int tsidx;
 	private String tsidxDesc;
+	private int tspidx;
+	private String tspidxDesc;
 	private int cEmpIDX;
 	private Date createDate;
 	private int adEmpIDX;
@@ -43,6 +45,11 @@ public class CarBooking {
 	private int tcStatus;
 	private String tcStatusDesc;
 	private String change;
+	
+	//TbProblem
+	private String topic;
+	private String context;
+	private String telproblem;
 	
 	public String getTimestartDisplay() {
 		return timestartDisplay;
@@ -309,6 +316,67 @@ public class CarBooking {
 	public void setTcStatusDesc(String tcStatusDesc) {
 		this.tcStatusDesc = tcStatusDesc;
 	}
+	
+	//tb problem
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getTelproblem() {
+		return telproblem;
+	}
+
+	public void setTelproblem(String telproblem) {
+		this.telproblem = telproblem;
+	}
+	public int getTspidx() {
+		return tspidx;
+	}
+
+	public void setTspidx(int tspidx) {
+		this.tspidx = tspidx;
+	}
+
+	public String getTspidxDesc() {
+		return tspidxDesc;
+	}
+
+	public void setTspidxDesc(String tspidxDesc) {
+		this.tspidxDesc = tspidxDesc;
+	}
+
+
+
+
+
+
+
+
+
+
+	//MasterTypeRent
+	private MasterTypeRent mastertyperent;
+	
+	public MasterTypeRent getMastertyperent() {
+		return mastertyperent;
+	}
+
+	public void setMastertyperent(MasterTypeRent mastertyperent) {
+		this.mastertyperent = mastertyperent;
+	}
+	
 
 	@Override
 	public String toString() {
@@ -324,20 +392,6 @@ public class CarBooking {
 				+ ", Change=" + change + "]";
 	}
 	
-	//MasterTypeRent
-	private MasterTypeRent mastertyperent;
-	
-	public MasterTypeRent getMastertyperent() {
-		return mastertyperent;
-	}
-
-	public void setMastertyperent(MasterTypeRent mastertyperent) {
-		this.mastertyperent = mastertyperent;
-	}
-
-	
-	
-
 	// MasterTypeCar
 	private MasterTypeCar mastertypecar;
 	

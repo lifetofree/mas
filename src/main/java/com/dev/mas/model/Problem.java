@@ -15,13 +15,15 @@ public class Problem {
 	private String topic;
 	private String context;
 	private String tel;
-	private int tsidx;
+	private int tspidx;
+	private String tspidxDesc;
 	private int cEmpIDX;
 	private Date createDate;
 	private int adEmpIDX;
 	private Date adCreateDate;
 	private Date updateDate;
 	private int tcStatus;
+	
 	public long getId() {
 		return id;
 	}
@@ -54,11 +56,11 @@ public class Problem {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public int getTsidx() {
-		return tsidx;
+	public int getTspidx() {
+		return tspidx;
 	}
-	public void setTsidx(int tsidx) {
-		this.tsidx = tsidx;
+	public void setTspidx(int tspidx) {
+		this.tspidx = tspidx;
 	}
 	public int getcEmpIDX() {
 		return cEmpIDX;
@@ -97,9 +99,16 @@ public class Problem {
 		this.tcStatus = tcStatus;
 	}
 	
+	
+	public String getTspidxDesc() {
+		return tspidxDesc;
+	}
+	public void setTspidxDesc(String tspidxDesc) {
+		this.tspidxDesc = tspidxDesc;
+	}
 	@Override
 	public String toString() {
-		return "Problem [id=" + id + ", Empidx=" + empidx + ", Topic=" + topic + ", Context=" + context + ",Tel=" + tel + ", Tsidx=" + tsidx + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
+		return "Problem [id=" + id + ", Empidx=" + empidx + ", Topic=" + topic + ", Context=" + context + ",Tel=" + tel + ", Tsidx=" + tspidx + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
 	}
 
 }

@@ -318,7 +318,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 		problem.setTopic(problem.getTopic());
 		problem.setContext(problem.getContext());
 		problem.setTel(problem.getTel());
-		problem.setTsidx(problem.getTsidx());
+		problem.setTspidx(problem.getTspidx());
 		problem.setcEmpIDX(problem.getcEmpIDX());
 		problem.setCreateDate(problem.getCreateDate());
 		problem.setAdEmpIDX(problem.getAdEmpIDX());
