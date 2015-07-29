@@ -17,6 +17,8 @@ public class CarBooking {
 	private String tridxDesc;
 	private int tcidx;
 	private String tcidxDesc;
+	private int tbidx;
+	private String tbidxDesc;
 	private int tpidx;
 	private String tpidxDesc;
 	private String etcplace;
@@ -39,6 +41,7 @@ public class CarBooking {
 	private Date adCreateDate;
 	private Date updateDate;
 	private int tcStatus;
+	private String tcStatusDesc;
 	private String change;
 	
 	public String getTimestartDisplay() {
@@ -79,6 +82,22 @@ public class CarBooking {
 
 	public void setTcidxDesc(String tcidxDesc) {
 		this.tcidxDesc = tcidxDesc;
+	}
+
+	public int getTbidx() {
+		return tbidx;
+	}
+
+	public void setTbidx(int tbidx) {
+		this.tbidx = tbidx;
+	}
+
+	public String getTbidxDesc() {
+		return tbidxDesc;
+	}
+
+	public void setTbidxDesc(String tbidxDesc) {
+		this.tbidxDesc = tbidxDesc;
 	}
 
 	public int getEmpidx() {
@@ -283,7 +302,14 @@ public class CarBooking {
 		this.change = change;
 	}
 
-	
+	public String getTcStatusDesc() {
+		return tcStatusDesc;
+	}
+
+	public void setTcStatusDesc(String tcStatusDesc) {
+		this.tcStatusDesc = tcStatusDesc;
+	}
+
 	@Override
 	public String toString() {
 		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
@@ -336,6 +362,32 @@ public class CarBooking {
 		this.masterplace = masterplace;
 	}
 	
+	
+	//MasterDataCar
+	private MasterDataCar masterdatacar;
+	
+	public MasterDataCar getMasterdatacar() {
+		return masterdatacar;
+	}
+
+	public void setMasterdatacar(MasterDataCar masterdatacar) {
+		this.masterdatacar = masterdatacar;
+	}
+	
+	
+	//MasterBrand
+	private MasterBrand masterbrand;
+	
+
+	public MasterBrand getMasterbrand() {
+		return masterbrand;
+	}
+
+	public void setMasterbrand(MasterBrand masterbrand) {
+		this.masterbrand = masterbrand;
+	}
+
+	
 	//Problem
 	private Problem problem;
 
@@ -346,6 +398,7 @@ public class CarBooking {
 	public void setProblem(Problem problem) {
 		this.problem = problem;
 	}
+	
 	
 	
 }

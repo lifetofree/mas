@@ -578,7 +578,7 @@
 													</div>
 												</c:when>
 											</c:choose>
-											
+
 											<form:input path="tridx"></form:input>
 										</div>
 
@@ -882,7 +882,7 @@
 										<div class="row" style="padding-left: 200pt">
 											<div class="col-sm-6" style="text-align: left">
 
-												 <button type="submit"
+												<button type="submit"
 													class="btn btn-success glyphicon glyphicon-ok"
 													data-original-title="save" data-toggle="tooltip"
 													name="btnedit" value="edit"></button>
@@ -890,7 +890,7 @@
 												<button type="submit"
 													class="btn btn-danger glyphicon glyphicon-remove"
 													data-original-title="cancel" data-toggle="tooltip"
-													 value="main" name="btnedit"></button>
+													value="main" name="btnedit"></button>
 
 
 											</div>
@@ -914,95 +914,103 @@
 
 					<!-- Tab2 -->
 					<div id="pane2" class="tab-pane">
-						<!-- div pane2-->
-						<div class="row">
-							<h4
-								style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลรถยนต์</h4>
-						</div>
-						<br>
-
-						<fieldset
-							style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
-							class="col-lg-11">
+						<form:form modelAttribute="addCarBooking">
+							<!-- div pane2-->
+							<div class="row">
+								<h4
+									style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลรถยนต์</h4>
+							</div>
 							<br>
+							<c:choose>
+								<c:when test="${not empty datacarList}">
+									<c:forEach var="listValue" items="${datacarList}">
+										<fieldset
+											style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+											class="col-lg-11">
+											<br>
 
-							<!--  <div class="col-lg-3">
+											<!--  <div class="col-lg-3">
 								<div class="col-xs-6 col-md-3">
 									<a href="#" class="thumbnail"> <img	src="Image/download.jpg"></a>
 
 								</div>
 							</div>-->
 
-							<div>
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">รถตู้</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">Toyota</label>
-									</div>
-								</div>
+											<div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
+															:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.tcidxDesc}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.tbidxDesc}</label>
+													</div>
+												</div>
 
 
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">สีรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">บรอนด์เงิน</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">ฮฉ 2398</label>
-									</div>
-								</div>
-
-
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">12 ที่นั่ง</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">พร้อมบริการ</label>
-									</div>
-								</div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">สีรถยนต์
+															:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.color}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.carli}</label>
+													</div>
+												</div>
 
 
 
 
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">พนักงานขับรถ
-											:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="font-weight: bold">วิรัช สุพรรณคง(วิรัช)</label>
-									</div>
-								</div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
+															:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.qty}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.tcStatusDesc}</label>
+													</div>
+												</div>
 
 
 
-							</div>
-						</fieldset>
+
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">พนักงานขับรถ
+															:</label>
+													</div>
+													<div class="col-sm-9">
+														<label style="font-weight: bold">วิรัช
+															สุพรรณคง(วิรัช)</label>
+													</div>
+												</div>
+
+
+
+											</div>
+										</fieldset>
+									</c:forEach>
+								</c:when>
+							</c:choose>
+						</form:form>
 					</div>
 
 					<!-- div pane2-->
@@ -1445,7 +1453,7 @@
 						</div>
 
 						<!-- ส่วนแจ้งปัญหา user-->
-						
+
 						<div id="user">
 							<div>
 								<div class="row">
@@ -1494,9 +1502,7 @@
 									</div>
 								</div>
 							</div>
-							<br>
-							<br>
-							<br>
+							<br> <br> <br>
 							<div id="tableuser">
 								<table
 									class="table table-striped table-bordered table-hover table-responsive;">
@@ -1526,11 +1532,11 @@
 
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
-						<div id="admin" style="display:none">
+						<div id="admin" style="display: none">
 
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
-							<div id="tablepro" >
+							<div id="tablepro">
 								<table
 									class="table table-striped table-bordered table-hover table-responsive">
 									<thead>
