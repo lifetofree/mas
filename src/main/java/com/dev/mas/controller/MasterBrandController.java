@@ -3,9 +3,10 @@ package com.dev.mas.controller;
 import java.util.Date;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterBrand;
@@ -51,6 +54,7 @@ public class MasterBrandController {
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
 		List<MasterBrand> brandList = null;
+
 		try {
 
 			// show form
@@ -70,16 +74,19 @@ public class MasterBrandController {
 
 		return "MasterBrand";
 	}
-
+	
+	
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
 			@RequestParam String btnedit, MasterBrand masterbrand) {
 
 		if (btnedit.equals("savebrand")) {
 			try {
-				Date date = new Date();
-				masterbrand.setCreateDate(date);
-				carbookingService.savebrand(masterbrand);
+				//if (masterbrand.getBrandTH() != null) {
+					Date date = new Date();
+					masterbrand.setCreateDate(date);
+					carbookingService.savebrand(masterbrand);
+
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
@@ -91,6 +98,7 @@ public class MasterBrandController {
 
 		return "redirect:/brand/";
 	}
+
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
@@ -109,8 +117,7 @@ public class MasterBrandController {
 
 		return "redirect:/brand/";
 	}
-	
-	
+
 	private List<MasterBrand> getListMasterBrand() throws SequenceException {
 		List<MasterBrand> brandList = null;
 		MasterBrand masterbrandDesc = null;
@@ -118,7 +125,7 @@ public class MasterBrandController {
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			query.with(new Sort(Sort.Direction.DESC, "id"));
+			//query.with(new Sort(Sort.Direction.DESC, "id"));
 			brandList = carbookingService.findByCriteriabrand(query);
 
 			for (int i = 0; i < brandList.size(); i++) {
