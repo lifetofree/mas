@@ -498,13 +498,13 @@ public class CarBookingController {
 			BindingResult result) {
 		// list data
 		if (btnedit.equals("edit")) {
-			CarBooking newCarbooking = null;
+			//CarBooking carbooking = null;
 			try {
 
-				newCarbooking = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
+				carbooking = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
 				Date date = new Date();
-				newCarbooking.setUpdateDate(date);
-				carbookingService.savecarbooking(newCarbooking);
+				carbooking.setUpdateDate(date);
+				carbookingService.savecarbooking(carbooking);
 				
 
 				// ไปเพิ่มค่าอันใหม่เลย แต่เข้าใน loop if

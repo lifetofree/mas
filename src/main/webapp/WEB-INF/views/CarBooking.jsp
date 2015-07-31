@@ -571,18 +571,17 @@
 											<c:choose>
 												<c:when test="${not empty typerent}">
 													<div class="col-sm-7">
-													<form:select path="tridx" 
+														<form:select id="selectTypeRentId" path="tridx"
 															style="width: 130pt; height: 20pt">
-															<c:forEach var="listValue" items="${typerent}">
-																<option value="<c:out value='${listValue.id}' />">
-																	<c:out value="${listValue.typerentTH}" />
-																</c:forEach>
+															<c:forEach items="${typerent}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tridx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.typerentTH}</option>
+															</c:forEach>
 														</form:select>
 													</div>
 												</c:when>
 											</c:choose>
-
-											<form:input path="tridx"></form:input>
 										</div>
 
 
@@ -596,15 +595,13 @@
 												<c:when test="${not empty typecar}">
 
 													<div class="col-sm-7">
-														<form:select path="tcidx"
+														<form:select id="selectTypeCarId" path="tcidx"
 															style="width: 130pt; height: 20pt">
-															
-															<c:forEach var="listValue" items="${typecar}">
-																<option value="<c:out value='${listValue.id}' />">
-																	<c:out value="${listValue.typeCarTH}" /></option>
-																	 <form:option value="${listValue}" selected="true" > ${listValue.typeCarTH}</form:option>
+															<c:forEach items="${typecar}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tcidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.typeCarTH}</option>
 															</c:forEach>
-
 														</form:select>
 													</div>
 												</c:when>
@@ -621,15 +618,14 @@
 											<c:choose>
 												<c:when test="${not empty place}">
 
-													<div class="col-sm-3">
-														<form:select path="tpidx"
+													 <div class="col-sm-3">
+														<form:select id="selectPlaceId" path="tpidx"
 															style="width: 130pt; height: 20pt">
-															<c:forEach var="listValue" items="${place}">
-																<option value="<c:out value='${listValue.id}' />">
-																	<c:out value="${listValue.placeTH}" />
-																</option>
+															<c:forEach items="${place}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tpidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.placeTH}</option>
 															</c:forEach>
-
 														</form:select>
 													</div>
 												</c:when>
@@ -869,12 +865,20 @@
 											<c:choose>
 												<c:when test="${not empty status}">
 													<div class="col-sm-3">
-														<form:select path="tsidx"
+														<%-- <form:select path="tsidx"
 															style="width: 130pt; height: 20pt">
 															<c:forEach var="listValue" items="${status}">
 																<option value="<c:out value='${listValue.id}' />">
 																	<c:out value="${listValue.statusTH}" />
 																</option>
+															</c:forEach> 
+														</form:select>--%>
+														<form:select id="selectStatusId" path="tsidx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${status}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tsidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.statusTH}</option>
 															</c:forEach>
 														</form:select>
 													</div>
@@ -1537,7 +1541,7 @@
 
 						<!-- ส่วนแจ้งปัญหา user-->
 
-						<div id="user">
+						<div id="user" style="display: none">
 							<form:form modelAttribute="addCarBooking" method="POST"
 								action="${pageContext.request.contextPath}/carbookings/problem">
 								<div>
@@ -1546,7 +1550,8 @@
 											<label>หัวข้อ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:input path="topic" class="testx" style="width: 150pt; Height: 20pt"></form:input>
+											<form:input path="topic" class="testx"
+												style="width: 150pt; Height: 20pt"></form:input>
 										</div>
 									</div>
 
@@ -1558,8 +1563,8 @@
 											<label> ข้อความ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:textarea path="context" rows="5" id="comment" class="testx"
-												style="width: 150pt"></form:textarea>
+											<form:textarea path="context" rows="5" id="comment"
+												class="testx" style="width: 150pt"></form:textarea>
 										</div>
 									</div>
 									<br>
@@ -1568,8 +1573,8 @@
 											<label> ติดต่อ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:input path="tel" style="width: 150pt; Height: 20pt;" class="testx"
-												PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
+											<form:input path="tel" style="width: 150pt; Height: 20pt;"
+												class="testx" PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
 										</div>
 									</div>
 									<br>
@@ -1636,7 +1641,7 @@
 
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
-						<div id="admin" style="display: none">
+						<div id="admin">
 
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
