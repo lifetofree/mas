@@ -47,7 +47,7 @@
 		var Check_url = document.URL;
 		Check_url = Check_url.split("test=");
 		Show_Div(Check_url[1]);
-		
+
 		var Check_url = document.URL;
 		Check_url = Check_url.split("tests=");
 		Show_Div1(Check_url[1]);
@@ -571,13 +571,12 @@
 											<c:choose>
 												<c:when test="${not empty typerent}">
 													<div class="col-sm-7">
-														<form:select path="tridx"
+													<form:select path="tridx" 
 															style="width: 130pt; height: 20pt">
 															<c:forEach var="listValue" items="${typerent}">
 																<option value="<c:out value='${listValue.id}' />">
 																	<c:out value="${listValue.typerentTH}" />
-																</option>
-															</c:forEach>
+																</c:forEach>
 														</form:select>
 													</div>
 												</c:when>
@@ -599,10 +598,11 @@
 													<div class="col-sm-7">
 														<form:select path="tcidx"
 															style="width: 130pt; height: 20pt">
+															
 															<c:forEach var="listValue" items="${typecar}">
 																<option value="<c:out value='${listValue.id}' />">
-																	<c:out value="${listValue.typeCarTH}" />
-																</option>
+																	<c:out value="${listValue.typeCarTH}" /></option>
+																	 <form:option value="${listValue}" selected="true" > ${listValue.typeCarTH}</form:option>
 															</c:forEach>
 
 														</form:select>
@@ -1537,7 +1537,7 @@
 
 						<!-- ส่วนแจ้งปัญหา user-->
 
-						<div id="user" style="display: none">
+						<div id="user">
 							<form:form modelAttribute="addCarBooking" method="POST"
 								action="${pageContext.request.contextPath}/carbookings/problem">
 								<div>
@@ -1546,7 +1546,7 @@
 											<label>หัวข้อ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:input path="topic" style="width: 150pt; Height: 20pt"></form:input>
+											<form:input path="topic" class="testx" style="width: 150pt; Height: 20pt"></form:input>
 										</div>
 									</div>
 
@@ -1558,7 +1558,7 @@
 											<label> ข้อความ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:textarea path="context" rows="5" id="comment"
+											<form:textarea path="context" rows="5" id="comment" class="testx"
 												style="width: 150pt"></form:textarea>
 										</div>
 									</div>
@@ -1568,7 +1568,7 @@
 											<label> ติดต่อ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:input path="tel" style="width: 150pt; Height: 20pt;"
+											<form:input path="tel" style="width: 150pt; Height: 20pt;" class="testx"
 												PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
 										</div>
 									</div>
@@ -1636,141 +1636,142 @@
 
 
 						<!-- ส่วนแจ้งปัญหา Admin-->
-						<div id="admin">
-					
+						<div id="admin" style="display: none">
+
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
 							<div id="tablepro">
-							<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/viewproblem">
-								<table
-									class="table table-striped table-bordered table-hover table-responsive">
-									<thead>
-										<tr>
-											<th style="text-align: center;">ลำดับที่</th>
-											<th style="text-align: center;">หัวข้อ</th>
-											<th style="text-align: center;">สถานะ</th>
-											<th style="text-align: center;">เพิ่มเติม</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<c:choose>
-											<c:when test="${not empty problemList}">
-												<c:forEach var="listValue" items="${problemList}">
-													<tr>
-														<td style="text-align: center;"><c:out
-																value="${listValue.id}" /></td>
-														<td style="text-align: center;"><c:out
-																value="${listValue.topic}" /></td>
-														<td style="text-align: center;"><c:out
-																value="${listValue.tspidxDesc}" /></td>
-																<td style="text-align: center;">
-												<a	href="<c:url value='/carbookings/problem/${listValue.id}'/>?tests=adminproblem"><span
-															class="btn btn-primary glyphicon glyphicon-list-alt"
-															id="btndiv2" aria-hidden="true"
-															data-original-title="view" data-toggle="tooltip"></span></a></td>
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/viewproblem">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive">
+										<thead>
+											<tr>
+												<th style="text-align: center;">ลำดับที่</th>
+												<th style="text-align: center;">หัวข้อ</th>
+												<th style="text-align: center;">สถานะ</th>
+												<th style="text-align: center;">เพิ่มเติม</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<c:choose>
+													<c:when test="${not empty problemList}">
+														<c:forEach var="listValue" items="${problemList}">
+															<tr>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.id}" /></td>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.topic}" /></td>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.tspidxDesc}" /></td>
+																<td style="text-align: center;"><a
+																	href="<c:url value='/carbookings/viewproblem/${listValue.id}'/>?tests=adminproblem"><span
+																		class="btn btn-primary glyphicon glyphicon-list-alt"
+																		id="btndiv2" aria-hidden="true"
+																		data-original-title="view" data-toggle="tooltip"></span></a></td>
 
-													</tr>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<tr>
-													<td>-</td>
-													<td>-</td>
-													<td>-</td>
-													<td>-</td>
-												</tr>
-											</c:otherwise>
-										</c:choose>
-											
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 
-										</tr>
-									</tbody>
-								</table>
+
+											</tr>
+										</tbody>
+									</table>
 								</form:form>
-								</div>
+							</div>
 
-							
+
 							<br>
 
 							<div id="adminproblem" style="display: none">
-							<form:form modelAttribute="addCarBooking">
-								<div class="row">
-									<form:hidden path="id" />
-									<div class="col-sm-3" style="text-align: left">
-										<label>ชื่อผู้แจ้ง :</label>
+								<form:form modelAttribute="addCarBooking">
+									<div class="row">
+										<form:hidden path="tbpidx" />
+										<div class="col-sm-3" style="text-align: left">
+											<label>ชื่อผู้แจ้ง :</label>
+										</div>
+										<div class="col-sm-7">
+											<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
+										</div>
 									</div>
-									<div class="col-sm-7">
-										<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
-									</div>
-								</div>
-								<br>
+									<br>
 
-								<div class="row">
-									<div class="col-sm-3">
-										<label>ชื่อหัวข้อ</label>
-									</div>
-									<div class="col-sm-7">
-										<label>${problem.topic}</label>
-									</div>
+									<div class="row">
+										<div class="col-sm-3">
+											<label>ชื่อหัวข้อ</label>
+										</div>
+										<div class="col-sm-7">
+											<label>${problem.topic}</label>
+										</div>
 
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3">
-										<label>เนื้อหาข้อความ</label>
-									</div>
-									<div class="col-sm-9">
-										<label>${problem.context}</label>
-									</div>
-								</div>
-
-
-								<br>
-								<div class="row">
-									<div class="col-sm-3">
-										<label>เบอร์โทรศัพท์ติดต่อ</label>
-									</div>
-									<div class="col-sm-9">
-										<label>${problem.telproblem}</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ผลการอนุมัติ:</label>
 									</div>
 
-									<div class="col-sm-9">
-										<select style="Width: 130pt; Height: 20pt">
-											<option value="none">เลือกผลอนุมัติ...</option>
-											<option value="2">รับทราบ</option>
-
-										</select>
+									<div class="row">
+										<div class="col-sm-3">
+											<label>เนื้อหาข้อความ</label>
+										</div>
+										<div class="col-sm-9">
+											<label>${problem.context}</label>
+										</div>
 									</div>
-								</div>
 
 
-								<br>
-
-								<div class="row" style="padding-left: 220pt">
-									<div class="col-sm-4" style="text-align: left">
-										<button type="submit"
-											class="btn btn-success glyphicon glyphicon-floppy-disk"
-											data-original-title="accept" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-										<button type="submit"
-											class="btn btn-danger glyphicon glyphicon-arrow-left"
-											style="font-size: 11pt; width: 50pt; height: 20pt"
-											data-original-title="back" data-toggle="tooltip"
-											onclick="Show_Div1('tablepro')"></button>
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<label>เบอร์โทรศัพท์ติดต่อ</label>
+										</div>
+										<div class="col-sm-9">
+											<label>${problem.telproblem}</label>
+										</div>
 									</div>
-								</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ผลการอนุมัติ:</label>
+										</div>
+
+										<div class="col-sm-9">
+											<select style="Width: 130pt; Height: 20pt">
+												<option value="none">เลือกผลอนุมัติ...</option>
+												<option value="2">รับทราบ</option>
+
+											</select>
+										</div>
+									</div>
 
 
-</form:form>
+									<br>
+
+									<div class="row" style="padding-left: 220pt">
+										<div class="col-sm-4" style="text-align: left">
+											<button type="submit"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="accept" data-toggle="tooltip"
+												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+											<button type="submit"
+												class="btn btn-danger glyphicon glyphicon-arrow-left"
+												style="font-size: 11pt; width: 50pt; height: 20pt"
+												data-original-title="back" data-toggle="tooltip"
+												onclick="Show_Div1('tablepro')"></button>
+										</div>
+									</div>
+
+
+								</form:form>
 							</div>
-							
+
 						</div>
 						<!-- ปิดส่วน Admin -->
 

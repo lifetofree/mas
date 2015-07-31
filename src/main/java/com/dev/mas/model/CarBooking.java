@@ -21,6 +21,7 @@ public class CarBooking {
 	private String tbidxDesc;
 	private int tpidx;
 	private String tpidxDesc;
+	private int tbpidx;
 	private String etcplace;
 	private Date datestart;
 	private Date dateend;
@@ -150,6 +151,14 @@ public class CarBooking {
 
 	public String getEtcplace() {
 		return etcplace;
+	}
+
+	public int getTbpidx() {
+		return tbpidx;
+	}
+
+	public void setTbpidx(int tbpidx) {
+		this.tbpidx = tbpidx;
 	}
 
 	public void setEtcplace(String etcplace) {
