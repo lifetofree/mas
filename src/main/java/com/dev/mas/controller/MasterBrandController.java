@@ -1,7 +1,9 @@
 package com.dev.mas.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
+
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterBrand;
+import com.dev.mas.model.StaticRef;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
@@ -37,11 +41,15 @@ public class MasterBrandController {
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
 		List<MasterBrand> brandList = null;
+		
 		try {
+		
+			
 			brandList = getListMasterBrand();
 			modelmap.addAttribute("addBrand", new MasterBrand());
 			modelmap.addAttribute("retSampleList", brandList);
 			modelmap.addAttribute("retSamples", "---");
+			
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
@@ -54,16 +62,19 @@ public class MasterBrandController {
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
 		List<MasterBrand> brandList = null;
+		List<StaticRef>	listStatus  	= null;
 
 		try {
 
 			// show form
 			masterbrand = carbookingService.listByIdbrand(id);
 			modelmap.addAttribute("addBrand", masterbrand);
-
+			listStatus	    = setListStatus();   // Add Status
+			
 			// all list
 			brandList = getListMasterBrand();
 			modelmap.addAttribute("retSampleList", brandList);
+			modelmap.addAttribute("listStatus", listStatus);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -143,5 +154,26 @@ public class MasterBrandController {
 			masterbrandDesc = null;
 			query = null;
 		}
+	}
+	
+	private List<StaticRef> setListStatus() {
+		List<StaticRef>	listStatus  	= null;
+				
+		try {
+			listStatus 	= new ArrayList<StaticRef>();
+			listStatus.add(setDataStaticRef("0", "Offline"));
+			listStatus.add(setDataStaticRef("1", "Online"));
+			
+			
+			return listStatus;
+		} finally {
+			listStatus  	= null;
+		}
+	}
+
+	private StaticRef setDataStaticRef(String id, String name) {
+		StaticRef		staticRef	= new StaticRef();
+		staticRef.setDataRef(id, name);
+		return staticRef;
 	}
 }

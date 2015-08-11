@@ -64,8 +64,7 @@
 					<label
 						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลยี่อห้อรถยนต์
 						: </label>
-					<form:input path="brandTH" class="form-control" id="txtbrand"
-						style="Height: 20pt" />
+					<form:input path="brandTH" class="form-control" id="txtbrand" style="Height: 20pt" />
 				</div>
 				<div class="form-group">
 					<label style="font-weight: bold">สถานะ : </label>

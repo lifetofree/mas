@@ -14,7 +14,7 @@ public class Problem {
 	private int empidx;
 	private String topic;
 	private String context;
-	private String tel;
+	private String telproblem;
 	private int tspidx;
 	private String tspidxDesc;
 	private int cEmpIDX;
@@ -50,11 +50,11 @@ public class Problem {
 	}
 	
 	
-	public String getTel() {
-		return tel;
+	public String getTelproblem() {
+		return telproblem;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTelproblem(String tel) {
+		this.telproblem = tel;
 	}
 	public int getTspidx() {
 		return tspidx;
@@ -108,7 +108,7 @@ public class Problem {
 	}
 	@Override
 	public String toString() {
-		return "Problem [id=" + id + ", Empidx=" + empidx + ", Topic=" + topic + ", Context=" + context + ",Tel=" + tel + ", Tsidx=" + tspidx + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
+		return "Problem [id=" + id + ", Empidx=" + empidx + ", Topic=" + topic + ", Context=" + context + ",Telproblem=" + telproblem + ", Tsidx=" + tspidx + ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX + ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus + "]";
 	}
 
 }

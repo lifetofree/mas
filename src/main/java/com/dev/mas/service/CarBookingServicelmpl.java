@@ -188,8 +188,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	private static final String MasterDataCar_SEQ_KEY = "M0_TbDataCar";
 
 	@Override
-	public void savedatacar(MasterDataCar masterdatacar)
-			throws SequenceException {
+	public void savedatacar(MasterDataCar masterdatacar) throws SequenceException {
 		if (masterdatacar.getId() == 0) {
 			masterdatacar.setId(sequenceDao
 					.getNextSequenceId(MasterDataCar_SEQ_KEY));
@@ -278,6 +277,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 		carbooking.setResponsible(carbooking.getResponsible());
 		carbooking.setQty(carbooking.getQty());
 		carbooking.setObjective(carbooking.getObjective());
+		carbooking.setCarli(carbooking.getCarli());
 		carbooking.setTsidx(carbooking.getTsidx());
 		carbooking.setcEmpIDX(carbooking.getcEmpIDX());
 		carbooking.setCreateDate(carbooking.getCreateDate());
@@ -317,7 +317,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 		problem.setEmpidx(problem.getEmpidx());
 		problem.setTopic(problem.getTopic());
 		problem.setContext(problem.getContext());
-		problem.setTel(problem.getTel());
+		problem.setTelproblem(problem.getTelproblem());
 		problem.setTspidx(problem.getTspidx());
 		problem.setcEmpIDX(problem.getcEmpIDX());
 		problem.setCreateDate(problem.getCreateDate());

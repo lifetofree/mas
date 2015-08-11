@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
@@ -17,32 +17,34 @@
 		}
 	}
 
+	
+	
 	//datepickup
 	$(function() {
 
-		$('#example1').datepicker({
-			format : "dd/mm/yyyy",
-		});
+		 $('#example1').datepicker({
+			format : "DD/MM/YYYY",
+		}); 
 		$('#example2').datepicker({
-			format : "dd/mm/yyyy",
+			format : "DD/MM/YYYY",
 
 		});
 		$('#example3').datepicker({
-			format : "dd/mm/yyyy",
+			format : "DD/MM/YYYY",
 
 		});
 		$('#example4').datepicker({
-			format : "dd/mm/yyyy",
+			format : "DD/MM/YYYY",
 
 		});
 		$('#example5').datepicker({
-			format : "dd/mm/yyyy",
+			format : "DD/MM/YYYY",
 
 		});
 		$('#example6').datepicker({
-			format : "dd/mm/yyyy"
+			format : "DD/MM/YYYY"
 
-		});
+		}); 
 
 		var Check_url = document.URL;
 		Check_url = Check_url.split("test=");
@@ -127,7 +129,7 @@
 			<div class="row">
 				<h1 style="text-align: center">ระบบจองรถยนต์ CarBooking</h1>
 			</div>
-			<br>
+			
 
 			<!-- Search Box -->
 
@@ -340,7 +342,7 @@
 										<div class="col-sm-7">
 
 											<%-- <img id="myImg" name="myImg" class="img-rounded"
-												src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImage}'/>"> --%>
+												src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImg}'/>">  --%>
 										</div>
 									</div>
 
@@ -479,6 +481,31 @@
 
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
+											<label>ทะเบียนรถยนต์:</label>
+										</div>
+
+										<div class="col-sm-3">
+											<label>${carbooking.carli}</label>
+										</div>
+										<c:choose>
+											<c:when test="${not empty datacarList}">
+												<div class="col-sm-2">
+													<form:select path="carli"
+														style="width: 130pt; height: 20pt">
+														<option value=>เลือกรถยนต์...</option>
+														<c:forEach var="listValue" items="${datacarList}">
+															<option value="<c:out value='${listValue.carli}' />">
+																<c:out value="${listValue.carli}" />
+															</option>
+														</c:forEach>
+													</form:select>
+												</div>
+											</c:when>
+										</c:choose>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
 											<label>ผลการอนุมัติ:</label>
 										</div>
 										<div class="col-sm-3">
@@ -488,20 +515,19 @@
 										<c:choose>
 											<c:when test="${not empty status}">
 												<div class="col-sm-3">
-													<form:select path="tsidx"
+													<form:select id="selectStatusId" path="tsidx"
 														style="width: 130pt; height: 20pt">
-														<option>เลือกผลอนุมัติ...</option>
-														<c:forEach var="listValue" items="${status}">
-															<option value="<c:out value='${listValue.id}' />">
-																<c:out value="${listValue.statusTH}" />
-															</option>
+														<c:forEach items="${status}" var="listValue">
+															<option
+																<c:if test="${listValue.id eq carbooking.tsidx}">selected="selected"</c:if>
+																value="${listValue.id}">${listValue.statusTH}</option>
 														</c:forEach>
 													</form:select>
 												</div>
 											</c:when>
 										</c:choose>
-
 									</div>
+
 									<br>
 									<div class="row">
 										<div class="col-sm-1">
@@ -537,16 +563,13 @@
 								<!-- div edit dataren -->
 								<form:form modelAttribute="addCarBooking" method="POST"
 									action="${pageContext.request.contextPath}/carbookings/editdata">
-									<h4
-										style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
-
-
+									<h4 style="font-size: 16pt; font-weight: bold; text-align: center">แก้ไขข้อมูลการจองรถยนต์</h4>
 									<br>
 
 									<div class="col-lg-9">
 										<!-- div class="col-lg-9" -->
 										<div class="form-group">
-
+											<form:hidden path="id" />
 											<div class="row">
 												<div class="col-sm-4" style="text-align: left">
 													<label>ชื่อผู้จอง:</label>
@@ -618,7 +641,7 @@
 											<c:choose>
 												<c:when test="${not empty place}">
 
-													 <div class="col-sm-3">
+													<div class="col-sm-3">
 														<form:select id="selectPlaceId" path="tpidx"
 															style="width: 130pt; height: 20pt">
 															<c:forEach items="${place}" var="listValue">
@@ -659,7 +682,7 @@
 											<div class="col-sm-5">
 												<form:input path="dateend"
 													style="width: 130pt; height: 20pt" id="example6"></form:input>
-											</div>
+											</div> 
 										</div>
 
 
@@ -671,17 +694,18 @@
 											<div class="col-sm-5">
 												<c:choose>
 													<c:when test="${not empty listTime}">
-															<form:select path="timestartDisplay" style="width: 130pt; height: 20pt">
-																<c:forEach items="${listTime}" var="listValue">
-																	<option
-																		<c:if test="${listValue.id eq carbooking.timestart}">selected="selected"</c:if>
-																		value="${listValue.id}">${listValue.name}</option>
-																</c:forEach>
-															</form:select>
-														
+														<form:select path="timestart"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${listTime}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.timestart}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
 													</c:when>
 												</c:choose>
-												
+
 											</div>
 										</div>
 
@@ -692,18 +716,19 @@
 											<div class="col-sm-5">
 												<c:choose>
 													<c:when test="${not empty listTime}">
-			
-														<form:select path="timeendDisplay" style="width: 130pt; height: 20pt">
-																<c:forEach items="${listTime}" var="listValue">
-																	<option
-																		<c:if test="${listValue.id eq carbooking.timeend}">selected="selected"</c:if>
-																		value="${listValue.id}">${listValue.name}</option>
-																</c:forEach>
-															</form:select>
-														
+
+														<form:select path="timeend"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${listTime}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.timeend}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
 													</c:when>
 												</c:choose>
-												
+
 											</div>
 										</div>
 
@@ -718,6 +743,26 @@
 													style="width: 130pt; Height: 20pt"></form:input>
 											</div>
 										</div>
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>จำนวนผู้เดินทาง:</label>
+											</div>
+											<div class="col-sm-5">
+												<c:choose>
+													<c:when test="${not empty listQty}">
+														<form:select path="qty" style="width: 130pt; height: 20pt">
+															<c:forEach items="${listQty}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.qty}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
+													</c:when>
+												</c:choose>
+
+											</div>
+										</div>
 
 
 										<div class="form-group">
@@ -729,46 +774,6 @@
 													style="width: 130pt; Height: 20pt"></form:input>
 											</div>
 										</div>
-
-
-										<div class="form-group">
-											<div class="col-sm-4" style="text-align: left">
-												<label>จำนวนผู้เดินทาง:</label>
-											</div>
-											<div class="col-sm-5">
-											<c:choose>
-													<c:when test="${not empty listQty}">
-															<form:select path="qty" style="width: 130pt; height: 20pt">
-																<c:forEach items="${listQty}" var="listValue">
-																	<option
-																		<c:if test="${listValue.id eq carbooking.qty}">selected="selected"</c:if>
-																		value="${listValue.id}">${listValue.name}</option>
-																</c:forEach>
-															</form:select>
-														
-													</c:when>
-												</c:choose>
-												<%-- <form:select path="qty" style="Width: 130pt; Height: 20pt">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-													<option value="6">6</option>
-													<option value="7">7</option>
-													<option value="8">8</option>
-													<option value="9">9</option>
-													<option value="10">10</option>
-													<option value="11">11</option>
-													<option value="12">12</option>
-													<option value="13">13</option>
-													<option value="14">14</option>
-													<option value="15">15</option>
-												</form:select> --%>
-											</div>
-										</div>
-
-
 
 
 										<div class="form-group">
@@ -792,6 +797,26 @@
 										</div>
 
 										<div class="row">
+											<div class="col-sm-3" style="text-align: left">
+												<label>ทะเบียนรถยนต์:</label>
+											</div>
+											 <c:choose>
+												<c:when test="${not empty carli}">
+													<div class="col-sm-2">
+														<form:select id="selectCarLicenseId" path="carli"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${carli}" var="listValue">
+																<option
+																	<c:if test="${listValue.carli eq carbooking.carli}">selected="selected"</c:if>
+																	value="${listValue.carli}">${listValue.carli}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
+
+										<div class="row">
 											<div class="col-sm-4" style="text-align: left">
 												<label>ผลการอนุมัติ:</label>
 											</div>
@@ -799,14 +824,6 @@
 											<c:choose>
 												<c:when test="${not empty status}">
 													<div class="col-sm-3">
-														<%-- <form:select path="tsidx"
-															style="width: 130pt; height: 20pt">
-															<c:forEach var="listValue" items="${status}">
-																<option value="<c:out value='${listValue.id}' />">
-																	<c:out value="${listValue.statusTH}" />
-																</option>
-															</c:forEach> 
-														</form:select>--%>
 														<form:select id="selectStatusId" path="tsidx"
 															style="width: 130pt; height: 20pt">
 															<c:forEach items="${status}" var="listValue">
@@ -866,6 +883,7 @@
 							<c:choose>
 								<c:when test="${not empty datacarList}">
 									<c:forEach var="listValue" items="${datacarList}">
+								
 										<fieldset
 											style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
 											class="col-lg-11">
@@ -944,9 +962,6 @@
 															สุพรรณคง(วิรัช)</label>
 													</div>
 												</div>
-
-
-
 											</div>
 										</fieldset>
 									</c:forEach>
@@ -991,10 +1006,6 @@
 													<label style="font-weight: bold"></label>
 												</div>
 											</div>
-
-
-
-
 											<div class="form-group">
 												<div class="col-sm-3">
 													<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
@@ -1010,10 +1021,6 @@
 													<label style="font-weight: bold"></label>
 												</div>
 											</div>
-
-
-
-
 											<div class="form-group">
 												<div class="col-sm-3">
 													<label style="font-weight: bold; text-align: left">พนักงานขับรถ
@@ -1023,9 +1030,6 @@
 													<label style="font-weight: bold"></label>
 												</div>
 											</div>
-
-
-
 										</div>
 									</fieldset>
 								</c:otherwise>
@@ -1078,13 +1082,14 @@
 										<c:when test="${not empty typerent}">
 											<div class="col-sm-7">
 												<form:select path="tridx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${typerent}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.typerentTH}" />
 														</option>
 													</c:forEach>
 												</form:select>
+												<form:errors path="tridx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
@@ -1101,14 +1106,14 @@
 
 											<div class="col-sm-7">
 												<form:select path="tcidx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${typecar}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.typeCarTH}" />
 														</option>
 													</c:forEach>
-
 												</form:select>
+												<form:errors path="tcidx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
@@ -1127,14 +1132,14 @@
 
 											<div class="col-sm-3">
 												<form:select path="tpidx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${place}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.placeTH}" />
 														</option>
 													</c:forEach>
-
 												</form:select>
+												<form:errors path="tpidx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
@@ -1315,7 +1320,7 @@
 									</div>
 									<div class="col-sm-5">
 										<form:select path="qty" style="Width: 130pt; Height: 20pt">
-											<option value="00">กรุณาเลือกจำนวนคน...</option>
+											<option value="0">กรุณาเลือกจำนวนคน...</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -1472,11 +1477,7 @@
 							<p style="text-align: center; font-weight: bold; font-size: 17pt">แจ้งปัญหา</p>
 							<br>
 						</div>
-
-						<!-- ส่วนแจ้งปัญหา user-->
-
-						<div id="user" style="display: none">
-							<form:form modelAttribute="addCarBooking" method="POST"
+						<form:form modelAttribute="addCarBooking" method="POST"
 								action="${pageContext.request.contextPath}/carbookings/problem">
 								<div>
 									<div class="row">
@@ -1516,20 +1517,22 @@
 										<div style="text-align: left; padding-left: 225pt">
 											<button type="submit" name="btnproblem" value="saveproblem"
 												class="btn btn-success glyphicon glyphicon-floppy-disk"
-												data-original-title="send" data-toggle="tooltip"
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+												data-original-title="send" data-toggle="tooltip"></button>
 
 											<button type="submit"
 												class="btn btn-danger glyphicon glyphicon-remove"
 												name="btnproblem" value="cancel"
-												data-original-title="cancel" data-toggle="tooltip"
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+												data-original-title="cancel" data-toggle="tooltip"></button>
 										</div>
 									</div>
 								</div>
 								<br>
 								<br>
 								<br>
+						<!-- ส่วนแจ้งปัญหา user-->
+
+						<div id="user" style="display: none">
+							
 								<div id="tableuser">
 									<table
 										class="table table-striped table-bordered table-hover table-responsive;">
@@ -1568,9 +1571,9 @@
 										</c:choose>
 									</table>
 								</div>
-							</form:form>
+							
 						</div>
-
+						</form:form>
 
 
 
@@ -1630,13 +1633,12 @@
 								</form:form>
 							</div>
 
-
 							<br>
 
 							<div id="adminproblem" style="display: none">
 								<form:form modelAttribute="addCarBooking">
 									<div class="row">
-										<form:hidden path="tbpidx" />
+										<form:hidden path="id" />
 										<div class="col-sm-3" style="text-align: left">
 											<label>ชื่อผู้แจ้ง :</label>
 										</div>
@@ -1651,7 +1653,7 @@
 											<label>ชื่อหัวข้อ</label>
 										</div>
 										<div class="col-sm-7">
-											<label>${problem.topic}</label>
+											<label>${listValue.topic}</label>
 										</div>
 
 									</div>
@@ -1661,7 +1663,7 @@
 											<label>เนื้อหาข้อความ</label>
 										</div>
 										<div class="col-sm-9">
-											<label>${problem.context}</label>
+											<label>${listValue.context}</label>
 										</div>
 									</div>
 
@@ -1672,11 +1674,11 @@
 											<label>เบอร์โทรศัพท์ติดต่อ</label>
 										</div>
 										<div class="col-sm-9">
-											<label>${problem.telproblem}</label>
+											<label>${listValue.telproblem}</label>
 										</div>
 									</div>
 
-									<div class="row">
+									<!-- <div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>ผลการอนุมัติ:</label>
 										</div>
@@ -1688,7 +1690,7 @@
 
 											</select>
 										</div>
-									</div>
+									</div> -->
 
 
 									<br>

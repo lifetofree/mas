@@ -21,7 +21,6 @@ public class CarBooking {
 	private String tbidxDesc;
 	private int tpidx;
 	private String tpidxDesc;
-	private int tbpidx;
 	private String etcplace;
 	private Date datestart;
 	private Date dateend;
@@ -46,11 +45,13 @@ public class CarBooking {
 	private int tcStatus;
 	private String tcStatusDesc;
 	private String change;
+	private String Carli;
 	
 	//TbProblem
 	private String topic;
 	private String context;
 	private String telproblem;
+	private int tbpidx;
 	
 	public String getTimestartDisplay() {
 		return timestartDisplay;
@@ -104,6 +105,14 @@ public class CarBooking {
 		return tbidxDesc;
 	}
 
+	public String getCarli() {
+		return Carli;
+	}
+
+	public void setCarli(String carli) {
+		Carli = carli;
+	}
+
 	public void setTbidxDesc(String tbidxDesc) {
 		this.tbidxDesc = tbidxDesc;
 	}
@@ -153,13 +162,7 @@ public class CarBooking {
 		return etcplace;
 	}
 
-	public int getTbpidx() {
-		return tbpidx;
-	}
-
-	public void setTbpidx(int tbpidx) {
-		this.tbpidx = tbpidx;
-	}
+	
 
 	public void setEtcplace(String etcplace) {
 		this.etcplace = etcplace;
@@ -327,10 +330,18 @@ public class CarBooking {
 	}
 	
 	//tb problem
+	
+	public int getTbpidx() {
+		return tbpidx;
+	}
+
+	public void setTbpidx(int tbpidx) {
+		this.tbpidx = tbpidx;
+	}
+
 	public String getTopic() {
 		return topic;
 	}
-
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
@@ -394,7 +405,7 @@ public class CarBooking {
 				+ ", Etcname=" + etcplace + ", Datestart=" + datestart + ", Dateend=" + dateend
 				+ ", Timestart=" + timestart + ", Timeend=" + timeend
 				+ ", Responsible=" + responsible + ", Qty=" + qty + ", nametip=" + nametip 
-				+ ", Objective=" + objective + ", Tel=" + tel 
+				+ ", Objective=" + objective + ", Carli=" + Carli + ", Tel=" + tel 
 				+ ",, Tsidx=" + tsidx 
 				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX
 				+ ", AdCreateDate=" + adCreateDate	+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
