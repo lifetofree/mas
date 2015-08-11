@@ -1650,7 +1650,7 @@
 											<label>ชื่อหัวข้อ</label>
 										</div>
 										<div class="col-sm-7">
-											<label>${listValue.topic}</label>
+											<label>${problem.topic}</label>
 										</div>
 
 									</div>
@@ -1659,8 +1659,8 @@
 										<div class="col-sm-3">
 											<label>เนื้อหาข้อความ</label>
 										</div>
-										<div class="col-sm-9">
-											<label>${listValue.context}</label>
+										<div class="col-sm-7">
+											<label>${problem.context}</label>
 										</div>
 									</div>
 
@@ -1671,7 +1671,7 @@
 											<label>เบอร์โทรศัพท์ติดต่อ</label>
 										</div>
 										<div class="col-sm-9">
-											<label>${listValue.telproblem}</label>
+											<label>${problem.telproblem}</label>
 										</div>
 									</div>
 
