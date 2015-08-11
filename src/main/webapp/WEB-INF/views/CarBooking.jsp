@@ -673,8 +673,6 @@
 										</div>
 
 
-
-
 										<div class="form-group">
 											<div class="col-sm-4" style="text-align: left">
 												<label>วันที่สิ้นสุด:</label>
@@ -1477,8 +1475,7 @@
 							<p style="text-align: center; font-weight: bold; font-size: 17pt">แจ้งปัญหา</p>
 							<br>
 						</div>
-						<form:form modelAttribute="addCarBooking" method="POST"
-								action="${pageContext.request.contextPath}/carbookings/problem">
+						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/problem">
 								<div>
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
@@ -1678,7 +1675,7 @@
 										</div>
 									</div>
 
-									<!-- <div class="row">
+									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>ผลการอนุมัติ:</label>
 										</div>
@@ -1690,7 +1687,7 @@
 
 											</select>
 										</div>
-									</div> -->
+									</div>
 
 
 									<br>
@@ -1699,11 +1696,9 @@
 										<div class="col-sm-4" style="text-align: left">
 											<button type="submit"
 												class="btn btn-success glyphicon glyphicon-floppy-disk"
-												data-original-title="accept" data-toggle="tooltip"
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+												data-original-title="accept" data-toggle="tooltip"></button>
 											<button type="submit"
 												class="btn btn-danger glyphicon glyphicon-arrow-left"
-												style="font-size: 11pt; width: 50pt; height: 20pt"
 												data-original-title="back" data-toggle="tooltip"
 												onclick="Show_Div1('tablepro')"></button>
 										</div>

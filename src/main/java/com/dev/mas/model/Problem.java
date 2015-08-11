@@ -48,8 +48,6 @@ public class Problem {
 	public void setContext(String context) {
 		this.context = context;
 	}
-	
-	
 	public String getTelproblem() {
 		return telproblem;
 	}
@@ -98,8 +96,6 @@ public class Problem {
 	public void setTcStatus(int tcStatus) {
 		this.tcStatus = tcStatus;
 	}
-	
-	
 	public String getTspidxDesc() {
 		return tspidxDesc;
 	}

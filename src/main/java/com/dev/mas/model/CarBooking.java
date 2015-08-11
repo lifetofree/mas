@@ -46,13 +46,13 @@ public class CarBooking {
 	private String tcStatusDesc;
 	private String change;
 	private String Carli;
-	
-	//TbProblem
+
+	// TbProblem
 	private String topic;
 	private String context;
 	private String telproblem;
 	private int tbpidx;
-	
+
 	public String getTimestartDisplay() {
 		return timestartDisplay;
 	}
@@ -125,7 +125,6 @@ public class CarBooking {
 		this.empidx = empidx;
 	}
 
-	
 	public int getDepartidx() {
 		return departidx;
 	}
@@ -161,8 +160,6 @@ public class CarBooking {
 	public String getEtcplace() {
 		return etcplace;
 	}
-
-	
 
 	public void setEtcplace(String etcplace) {
 		this.etcplace = etcplace;
@@ -200,7 +197,6 @@ public class CarBooking {
 		this.timeend = timeend;
 	}
 
-	
 	public String getTimeendDisplay() {
 		return timeendDisplay;
 	}
@@ -224,8 +220,7 @@ public class CarBooking {
 	public void setQty(String qty) {
 		this.qty = qty;
 	}
-	
-	
+
 	public String getNametip() {
 		return nametip;
 	}
@@ -241,6 +236,7 @@ public class CarBooking {
 	public void setObjective(String objective) {
 		this.objective = objective;
 	}
+
 	public String getTel() {
 		return tel;
 	}
@@ -328,9 +324,9 @@ public class CarBooking {
 	public void setTcStatusDesc(String tcStatusDesc) {
 		this.tcStatusDesc = tcStatusDesc;
 	}
-	
-	//tb problem
-	
+
+	// tb problem
+
 	public int getTbpidx() {
 		return tbpidx;
 	}
@@ -342,6 +338,7 @@ public class CarBooking {
 	public String getTopic() {
 		return topic;
 	}
+
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
@@ -361,6 +358,7 @@ public class CarBooking {
 	public void setTelproblem(String telproblem) {
 		this.telproblem = telproblem;
 	}
+
 	public int getTspidx() {
 		return tspidx;
 	}
@@ -377,18 +375,9 @@ public class CarBooking {
 		this.tspidxDesc = tspidxDesc;
 	}
 
-
-
-
-
-
-
-
-
-
-	//MasterTypeRent
+	// MasterTypeRent
 	private MasterTypeRent mastertyperent;
-	
+
 	public MasterTypeRent getMastertyperent() {
 		return mastertyperent;
 	}
@@ -396,25 +385,25 @@ public class CarBooking {
 	public void setMastertyperent(MasterTypeRent mastertyperent) {
 		this.mastertyperent = mastertyperent;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
-				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx
-				+ ", Etcname=" + etcplace + ", Datestart=" + datestart + ", Dateend=" + dateend
-				+ ", Timestart=" + timestart + ", Timeend=" + timeend
-				+ ", Responsible=" + responsible + ", Qty=" + qty + ", nametip=" + nametip 
-				+ ", Objective=" + objective + ", Carli=" + Carli + ", Tel=" + tel 
-				+ ",, Tsidx=" + tsidx 
-				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX
-				+ ", AdCreateDate=" + adCreateDate	+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
+				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx
+				+ ", Tpidx=" + tpidx + ", Etcname=" + etcplace + ", Datestart="
+				+ datestart + ", Dateend=" + dateend + ", Timestart="
+				+ timestart + ", Timeend=" + timeend + ", Responsible="
+				+ responsible + ", Qty=" + qty + ", nametip=" + nametip
+				+ ", Objective=" + objective + ", Carli=" + Carli + ", Tel="
+				+ tel + ",, Tsidx=" + tsidx + ", CreateDate=" + createDate
+				+ ", AdEmpIDX=" + adEmpIDX + ", AdCreateDate=" + adCreateDate
+				+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
 				+ ", Change=" + change + "]";
 	}
-	
+
 	// MasterTypeCar
 	private MasterTypeCar mastertypecar;
-	
+
 	public MasterTypeCar getMastertypecar() {
 		return mastertypecar;
 	}
@@ -423,11 +412,9 @@ public class CarBooking {
 		this.mastertypecar = mastertypecar;
 	}
 
-	
-	//MasterPlace
+	// MasterPlace
 	private MasterPlace masterplace;
-	
-	
+
 	public MasterPlace getMasterplace() {
 		return masterplace;
 	}
@@ -435,11 +422,10 @@ public class CarBooking {
 	public void setMasterplace(MasterPlace masterplace) {
 		this.masterplace = masterplace;
 	}
-	
-	
-	//MasterDataCar
+
+	// MasterDataCar
 	private MasterDataCar masterdatacar;
-	
+
 	public MasterDataCar getMasterdatacar() {
 		return masterdatacar;
 	}
@@ -447,11 +433,9 @@ public class CarBooking {
 	public void setMasterdatacar(MasterDataCar masterdatacar) {
 		this.masterdatacar = masterdatacar;
 	}
-	
-	
-	//MasterBrand
+
+	// MasterBrand
 	private MasterBrand masterbrand;
-	
 
 	public MasterBrand getMasterbrand() {
 		return masterbrand;
@@ -461,8 +445,7 @@ public class CarBooking {
 		this.masterbrand = masterbrand;
 	}
 
-	
-	//Problem
+	// Problem
 	private Problem problem;
 
 	public Problem getProblem() {
@@ -472,7 +455,5 @@ public class CarBooking {
 	public void setProblem(Problem problem) {
 		this.problem = problem;
 	}
-	
-	
-	
+
 }

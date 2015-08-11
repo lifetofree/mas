@@ -82,7 +82,7 @@ public class CarBookingController {
 				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
 				if (masterplace != null) {
 					carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
-				} else {;
+				} else {
 					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "+ carbookingDesc.getTpidx());
 				}
 
@@ -95,8 +95,7 @@ public class CarBookingController {
 
 				if (carbookingDesc.getTimestart() != null) {
 					timestart = carbookingDesc.getTimestart();
-					timestart = timestart.substring(0, 2) + ":"
-							+ timestart.substring(2, 4);
+					timestart = timestart.substring(0, 2) + ":"	+ timestart.substring(2, 4);
 					carbookingDesc.setTimestartDisplay(timestart);
 				} else {
 					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
@@ -176,7 +175,7 @@ public class CarBookingController {
 				Date date = new Date();
 				carbooking.setCreateDate(date);
 				carbooking.setTsidx(2);
-			//	CarBookingValidator.validate(car,result);
+				carbooking.setTcStatus(1);
 				carbookingService.savecarbooking(carbooking);
 				modelmap.addAttribute("addCarBooking", new CarBooking());
 
@@ -422,17 +421,14 @@ public class CarBookingController {
 			for (int i = 0; i < datacarList.size(); i++) {
 			    masterdatacarDesc = datacarList.get(i);
 
-			    mastertypecar = carbookingService.listById(masterdatacarDesc
-			      .getTcidx());
+			    mastertypecar = carbookingService.listById(masterdatacarDesc.getTcidx());
 			    if (mastertypecar != null) {
-			     masterdatacarDesc
-			       .setTcidxDesc(mastertypecar.getTypeCarTH());
+			     masterdatacarDesc.setTcidxDesc(mastertypecar.getTypeCarTH());
 			    } else {
 			     masterdatacarDesc.setTcidxDesc("รายการที่ไม่มีคือ " + masterdatacarDesc.getTcidx());
 			    }
 
-			    masterbrand = carbookingService.listByIdbrand(masterdatacarDesc
-			      .getTbidx());
+			    masterbrand = carbookingService.listByIdbrand(masterdatacarDesc.getTbidx());
 			    if (masterbrand != null) {
 			     masterdatacarDesc.setTbidxDesc(masterbrand.getBrandTH());
 			    } else {
@@ -462,7 +458,7 @@ public class CarBookingController {
 				}
 			}
 
-			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นเมิงใช้พอมันไม่รู้จักเลยerror >>>ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist tab3
+			modelmap.addAttribute("addCarBooking", carbooking); // ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist tab3
 			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			modelmap.addAttribute("retSampleList", carbookingList);
 			modelmap.addAttribute("typerent", typerentList);
@@ -624,6 +620,7 @@ public class CarBookingController {
 				Date date = new Date();
 				problem.setCreateDate(date);
 				problem.setTspidx(1);
+				problem.setTcStatus(1);
 				carbookingService.saveproblem(problem);
 				modelmap.addAttribute("addCarBooking", new Problem());
 
@@ -638,19 +635,26 @@ public class CarBookingController {
 		return "redirect:/carbookings/";
 	}
 	
-	
+	// tab problem ปุ่ม view มาแสดงดูรายละเอียดของ admin
 	@RequestMapping(value = { "/viewproblem/{id}" }, method = RequestMethod.GET)
 	public String processProblemView(ModelMap modelmap, @PathVariable int id) {
 		Query query = null;
 		Problem problem = null;
 		try {
-			
 			problem = carbookingService.listByIdproblem(id);
-			List <Problem> problemList = carbookingService.listproblem();
+			List<Problem> problemList = carbookingService.listproblem();
 			query = new Query();
 			problemList = carbookingService.findByCriteriaproblem(query);
-			modelmap.addAttribute("addCarBooking", problem);// ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
-			modelmap.addAttribute("problemList", problemList);
+			
+			problem = carbookingService.listByIdproblem(carbooking.getTbpidx());
+			/*carbooking.setTopic(problem.getTopic());
+			carbooking.setContext(problem.getContext());
+			carbooking.setTelproblem(problem.getTelproblem());*/
+			
+			
+			
+			modelmap.addAttribute("addCarBooking", carbooking);// ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+			modelmap.addAttribute("problem", problemList);
 						
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
