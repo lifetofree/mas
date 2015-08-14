@@ -78,7 +78,6 @@ public class CarBookingController {
 		} finally {
 
 		}
-
 		return "CarBooking";
 	}
 
@@ -196,16 +195,14 @@ public class CarBookingController {
 		if (btnsavestatus.equals("savestatus")) {
 			CarBooking newCarbooking = null;
 			try {
-				// System.out.println("carbooking.id ==> " +
-				// carbooking.getId());
 				newCarbooking = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
 				Date date = new Date();
 				newCarbooking.setAdCreateDate(date);
 				newCarbooking.setCarli(carbooking.getCarli());
+				
 				newCarbooking.setTsidx(carbooking.getTsidx());
-
 				carbookingService.savecarbooking(newCarbooking);
-
+				
 			} catch (SequenceException e) {
 				// modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
@@ -296,104 +293,7 @@ public class CarBookingController {
 		return "CarBooking";
 	}
 
-	// สำหรับเก็บรายละเอียดเวลา
-	private List<StaticRef> setListTime() {
-		List<StaticRef> listTime = null;
-
-		try {
-			listTime = new ArrayList<StaticRef>();
-
-			listTime.add(setDataStaticRef("0000", "00:00"));
-			listTime.add(setDataStaticRef("0030", "00:30"));
-			listTime.add(setDataStaticRef("0100", "01:00"));
-			listTime.add(setDataStaticRef("0130", "01:30"));
-			listTime.add(setDataStaticRef("0200", "02:00"));
-			listTime.add(setDataStaticRef("0230", "02:30"));
-			listTime.add(setDataStaticRef("0300", "03:00"));
-			listTime.add(setDataStaticRef("0330", "03:30"));
-			listTime.add(setDataStaticRef("0400", "04:00"));
-			listTime.add(setDataStaticRef("0430", "04:30"));
-			listTime.add(setDataStaticRef("0500", "05:00"));
-			listTime.add(setDataStaticRef("0530", "05:30"));
-			listTime.add(setDataStaticRef("0600", "06:00"));
-			listTime.add(setDataStaticRef("0630", "06:30"));
-			listTime.add(setDataStaticRef("0700", "07:00"));
-			listTime.add(setDataStaticRef("0730", "07:30"));
-			listTime.add(setDataStaticRef("0800", "08:00"));
-			listTime.add(setDataStaticRef("0830", "08:30"));
-			listTime.add(setDataStaticRef("0900", "09:00"));
-			listTime.add(setDataStaticRef("0930", "09:30"));
-			listTime.add(setDataStaticRef("1000", "10:00"));
-			listTime.add(setDataStaticRef("1030", "10:30"));
-			listTime.add(setDataStaticRef("1100", "11:00"));
-			listTime.add(setDataStaticRef("1130", "11:30"));
-			listTime.add(setDataStaticRef("1200", "12:00"));
-			listTime.add(setDataStaticRef("1230", "12:30"));
-			listTime.add(setDataStaticRef("1300", "13:00"));
-			listTime.add(setDataStaticRef("1330", "13:30"));
-			listTime.add(setDataStaticRef("1400", "14:00"));
-			listTime.add(setDataStaticRef("1430", "14:30"));
-			listTime.add(setDataStaticRef("1500", "15:00"));
-			listTime.add(setDataStaticRef("1530", "15:30"));
-			listTime.add(setDataStaticRef("1600", "16:00"));
-			listTime.add(setDataStaticRef("1630", "16:30"));
-			listTime.add(setDataStaticRef("1700", "17:00"));
-			listTime.add(setDataStaticRef("1730", "17:30"));
-			listTime.add(setDataStaticRef("1800", "18:00"));
-			listTime.add(setDataStaticRef("1830", "18:30"));
-			listTime.add(setDataStaticRef("1900", "19:00"));
-			listTime.add(setDataStaticRef("1930", "19:30"));
-			listTime.add(setDataStaticRef("2000", "20:00"));
-			listTime.add(setDataStaticRef("2030", "20:30"));
-			listTime.add(setDataStaticRef("2100", "21:00"));
-			listTime.add(setDataStaticRef("2130", "21:30"));
-			listTime.add(setDataStaticRef("2200", "22:00"));
-			listTime.add(setDataStaticRef("2230", "22:30"));
-			listTime.add(setDataStaticRef("2300", "23:00"));
-			listTime.add(setDataStaticRef("2330", "23:30"));
-
-			return listTime;
-		} finally {
-			listTime = null;
-		}
-	}
-
-	// สำหรับเก็บรายละเอียดคนที่ขึ้น
-	private List<StaticRef> setListQty() {
-		List<StaticRef> listQty = null;
-
-		try {
-			listQty = new ArrayList<StaticRef>();
-			listQty.add(setDataStaticRef("0", "0"));
-			listQty.add(setDataStaticRef("1", "1"));
-			listQty.add(setDataStaticRef("2", "2"));
-			listQty.add(setDataStaticRef("3", "3"));
-			listQty.add(setDataStaticRef("4", "4"));
-			listQty.add(setDataStaticRef("5", "5"));
-			listQty.add(setDataStaticRef("6", "6"));
-			listQty.add(setDataStaticRef("7", "7"));
-			listQty.add(setDataStaticRef("8", "8"));
-			listQty.add(setDataStaticRef("9", "9"));
-			listQty.add(setDataStaticRef("10", "10"));
-			listQty.add(setDataStaticRef("11", "11"));
-			listQty.add(setDataStaticRef("12", "12"));
-			listQty.add(setDataStaticRef("13", "13"));
-			listQty.add(setDataStaticRef("14", "14"));
-			listQty.add(setDataStaticRef("15", "15"));
-
-			return listQty;
-		} finally {
-			listQty = null;
-		}
-	}
-
-	private StaticRef setDataStaticRef(String id, String name) {
-		StaticRef staticRef = new StaticRef();
-		staticRef.setDataRef(id, name);
-		return staticRef;
-	}
-
-	// ปุ่มแก้ไขข้อมูลบันทึก
+// ปุ่มแก้ไขข้อมูลบันทึก
 	@RequestMapping(value = { "/editdata" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processEditdata(ModelMap modelmap,
 			@RequestParam String btnedit,
@@ -456,7 +356,6 @@ public class CarBookingController {
 		List<MasterPlace> placeList = null;
 		List<CarBooking> carbookingList = null;
 		List<MasterDataCar> datacarList = null;
-		//List<Problem> problemList = null;
 		Problem problem = null;
 		try {
 			carbookingList = getListCarBooking();
@@ -464,8 +363,7 @@ public class CarBookingController {
 			typecarList  = getListMasterTypeCar();
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
-		 	//problemList	 = getListProblem();
-			problem = carbookingService.listByIdproblem(id);
+		 	problem = carbookingService.listByIdproblem(id);
 			modelmap.addAttribute("addCarBooking", carbooking);
 			modelmap.addAttribute("problem", problem); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			// สำหรับ tab1 โชว์ข้อมูล
@@ -486,12 +384,42 @@ public class CarBookingController {
 
 		return "CarBooking";
 	}
+	
+	// ปุ่ม accept problemเลือกสถานะอนุมัติ
+		@RequestMapping(value = { "/acceptproblem" }, params = { "btnproblem" }, method = RequestMethod.POST)
+		public String processAcceptProblem(ModelMap modelmap,
+				@RequestParam String btnproblem ,
+				@ModelAttribute(value = "addCarBooking") Problem problem,
+				BindingResult result) {
+			// list data
+			if (btnproblem.equals("accept")) {
+				Problem newProblem = null;
+				try {
+					newProblem = carbookingService.listByIdproblem(Integer.parseInt(String.valueOf(problem.getId())));
+					System.out.println("problem.id ==> " +problem.getId());
+					Date date = new Date();
+					newProblem.setAdCreateDate(date);
+					newProblem.setTspidx(problem.getTspidx());
+					carbookingService.saveproblem(newProblem);
 
+				} catch (SequenceException e) {
+					// modelmap.addAttribute("retSamples", e.getErrMsg());
+				} finally {
+					modelmap.addAttribute("addCarBooking", new Problem());
+				}
+			} else if (btnproblem.equals("back")) {
+				modelmap.addAttribute("addCarBooking", new Problem());
+			}
+			return "redirect:/carbookings/";
+		}
+						
 	private List<CarBooking> getListCarBooking() throws SequenceException {
 		Query query = null;
 		MasterPlace masterplace = null;
 		MasterStatus masterstatus = null;
+		//MasterDataCar masterdatacar = null;
 		String timestart = null;
+		String timeend = null;
 		List<CarBooking> carbookingList = null;
 		CarBooking carbookingDesc = null;
 
@@ -503,36 +431,44 @@ public class CarBookingController {
 			// สำหรับ tab1 ดึงขึ้นมารายการที่แสดง
 			for (int i = 0; i < carbookingList.size(); i++) {
 				carbookingDesc = carbookingList.get(i);
-				masterplace = carbookingService.listByIdplace(carbookingDesc
-						.getTpidx());
+				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
 				if (masterplace != null) {
 					carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
 				} else {
-					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "
-							+ carbookingDesc.getTpidx());
+					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTpidx());
 				}
-
-				masterstatus = carbookingService.listByIdstatus(carbookingDesc
-						.getTsidx());
+				
+				
+				/*masterdatacar = carbookingService.listByIddatacar(carbookingDesc.getTdidx());
+				if (masterdatacar != null) {
+					carbookingDesc.setCarli(masterdatacar.getCarli());
+				} else {
+					carbookingDesc.setCarli("รายการที่ไม่มีคือ "	+ carbookingDesc.getTdidx());
+				}*/
+				
+				masterstatus = carbookingService.listByIdstatus(carbookingDesc.getTsidx());
 				if (masterstatus != null) {
 					carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
 				} else {
-					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "
-							+ carbookingDesc.getTsidx());
+					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTsidx());
 				}
 
 				if (carbookingDesc.getTimestart() != null) {
 					timestart = carbookingDesc.getTimestart();
-					timestart = timestart.substring(0, 2) + ":"
-							+ timestart.substring(2, 4);
+					timestart = timestart.substring(0, 2) + ":"	+ timestart.substring(2, 4);
 					carbookingDesc.setTimestartDisplay(timestart);
 				} else {
 					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
 				}
+				//เอามาโชว์ใน tab2 
+				if (carbookingDesc.getTimeend() != null) {
+					timeend = carbookingDesc.getTimeend();
+					timeend = timeend.substring(0, 2) + ":"	+ timeend.substring(2, 4);
+					carbookingDesc.setTimeendDisplay(timeend);
+				} else {
+					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
+				}
 			}
-
-			
-
 			return carbookingList;
 
 		} finally {
@@ -548,24 +484,28 @@ public class CarBookingController {
 		MasterBrand masterbrand = null;
 		MasterDataCar masterdatacarDesc = null;
 		List<MasterDataCar> datacarList = null; 
+		
 		try {
+			
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			datacarList = carbookingService.findByCriteriadatacar(query);
-			query = new Query();
+			
 			
 			//กท.รถ
-			// query.addCriteria(Criteria.where("carli").is(carbooking.getTcidx()));
-			// .and("tcStatus").lt(9));
-			datacarList = carbookingService.findByCriteriadatacar(query);
+			/*query = new Query();
+			query.addCriteria(Criteria.where("carli").is(carbooking.getTcidx()));
+			//.and("tcStatus").lt(9));
+			datacarList = carbookingService.findByCriteriadatacar(query);*/
+			
+			
 			// ดึงข้อมูลมาโ๙ว์ใน tab2
 			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);
 
 				mastertypecar = carbookingService.listById(masterdatacarDesc.getTcidx());
 				if (mastertypecar != null) {
-					masterdatacarDesc
-							.setTcidxDesc(mastertypecar.getTypeCarTH());
+					masterdatacarDesc.setTcidxDesc(mastertypecar.getTypeCarTH());
 				} else {
 					masterdatacarDesc.setTcidxDesc("รายการที่ไม่มีคือ "+ masterdatacarDesc.getTcidx());
 				}
@@ -587,6 +527,7 @@ public class CarBookingController {
 					masterdatacarDesc.setTcStatusDesc("Offline");
 				}
 			}
+			
 			return datacarList;
 
 		} finally {
@@ -610,7 +551,6 @@ public class CarBookingController {
 		query = null;
 	}
 }
-	
 	
 	private List<MasterTypeRent> getListMasterTypeRent() throws SequenceException {
 		Query query = null;
@@ -668,4 +608,101 @@ public class CarBookingController {
 	}
 }
 	
+	// สำหรับเก็บรายละเอียดเวลา เอามาใช้ใน ดึงค่ามาแสดง edit
+	private List<StaticRef> setListTime() {
+		List<StaticRef> listTime = null;
+
+		try {
+			listTime = new ArrayList<StaticRef>();
+
+			listTime.add(setDataStaticRef("0000", "00:00"));
+			listTime.add(setDataStaticRef("0030", "00:30"));
+			listTime.add(setDataStaticRef("0100", "01:00"));
+			listTime.add(setDataStaticRef("0130", "01:30"));
+			listTime.add(setDataStaticRef("0200", "02:00"));
+			listTime.add(setDataStaticRef("0230", "02:30"));
+			listTime.add(setDataStaticRef("0300", "03:00"));
+			listTime.add(setDataStaticRef("0330", "03:30"));
+			listTime.add(setDataStaticRef("0400", "04:00"));
+			listTime.add(setDataStaticRef("0430", "04:30"));
+			listTime.add(setDataStaticRef("0500", "05:00"));
+			listTime.add(setDataStaticRef("0530", "05:30"));
+			listTime.add(setDataStaticRef("0600", "06:00"));
+			listTime.add(setDataStaticRef("0630", "06:30"));
+			listTime.add(setDataStaticRef("0700", "07:00"));
+			listTime.add(setDataStaticRef("0730", "07:30"));
+			listTime.add(setDataStaticRef("0800", "08:00"));
+			listTime.add(setDataStaticRef("0830", "08:30"));
+			listTime.add(setDataStaticRef("0900", "09:00"));
+			listTime.add(setDataStaticRef("0930", "09:30"));
+			listTime.add(setDataStaticRef("1000", "10:00"));
+			listTime.add(setDataStaticRef("1030", "10:30"));
+			listTime.add(setDataStaticRef("1100", "11:00"));
+			listTime.add(setDataStaticRef("1130", "11:30"));
+			listTime.add(setDataStaticRef("1200", "12:00"));
+			listTime.add(setDataStaticRef("1230", "12:30"));
+			listTime.add(setDataStaticRef("1300", "13:00"));
+			listTime.add(setDataStaticRef("1330", "13:30"));
+			listTime.add(setDataStaticRef("1400", "14:00"));
+			listTime.add(setDataStaticRef("1430", "14:30"));
+			listTime.add(setDataStaticRef("1500", "15:00"));
+			listTime.add(setDataStaticRef("1530", "15:30"));
+			listTime.add(setDataStaticRef("1600", "16:00"));
+			listTime.add(setDataStaticRef("1630", "16:30"));
+			listTime.add(setDataStaticRef("1700", "17:00"));
+			listTime.add(setDataStaticRef("1730", "17:30"));
+			listTime.add(setDataStaticRef("1800", "18:00"));
+			listTime.add(setDataStaticRef("1830", "18:30"));
+			listTime.add(setDataStaticRef("1900", "19:00"));
+			listTime.add(setDataStaticRef("1930", "19:30"));
+			listTime.add(setDataStaticRef("2000", "20:00"));
+			listTime.add(setDataStaticRef("2030", "20:30"));
+			listTime.add(setDataStaticRef("2100", "21:00"));
+			listTime.add(setDataStaticRef("2130", "21:30"));
+			listTime.add(setDataStaticRef("2200", "22:00"));
+			listTime.add(setDataStaticRef("2230", "22:30"));
+			listTime.add(setDataStaticRef("2300", "23:00"));
+			listTime.add(setDataStaticRef("2330", "23:30"));
+
+			return listTime;
+		} finally {
+			listTime = null;
+		}
+	}
+
+	// สำหรับเก็บรายละเอียดคนที่ขึ้น เอามาใช้ใน ดึงค่ามาแสดง edit
+	private List<StaticRef> setListQty() {
+		List<StaticRef> listQty = null;
+
+		try {
+			listQty = new ArrayList<StaticRef>();
+			listQty.add(setDataStaticRef("0", "0"));
+			listQty.add(setDataStaticRef("1", "1"));
+			listQty.add(setDataStaticRef("2", "2"));
+			listQty.add(setDataStaticRef("3", "3"));
+			listQty.add(setDataStaticRef("4", "4"));
+			listQty.add(setDataStaticRef("5", "5"));
+			listQty.add(setDataStaticRef("6", "6"));
+			listQty.add(setDataStaticRef("7", "7"));
+			listQty.add(setDataStaticRef("8", "8"));
+			listQty.add(setDataStaticRef("9", "9"));
+			listQty.add(setDataStaticRef("10", "10"));
+			listQty.add(setDataStaticRef("11", "11"));
+			listQty.add(setDataStaticRef("12", "12"));
+			listQty.add(setDataStaticRef("13", "13"));
+			listQty.add(setDataStaticRef("14", "14"));
+			listQty.add(setDataStaticRef("15", "15"));
+
+			return listQty;
+		} finally {
+			listQty = null;
+		}
+	}
+	// เอามาใช้ใน ดึงค่ามาแสดง edit
+	private StaticRef setDataStaticRef(String id, String name) {
+		StaticRef staticRef = new StaticRef();
+		staticRef.setDataRef(id, name);
+		return staticRef;
+	}
+
 }

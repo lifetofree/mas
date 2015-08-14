@@ -17,14 +17,14 @@
 		}
 	}
 
-	
-	
+
+
 	//datepickup
 	$(function() {
 
 		 $('#example1').datepicker({
 			format : "DD/MM/YYYY",
-		}); 
+		});
 		$('#example2').datepicker({
 			format : "DD/MM/YYYY",
 
@@ -44,7 +44,7 @@
 		$('#example6').datepicker({
 			format : "DD/MM/YYYY"
 
-		}); 
+		});
 
 		var Check_url = document.URL;
 		Check_url = Check_url.split("test=");
@@ -129,7 +129,7 @@
 			<div class="row">
 				<h1 style="text-align: center">ระบบจองรถยนต์ CarBooking</h1>
 			</div>
-			
+
 
 			<!-- Search Box -->
 
@@ -328,12 +328,11 @@
 								<form:form modelAttribute="addCarBooking" method="POST"
 									action="${pageContext.request.contextPath}/carbookings/savestatus">
 									<div>
-										<h4
-											style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
+										<h4 style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
 									</div>
 
 									<br>
-
+								<form:hidden path="id" />
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>รูปภาพ:</label>
@@ -346,7 +345,7 @@
 										</div>
 									</div>
 
-									<form:hidden path="id" />
+
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>ชื่อผู้จอง:</label>
@@ -391,8 +390,11 @@
 										<div class="col-sm-3" style="text-align: left">
 											<label>สถานที่เดินทาง:</label>
 										</div>
-										<div class="col-sm-9">
+										<div class="col-sm-2">
 											<label>${carbooking.tpidxDesc}</label>
+										</div>
+										<div class="col-sm-1">
+											<label>${carbooking.etcplace}</label>
 										</div>
 									</div>
 
@@ -485,7 +487,7 @@
 										</div>
 
 										<div class="col-sm-3">
-											<label>${carbooking.carli}</label>
+											 <label>${carbooking.carli}</label>
 										</div>
 										<c:choose>
 											<c:when test="${not empty datacarList}">
@@ -654,8 +656,8 @@
 												</c:when>
 											</c:choose>
 											<div class="col-sm-3">
-												<input type="text" placeHolder="อื่นๆ โปรดระบุ..."
-													style="width: 100pt; height: 20pt">
+												<form:input path="etcplace" type="text" placeHolder="อื่นๆ โปรดระบุ..."
+													style="width: 100pt; height: 20pt"></form:input>
 											</div>
 										</div>
 
@@ -680,7 +682,7 @@
 											<div class="col-sm-5">
 												<form:input path="dateend"
 													style="width: 130pt; height: 20pt" id="example6"></form:input>
-											</div> 
+											</div>
 										</div>
 
 
@@ -794,7 +796,7 @@
 											</div>
 										</div>
 
-										<div class="row">
+								<%-- 		<div class="row">
 											<div class="col-sm-3" style="text-align: left">
 												<label>ทะเบียนรถยนต์:</label>
 											</div>
@@ -812,7 +814,7 @@
 													</div>
 												</c:when>
 											</c:choose>
-										</div>
+										</div> --%>
 
 										<div class="row">
 											<div class="col-sm-4" style="text-align: left">
@@ -881,20 +883,11 @@
 							<c:choose>
 								<c:when test="${not empty datacarList}">
 									<c:forEach var="listValue" items="${datacarList}">
-								
-										<fieldset
-											style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+
+										<fieldset style="margin-top: 3px;  background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
 											class="col-lg-11">
 											<br>
-
-											<!--  <div class="col-lg-3">
-								<div class="col-xs-6 col-md-3">
-									<a href="#" class="thumbnail"> <img	src="Image/download.jpg"></a>
-
-								</div>
-							</div>-->
-
-											<div>
+												<div>
 												<div class="form-group">
 													<div class="col-sm-3">
 														<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
@@ -914,8 +907,7 @@
 
 												<div class="form-group">
 													<div class="col-sm-3">
-														<label style="font-weight: bold; text-align: left">สีรถยนต์
-															:</label>
+														<label style="font-weight: bold; text-align: left">สีรถยนต์:</label>
 													</div>
 													<div class="col-sm-2">
 														<label style="font-weight: bold">${listValue.color}</label>
@@ -933,8 +925,7 @@
 
 												<div class="form-group">
 													<div class="col-sm-3">
-														<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
-															:</label>
+														<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง:</label>
 													</div>
 													<div class="col-sm-2">
 														<label style="font-weight: bold">${listValue.qty}</label>
@@ -960,15 +951,57 @@
 															สุพรรณคง(วิรัช)</label>
 													</div>
 												</div>
+
+
+												<table
+									class="table table-striped table-bordered table-hover table-responsive">
+									<thead>
+										<tr>
+											<th style="text-align: center;">วันที่เริ่มเดินทาง</th>
+											<th style="text-align: center;">วันที่่เดินทางกลับ</th>
+											<th style="text-align: center;">สถานที่</th>
+											<th style="text-align: center;">เวลาเริ่มค้น</th>
+											<th style="text-align: center;">เวลาสิ้นสุด</th>
+
+										</tr>
+									</thead>
+									<c:choose>
+										<c:when test="${not empty retSampleList}">
+											<c:forEach var="listValue" items="${retSampleList}">
+												<tr>
+													<td style="font-size: 13pt;"><c:out
+															value="${listValue.datestart}" /></td>
+															<td style="font-size: 13pt;"><c:out
+															value="${listValue.dateend}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tpidxDesc}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.timestartDisplay}" /></td>
+															<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.timeendDisplay}" /></td>
+													</tr>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</table>
 											</div>
 										</fieldset>
+										<br>
 									</c:forEach>
 								</c:when>
 
 								<c:otherwise>
-									<fieldset
-										style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
-										class="col-lg-11">
+									<fieldset style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+										class="col-lg-11" >
 										<br>
 
 										<div>
@@ -1386,6 +1419,7 @@
 										<button type="submit" name="btnsave" value="savecarbooking"
 											class="btn btn-success glyphicon glyphicon-floppy-disk"
 											data-original-title="send" data-toggle="tooltip"></button>
+
 										<button type="submit" name="btnsave" value="cancel"
 											class="btn btn-danger glyphicon glyphicon-remove"
 											data-original-title="cancel" data-toggle="tooltip"></button>
@@ -1505,7 +1539,7 @@
 											<label> ติดต่อ :</label>
 										</div>
 										<div class="col-sm-7">
-											<form:input path="tel" style="width: 150pt; Height: 20pt;"
+											<form:input path="telproblem" style="width: 150pt; Height: 20pt;"
 												class="testx" PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
 										</div>
 									</div>
@@ -1529,7 +1563,7 @@
 						<!-- ส่วนแจ้งปัญหา user-->
 
 						<div id="user" style="display: none">
-							
+
 								<div id="tableuser">
 									<table
 										class="table table-striped table-bordered table-hover table-responsive;">
@@ -1568,7 +1602,7 @@
 										</c:choose>
 									</table>
 								</div>
-							
+
 						</div>
 						</form:form>
 
@@ -1633,7 +1667,8 @@
 							<br>
 
 							<div id="adminproblem" style="display: none">
-								<form:form modelAttribute="addCarBooking">
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/acceptproblem">
 									<div class="row">
 										<form:hidden path="id" />
 										<div class="col-sm-3" style="text-align: left">
@@ -1643,8 +1678,6 @@
 											<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
 										</div>
 									</div>
-									<br>
-
 									<div class="row">
 										<div class="col-sm-3">
 											<label>ชื่อหัวข้อ</label>
@@ -1664,9 +1697,7 @@
 										</div>
 									</div>
 
-
-									<br>
-									<div class="row">
+									 <div class="row">
 										<div class="col-sm-3">
 											<label>เบอร์โทรศัพท์ติดต่อ</label>
 										</div>
@@ -1681,11 +1712,10 @@
 										</div>
 
 										<div class="col-sm-9">
-											<select style="Width: 130pt; Height: 20pt">
+											 <form:select path="tspidx" style="Width: 130pt; Height: 20pt">
 												<option value="none">เลือกผลอนุมัติ...</option>
-												<option value="2">รับทราบ</option>
+												<option value="2">รับทราบ</option></form:select>
 
-											</select>
 										</div>
 									</div>
 
@@ -1696,11 +1726,15 @@
 										<div class="col-sm-4" style="text-align: left">
 											<button type="submit"
 												class="btn btn-success glyphicon glyphicon-floppy-disk"
-												data-original-title="accept" data-toggle="tooltip"></button>
-											<button type="submit"
+												data-original-title="accept" data-toggle="tooltip"
+												name="btnproblem" value="accept"></button>
+
+										<button type="submit"
 												class="btn btn-danger glyphicon glyphicon-arrow-left"
-												data-original-title="back" data-toggle="tooltip"
-												onclick="Show_Div1('tablepro')"></button>
+												name="btnproblem" data-original-title="back"
+												data-toggle="tooltip" value="back" onclick="Show_Div1('tablepro')"></button>
+
+
 										</div>
 									</div>
 

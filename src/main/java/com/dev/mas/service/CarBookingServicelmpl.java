@@ -270,6 +270,8 @@ public class CarBookingServicelmpl implements CarBookingService {
 		carbooking.setTridx(carbooking.getTridx());
 		carbooking.setTcidx(carbooking.getTcidx());
 		carbooking.setTpidx(carbooking.getTpidx());
+		carbooking.setEtcplace(carbooking.getEtcplace());
+		carbooking.setTdidx(carbooking.getTdidx());
 		carbooking.setDatestart(carbooking.getDatestart());
 		carbooking.setDateend(carbooking.getDateend());
 		carbooking.setTimestart(carbooking.getTimestart());
@@ -322,7 +324,6 @@ public class CarBookingServicelmpl implements CarBookingService {
 		problem.setcEmpIDX(problem.getcEmpIDX());
 		problem.setCreateDate(problem.getCreateDate());
 		problem.setAdEmpIDX(problem.getAdEmpIDX());
-		problem.setUpdateDate(problem.getUpdateDate());
 		problem.setTcStatus(problem.getTcStatus());
 		carbookingDao.saveproblem(problem);
 	}

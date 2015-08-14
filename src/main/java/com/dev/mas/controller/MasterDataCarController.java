@@ -37,36 +37,25 @@ public class MasterDataCarController {
 		List<MasterDataCar> datacarList = null;
 		List<MasterTypeCar> typecarList = null;
 		List<MasterBrand> brandList = null;
-		Query query = null;
-		
+		//Query query = null;
+
 		try {
-			
-			typecarList = carbookingService.listtypecar();
-			brandList = carbookingService.listbrand();
-			
-			
-			typecarList = carbookingService.listtypecar();
-			 brandList = carbookingService.listbrand();
-			
-			query = new Query();
-			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			
-			//datacarList = carbookingService.findByCriteriadatacar(query);
-			typecarList = carbookingService.findByCriteria(query);
-			brandList = carbookingService.findByCriteriabrand(query);
 
 			
-			
+			datacarList  = getListMasterDataCar();
+			typecarList  = getListMasterTypeCar();
+			brandList = getListMasterBrand();
 			datacarList = getListMasterDataCar();
+			
 			modelmap.addAttribute("addDataCar", new MasterDataCar());
 			modelmap.addAttribute("retSampleList", datacarList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("brand", brandList);
-			
+
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			//datacarList = null;
+			// datacarList = null;
 		}
 
 		return "MasterDataCar";
@@ -75,24 +64,17 @@ public class MasterDataCarController {
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
 		List<MasterDataCar> datacarList = null;
-		Query query = null;
+		List<MasterTypeCar> typecarList = null;
+		List<MasterBrand> brandList = null;
 		
 		try {
-			
 
 			// show form
 			masterdatacar = carbookingService.listByIddatacar(id);
-			
-			List<MasterTypeCar> typecarList = carbookingService.listtypecar();
-			List<MasterBrand> brandList = carbookingService.listbrand();
-			
-			query = new Query();
-			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			
-			
-			typecarList = carbookingService.findByCriteria(query);
-			brandList = carbookingService.findByCriteriabrand(query);
-			
+
+			datacarList  = getListMasterDataCar();
+			typecarList  = getListMasterTypeCar();
+			brandList = getListMasterBrand();
 			datacarList = getListMasterDataCar();
 			modelmap.addAttribute("addDataCar", new MasterDataCar());
 			modelmap.addAttribute("retSampleList", datacarList);
@@ -150,55 +132,45 @@ public class MasterDataCarController {
 
 		return "redirect:/datacar/";
 	}
-	
-	
+
 	private List<MasterDataCar> getListMasterDataCar() throws SequenceException {
-		
+
 		List<MasterDataCar> datacarList = null;
 		MasterDataCar masterdatacarDesc = null;
 		MasterTypeCar mastertypecar = null;
 		MasterBrand masterbrand = null;
-		List<MasterTypeCar> typecarList = null;
-		List<MasterBrand> brandList = null;
 		Query query = null;
 		try {
-			typecarList = carbookingService.listtypecar();
-			brandList = carbookingService.listbrand();
 			
-			
+
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			//query.with(new Sort(Sort.Direction.DESC, "id"));
-			
 			
 			datacarList = carbookingService.findByCriteriadatacar(query);
-			typecarList = carbookingService.findByCriteria(query);
-			brandList = carbookingService.findByCriteriabrand(query);
-
-				
 			
 			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);
-				
-				
-				mastertypecar = carbookingService.listById(masterdatacarDesc.getTcidx());
+
+				mastertypecar = carbookingService.listById(masterdatacarDesc
+						.getTcidx());
 				if (mastertypecar != null) {
-					masterdatacarDesc.setTcidxDesc(mastertypecar.getTypeCarTH());
+					masterdatacarDesc
+							.setTcidxDesc(mastertypecar.getTypeCarTH());
 				} else {
-					masterdatacarDesc.setTcidxDesc("รายการที่ไม่มีคือ " + masterdatacarDesc.getTcidx());
+					masterdatacarDesc.setTcidxDesc("รายการที่ไม่มีคือ "
+							+ masterdatacarDesc.getTcidx());
 				}
-			
-				masterbrand = carbookingService.listByIdbrand(masterdatacarDesc.getTbidx());
+
+				masterbrand = carbookingService.listByIdbrand(masterdatacarDesc
+						.getTbidx());
 				if (masterbrand != null) {
 					masterdatacarDesc.setTbidxDesc(masterbrand.getBrandTH());
 				} else {
-					masterdatacarDesc.setTbidxDesc("รายการที่ไม่มีคือ " + masterdatacarDesc.getTbidx());
+					masterdatacarDesc.setTbidxDesc("รายการที่ไม่มีคือ "
+							+ masterdatacarDesc.getTbidx());
 				}
 			}
-			
-			
-			
-			
+
 			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);
 
@@ -208,13 +180,39 @@ public class MasterDataCarController {
 					masterdatacarDesc.setTcStatusDesc("Offline");
 				}
 			}
-			
+
 			return datacarList;
 		} finally {
 			datacarList = null;
-			brandList = null;
-			typecarList = null;
 			masterdatacarDesc = null;
+			query = null;
+		}
+	}
+
+	private List<MasterTypeCar> getListMasterTypeCar() throws SequenceException {
+		Query query = null;
+		List<MasterTypeCar> typecarList = null;
+		try {
+			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			typecarList = carbookingService.findByCriteria(query);
+			return typecarList;
+		} finally {
+			typecarList = null;
+			query = null;
+		}
+	}
+
+	private List<MasterBrand> getListMasterBrand() throws SequenceException {
+		Query query = null;
+		List<MasterBrand> brandList = null;
+		try {
+			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			brandList = carbookingService.findByCriteriabrand(query);
+			return brandList;
+		} finally {
+			brandList = null;
 			query = null;
 		}
 	}
