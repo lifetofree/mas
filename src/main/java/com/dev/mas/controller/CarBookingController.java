@@ -49,16 +49,18 @@ public class CarBookingController {
 		List<MasterPlace> placeList = null;
 		List<CarBooking> carbookingList = null;
 		List<MasterDataCar> datacarList = null;
+		List<MasterDataCar> carliList = null;
 		List<Problem> problemList = null;
 
 		try {
+			modelmap.addAttribute("addCarBooking", carbooking);
 			carbookingList = getListCarBooking();
 			datacarList  = getListMasterDataCar();
+			carliList    = getListCarli();
 			typecarList  = getListMasterTypeCar();
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
 			problemList	 = getListProblem();
-			modelmap.addAttribute("addCarBooking", carbooking);
 
 			
 			// สำหรับ tab1 โชว์ข้อมูล
@@ -67,6 +69,9 @@ public class CarBookingController {
 			modelmap.addAttribute("typerent", typerentList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
+			//กท.รถ
+			modelmap.addAttribute("carliList", carliList);
+			
 			// สำหรับ tab2 ดึงข้อมูลแสดง
 			modelmap.addAttribute("datacarList", datacarList);
 			// สำหรับดึงค่ามาแสดง tab5
@@ -119,6 +124,7 @@ public class CarBookingController {
 		List<MasterPlace> placeList = null;
 		List<CarBooking> carbookingList = null;
 		List<MasterDataCar> datacarList = null;
+		List<MasterDataCar> carliList = null;
 		List<Problem> problemList = null;
 		MasterStatus masterstatus = null;
 		MasterTypeCar mastertypecar = null;
@@ -127,19 +133,18 @@ public class CarBookingController {
 		String timestart = null;
 		String timeend = null;
 		try {
-			
-			
+			// show form
+			carbooking = carbookingService.listByIdcarbooking(id);			
+			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นในการโชว์dropdownlist
+
 			List<MasterStatus> statusList = carbookingService.liststatus();
 			carbookingList = getListCarBooking();
 			datacarList  = getListMasterDataCar();
+			carliList    = getListCarli();
 			typecarList  = getListMasterTypeCar();
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
-			problemList	 = getListProblem();
-
-			
-			// show form
-			carbooking = carbookingService.listByIdcarbooking(id);
+			problemList	 = getListProblem();			
 
 			mastertypecar = carbookingService.listById(carbooking.getTcidx());
 			carbooking.setTcidxDesc(mastertypecar.getTypeCarTH());
@@ -162,7 +167,7 @@ public class CarBookingController {
 			carbooking.setTimeendDisplay(timeend);
 
 			
-			modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นในการโชว์dropdownlist
+		
 			modelmap.addAttribute("carbooking", carbooking); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			modelmap.addAttribute("retSampleList", carbookingList);
 			// dropdown tab3
@@ -170,6 +175,8 @@ public class CarBookingController {
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
 			modelmap.addAttribute("status", statusList);
+			//กท.รถ
+			modelmap.addAttribute("carliList", carliList);
 			// สำหรับดึงค่ามาแสดง tab2
 			modelmap.addAttribute("datacarList", datacarList);
 			// สำหรับดึงค่ามาแสดง tab5
@@ -198,8 +205,8 @@ public class CarBookingController {
 				newCarbooking = carbookingService.listByIdcarbooking(Integer.parseInt(String.valueOf(carbooking.getId())));
 				Date date = new Date();
 				newCarbooking.setAdCreateDate(date);
-				newCarbooking.setCarli(carbooking.getCarli());
-				
+				newCarbooking.setTdidx(carbooking.getTdidx());
+				//newCarbooking.setCarli(carbooking.getCarli());
 				newCarbooking.setTsidx(carbooking.getTsidx());
 				carbookingService.savecarbooking(newCarbooking);
 				
@@ -232,21 +239,23 @@ public class CarBookingController {
 		List<MasterTypeCar> typecarList = null;
 		List<MasterTypeRent> typerentList = null;
 		List<MasterPlace> placeList = null;
+		List<MasterDataCar> carliList = null;
 		List<CarBooking> carbookingList = null;
 		List<MasterDataCar> datacarList = null;
 		List<Problem> problemList = null;
 
 		try {
+			// show form
+			carbooking = carbookingService.listByIdcarbooking(id);
+
 			carbookingList = getListCarBooking();
 			datacarList  = getListMasterDataCar();
 			typecarList  = getListMasterTypeCar();
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
 			problemList	 = getListProblem();
-			// show form
-			carbooking = carbookingService.listByIdcarbooking(id);
-			List<MasterStatus> statusList = carbookingService.liststatus();
-			
+			carliList    = getListCarli();
+			List<MasterStatus> statusList = carbookingService.liststatus();			
 
 			listTime = setListTime(); // Add Time
 			listQty = setListQty(); // Add Qty
@@ -274,6 +283,8 @@ public class CarBookingController {
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
 			modelmap.addAttribute("status", statusList);
+			//กท.รถ
+			modelmap.addAttribute("carliList", carliList);
 
 			// dropdown time&qty
 			modelmap.addAttribute("listTime", listTime);
@@ -356,22 +367,29 @@ public class CarBookingController {
 		List<MasterPlace> placeList = null;
 		List<CarBooking> carbookingList = null;
 		List<MasterDataCar> datacarList = null;
+		List<MasterDataCar> carliList = null;
 		Problem problem = null;
+	
 		try {
-			carbookingList = getListCarBooking();
+		 	modelmap.addAttribute("addCarBooking", carbooking);
+			modelmap.addAttribute("problem", problem); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+
+		 	carbookingList = getListCarBooking();
 			datacarList  = getListMasterDataCar();
+			carliList    = getListCarli();
 			typecarList  = getListMasterTypeCar();
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
 		 	problem = carbookingService.listByIdproblem(id);
-			modelmap.addAttribute("addCarBooking", carbooking);
-			modelmap.addAttribute("problem", problem); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+		
 			// สำหรับ tab1 โชว์ข้อมูล
 			modelmap.addAttribute("retSampleList", carbookingList);
 			// สำหรับ dropdownlist
 			modelmap.addAttribute("typerent", typerentList);
 			modelmap.addAttribute("typecar", typecarList);
 			modelmap.addAttribute("place", placeList);
+			//กท.รถ
+			modelmap.addAttribute("carliList", carliList);
 			// สำหรับ tab2 ดึงข้อมูลแสดง
 			modelmap.addAttribute("datacarList", datacarList);
 
@@ -396,7 +414,6 @@ public class CarBookingController {
 				Problem newProblem = null;
 				try {
 					newProblem = carbookingService.listByIdproblem(Integer.parseInt(String.valueOf(problem.getId())));
-					System.out.println("problem.id ==> " +problem.getId());
 					Date date = new Date();
 					newProblem.setAdCreateDate(date);
 					newProblem.setTspidx(problem.getTspidx());
@@ -438,14 +455,13 @@ public class CarBookingController {
 					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTpidx());
 				}
 				
-				
 				/*masterdatacar = carbookingService.listByIddatacar(carbookingDesc.getTdidx());
 				if (masterdatacar != null) {
-					carbookingDesc.setCarli(masterdatacar.getCarli());
+					carbookingDesc.setTdidxDesc(masterdatacar.getCarli());
 				} else {
-					carbookingDesc.setCarli("รายการที่ไม่มีคือ "	+ carbookingDesc.getTdidx());
-				}*/
-				
+					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTdidx());
+				}
+				*/
 				masterstatus = carbookingService.listByIdstatus(carbookingDesc.getTsidx());
 				if (masterstatus != null) {
 					carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
@@ -491,14 +507,12 @@ public class CarBookingController {
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			datacarList = carbookingService.findByCriteriadatacar(query);
 			
-			
 			//กท.รถ
 			/*query = new Query();
-			query.addCriteria(Criteria.where("carli").is(carbooking.getTcidx()));
-			//.and("tcStatus").lt(9));
+//			query.addCriteria(Criteria.where("carli").is(carbooking.getTcidx()).and("tcStatus").lt(9));
+			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()));
 			datacarList = carbookingService.findByCriteriadatacar(query);*/
-			
-			
+		
 			// ดึงข้อมูลมาโ๙ว์ใน tab2
 			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);
@@ -532,6 +546,28 @@ public class CarBookingController {
 
 		} finally {
 			datacarList = null;
+			query = null;
+		}
+
+	}
+	
+	private List<MasterDataCar> getListCarli() throws SequenceException {
+		Query query = null;
+		List<MasterDataCar> carliList   = null;
+		
+		try {
+			
+			//กท.รถ
+			query = new Query();
+//			.and("tcStatus").lt(9));
+			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()));
+			carliList = carbookingService.findByCriteriadatacar(query);
+		
+			
+			return carliList;
+
+		} finally {
+			carliList = null;
 			query = null;
 		}
 

@@ -23,6 +23,7 @@ public class CarBooking {
 	private String tpidxDesc;
 	private String etcplace;
 	private int tdidx;
+	private String tdidxDesc;
 	private Date datestart;
 	private Date dateend;
 	private String timestart;
@@ -112,6 +113,14 @@ public class CarBooking {
 
 	public void setTdidx(int tdidx) {
 		this.tdidx = tdidx;
+	}
+
+	public String getTdidxDesc() {
+		return tdidxDesc;
+	}
+
+	public void setTdidxDesc(String tdidxDesc) {
+		this.tdidxDesc = tdidxDesc;
 	}
 
 	public String getCarli() {

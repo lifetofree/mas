@@ -332,7 +332,7 @@
 									</div>
 
 									<br>
-								<form:hidden path="id" />
+									<form:hidden path="id" />
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>รูปภาพ:</label>
@@ -487,16 +487,16 @@
 										</div>
 
 										<div class="col-sm-3">
-											 <label>${carbooking.carli}</label>
+											 <label>${carbooking.tdidx}</label>
 										</div>
 										<c:choose>
-											<c:when test="${not empty datacarList}">
+											<c:when test="${not empty carliList}">
 												<div class="col-sm-2">
-													<form:select path="carli"
+													<form:select path="tdidx"
 														style="width: 130pt; height: 20pt">
 														<option value=>เลือกรถยนต์...</option>
-														<c:forEach var="listValue" items="${datacarList}">
-															<option value="<c:out value='${listValue.carli}' />">
+														<c:forEach var="listValue" items="${carliList}">
+															<option value="<c:out value='${listValue.id}' />">
 																<c:out value="${listValue.carli}" />
 															</option>
 														</c:forEach>
@@ -879,7 +879,6 @@
 								<h4
 									style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลรถยนต์</h4>
 							</div>
-							<br>
 							<c:choose>
 								<c:when test="${not empty datacarList}">
 									<c:forEach var="listValue" items="${datacarList}">
@@ -1605,10 +1604,7 @@
 
 						</div>
 						</form:form>
-
-
-
-						<!-- ส่วนแจ้งปัญหา Admin-->
+				<!-- ส่วนแจ้งปัญหา Admin-->
 						<div id="admin">
 
 
@@ -1670,7 +1666,8 @@
 								<form:form modelAttribute="addCarBooking" method="POST"
 									action="${pageContext.request.contextPath}/carbookings/acceptproblem">
 									<div class="row">
-										<form:hidden path="id" />
+									<form:input path="id"/>
+										<input type="text" id="id" name="id" value="${problem.id}" >
 										<div class="col-sm-3" style="text-align: left">
 											<label>ชื่อผู้แจ้ง :</label>
 										</div>
