@@ -371,8 +371,8 @@ public class CarBookingController {
 		Problem problem = null;
 	
 		try {
-		 	modelmap.addAttribute("addCarBooking", carbooking);
-			modelmap.addAttribute("problem", problem); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+		 	
+			
 
 		 	carbookingList = getListCarBooking();
 			datacarList  = getListMasterDataCar();
@@ -381,7 +381,8 @@ public class CarBookingController {
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
 		 	problem = carbookingService.listByIdproblem(id);
-		
+		 	modelmap.addAttribute("addCarBooking", carbooking);
+		 	modelmap.addAttribute("problem", problem); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
 			// สำหรับ tab1 โชว์ข้อมูล
 			modelmap.addAttribute("retSampleList", carbookingList);
 			// สำหรับ dropdownlist
@@ -507,12 +508,7 @@ public class CarBookingController {
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
 			datacarList = carbookingService.findByCriteriadatacar(query);
 			
-			//กท.รถ
-			/*query = new Query();
-//			query.addCriteria(Criteria.where("carli").is(carbooking.getTcidx()).and("tcStatus").lt(9));
-			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()));
-			datacarList = carbookingService.findByCriteriadatacar(query);*/
-		
+			
 			// ดึงข้อมูลมาโ๙ว์ใน tab2
 			for (int i = 0; i < datacarList.size(); i++) {
 				masterdatacarDesc = datacarList.get(i);

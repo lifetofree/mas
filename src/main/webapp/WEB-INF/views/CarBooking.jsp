@@ -1666,8 +1666,7 @@
 								<form:form modelAttribute="addCarBooking" method="POST"
 									action="${pageContext.request.contextPath}/carbookings/acceptproblem">
 									<div class="row">
-									<form:input path="id"/>
-										<input type="text" id="id" name="id" value="${problem.id}" >
+									<input type="text" style="display:none;" id="id" name="id" value="${problem.id}" >
 										<div class="col-sm-3" style="text-align: left">
 											<label>ชื่อผู้แจ้ง :</label>
 										</div>
