@@ -48,6 +48,7 @@ public class CarBookingController {
 		List<MasterTypeRent> typerentList = null;
 		List<MasterPlace> placeList = null;
 		List<CarBooking> carbookingList = null;
+		List<CarBooking> datarentList = null;
 		List<MasterDataCar> datacarList = null;
 		List<MasterDataCar> carliList = null;
 		List<Problem> problemList = null;
@@ -61,7 +62,7 @@ public class CarBookingController {
 			typerentList = getListMasterTypeRent();
 			placeList	 = getListMasterPlace();
 			problemList	 = getListProblem();
-
+			datarentList = getListDataCarRent();
 			
 			// สำหรับ tab1 โชว์ข้อมูล
 			modelmap.addAttribute("retSampleList", carbookingList);
@@ -74,6 +75,7 @@ public class CarBookingController {
 			
 			// สำหรับ tab2 ดึงข้อมูลแสดง
 			modelmap.addAttribute("datacarList", datacarList);
+			modelmap.addAttribute("datarentList", datarentList);
 			// สำหรับดึงค่ามาแสดง tab5
 			modelmap.addAttribute("problemList", problemList);
 
@@ -587,7 +589,7 @@ public class CarBookingController {
 
 		try {
 			query = new Query();
-			query.addCriteria(Criteria.where("tdidx").is(carbooking.getId()).and("tsidx").lt(1));
+			query.addCriteria(Criteria.where("tdidx").is(carbooking.getId()).and("tsidx").lt(2));
 			datarentList = carbookingService.findByCriteriacarbooking(query);
 
 			// สำหรับ tab1 ดึงขึ้นมารายการที่แสดง
