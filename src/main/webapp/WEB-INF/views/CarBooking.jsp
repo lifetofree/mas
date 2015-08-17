@@ -17,32 +17,31 @@
 		}
 	}
 
-
-
+	
 	//datepickup
 	$(function() {
-
-		 $('#example1').datepicker({
-			format : "DD/MM/YYYY",
-		});
+		
+		$('#example1').datepicker({
+			format : "dd/MM/yyyy",
+		}); 
 		$('#example2').datepicker({
-			format : "DD/MM/YYYY",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example3').datepicker({
-			format : "DD/MM/YYYY",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example4').datepicker({
-			format : "DD/MM/YYYY",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example5').datepicker({
-			format : "DD/MM/YYYY",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example6').datepicker({
-			format : "DD/MM/YYYY"
+			format : "dd/MM/yyyy"
 
 		});
 
@@ -205,16 +204,14 @@
 							<label style="text-align: left">วันที่ : </label>
 						</div>
 						<div class="col-sm-2">
-							<input type="text" id="example1"
-								style="background-color: #FFFFFF; width: 120pt; Height: 20pt">
-
+							<input type="text" id="example1" style="background-color: #FFFFFF; width: 120pt; Height: 20pt">
 						</div>
 						<div class="col-sm-2">
 							<input type="text" id="example2"
 								style="background-color: #FFFFFF; width: 120pt; Height: 20pt"
 								name="txtdate1">
 						</div>
-					</div>
+						</div>
 
 					<div class="form-group">
 						<div class="col-sm-2">
@@ -816,25 +813,26 @@
 											</div>
 										</div>
 
-								<%-- 		<div class="row">
-											<div class="col-sm-3" style="text-align: left">
+								<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
 												<label>ทะเบียนรถยนต์:</label>
 											</div>
 											 <c:choose>
-												<c:when test="${not empty carli}">
-													<div class="col-sm-2">
-														<form:select id="selectCarLicenseId" path="carli"
+												<c:when test="${not empty carliList}">
+													<div class="col-sm-5">
+														<form:select id="selectCarLicenseId" path="tdidx"
 															style="width: 130pt; height: 20pt">
-															<c:forEach items="${carli}" var="listValue">
+															<c:forEach items="${carliList}" var="listValue">
 																<option
-																	<c:if test="${listValue.carli eq carbooking.carli}">selected="selected"</c:if>
-																	value="${listValue.carli}">${listValue.carli}</option>
+																	<c:if test="${listValue.id eq carbooking.tdidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.carli}</option>
 															</c:forEach>
 														</form:select>
 													</div>
 												</c:when>
 											</c:choose>
-										</div> --%>
+											
+										</div>
 
 										<div class="row">
 											<div class="col-sm-4" style="text-align: left">
@@ -1249,7 +1247,6 @@
 														</option>
 													</c:forEach>
 												</form:select>
-												<form:errors path="tcidx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
