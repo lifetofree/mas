@@ -130,6 +130,7 @@ public class CarBookingController {
 		MasterTypeCar mastertypecar = null;
 		MasterTypeRent mastertyperent = null;
 		MasterPlace masterplace = null;
+		MasterDataCar masterdatacar = null;
 		String timestart = null;
 		String timeend = null;
 		try {
@@ -155,6 +156,15 @@ public class CarBookingController {
 			masterplace = carbookingService.listByIdplace(carbooking.getTpidx());
 			carbooking.setTpidxDesc(masterplace.getPlaceTH());
 
+			
+			masterdatacar = carbookingService.listByIddatacar(carbooking.getTdidx());
+			if (masterdatacar != null) {
+				carbooking.setTdidxDesc(masterdatacar.getCarli());
+			} else {
+				carbooking.setTdidxDesc("เลือกรถยนต์ ");
+			}
+		
+			
 			masterstatus = carbookingService.listByIdstatus(carbooking.getTsidx());
 			carbooking.setTsidxDesc(masterstatus.getStatusTH());
 
@@ -304,6 +314,83 @@ public class CarBookingController {
 		return "CarBooking";
 	}
 
+	// ปุ่มดึงตารางการใช้รถมาแสดง
+		@RequestMapping(value = { "/datacar/{id}" }, method = RequestMethod.GET)
+		public String processViewdatarentcar(ModelMap modelmap, @PathVariable int id) {
+			List<MasterTypeCar> typecarList = null;
+			List<MasterTypeRent> typerentList = null;
+			List<MasterPlace> placeList = null;
+			List<CarBooking> carbookingList = null;
+			List<MasterDataCar> datacarList = null;
+			List<Problem> problemList = null;
+			MasterTypeCar mastertypecar = null;
+			MasterBrand masterbrand = null;
+			MasterDataCar masterdatacar = null;
+			List<CarBooking> datarentList = null;
+
+
+
+			try {
+				modelmap.addAttribute("addCarBooking", carbooking); // ใช้สำหรับดึงมาโชว์ในรายกาdropdownlist
+				// show form
+				carbooking = carbookingService.listByIdcarbooking(id);
+				modelmap.addAttribute("addCarBooking", carbooking); // ส่วนอันนี้นะtabอื่นในการโชว์dropdownlist
+
+
+
+				carbookingList = getListCarBooking();
+				datacarList  = getListMasterDataCar();
+				typecarList  = getListMasterTypeCar();
+				typerentList = getListMasterTypeRent();
+				placeList	 = getListMasterPlace();
+				problemList	 = getListProblem();
+				datarentList = getListDataCarRent();
+
+
+					masterdatacar = carbookingService.listByIddatacar(id);
+
+					mastertypecar = carbookingService.listById(masterdatacar.getTcidx());
+					masterdatacar.setTcidxDesc(mastertypecar.getTypeCarTH());
+
+					masterbrand = carbookingService.listByIdbrand(masterdatacar.getTbidx());
+					masterdatacar.setTbidxDesc(masterbrand.getBrandTH());
+
+
+						//สถานะ ออนไลน์ ออฟไลน์
+						if (masterdatacar.getTcStatus() == 1) {
+							masterdatacar.setTcStatusDesc("Online");
+						} else if (masterdatacar.getTcStatus() == 0) {
+							masterdatacar.setTcStatusDesc("Offline");
+						}
+
+
+
+				modelmap.addAttribute("datacar", masterdatacar); // ใช้บรรทักนี้นะสำหรับแสดงบนหน้าจอ(Label)
+				modelmap.addAttribute("datarent", datarentList);
+				modelmap.addAttribute("retSampleList", carbookingList);
+				// dropdown tab3
+				modelmap.addAttribute("typerent", typerentList);
+				modelmap.addAttribute("typecar", typecarList);
+				modelmap.addAttribute("place", placeList);
+
+
+				// สำหรับดึงค่ามาแสดง tab2
+				modelmap.addAttribute("datacarList", datacarList);
+				// สำหรับดึงค่ามาแสดง tab5
+				modelmap.addAttribute("problemList", problemList);
+
+			} catch (SequenceException e) {
+				System.out.println(e.getErrMsg());
+				modelmap.addAttribute("retSamples", e.getErrMsg());
+			} finally {
+
+			}
+
+			return "CarBooking";
+		}
+
+
+	
 // ปุ่มแก้ไขข้อมูลบันทึก
 	@RequestMapping(value = { "/editdata" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processEditdata(ModelMap modelmap,
@@ -435,7 +522,6 @@ public class CarBookingController {
 		Query query = null;
 		MasterPlace masterplace = null;
 		MasterStatus masterstatus = null;
-		//MasterDataCar masterdatacar = null;
 		String timestart = null;
 		String timeend = null;
 		List<CarBooking> carbookingList = null;
@@ -456,13 +542,7 @@ public class CarBookingController {
 					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTpidx());
 				}
 				
-				/*masterdatacar = carbookingService.listByIddatacar(carbookingDesc.getTdidx());
-				if (masterdatacar != null) {
-					carbookingDesc.setTdidxDesc(masterdatacar.getCarli());
-				} else {
-					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTdidx());
-				}
-				*/
+				
 				masterstatus = carbookingService.listByIdstatus(carbookingDesc.getTsidx());
 				if (masterstatus != null) {
 					carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
@@ -495,6 +575,63 @@ public class CarBookingController {
 		}
 	}
 
+	//ดึงข้อมูลมาแสดงรายการจองรถของ Tab2
+	private List<CarBooking> getListDataCarRent() throws SequenceException {
+		Query query = null;
+		MasterPlace masterplace = null;
+		MasterStatus masterstatus = null;
+		String timestart = null;
+		String timeend = null;
+		List<CarBooking> datarentList = null;
+		CarBooking carbookingDesc = null;
+
+		try {
+			query = new Query();
+			query.addCriteria(Criteria.where("tdidx").is(carbooking.getId()).and("tsidx").lt(1));
+			datarentList = carbookingService.findByCriteriacarbooking(query);
+
+			// สำหรับ tab1 ดึงขึ้นมารายการที่แสดง
+			for (int i = 0; i < datarentList.size(); i++) {
+				carbookingDesc = datarentList.get(i);
+				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
+				if (masterplace != null) {
+					carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
+				} else {
+					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTpidx());
+				}
+
+				masterstatus = carbookingService.listByIdstatus(carbookingDesc.getTsidx());
+				if (masterstatus != null) {
+					carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
+				} else {
+					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTsidx());
+				}
+
+				if (carbookingDesc.getTimestart() != null) {
+					timestart = carbookingDesc.getTimestart();
+					timestart = timestart.substring(0, 2) + ":"	+ timestart.substring(2, 4);
+					carbookingDesc.setTimestartDisplay(timestart);
+				} else {
+					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
+				}
+				//เอามาโชว์ใน tab2
+				if (carbookingDesc.getTimeend() != null) {
+					timeend = carbookingDesc.getTimeend();
+					timeend = timeend.substring(0, 2) + ":"	+ timeend.substring(2, 4);
+					carbookingDesc.setTimeendDisplay(timeend);
+				} else {
+					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
+				}
+			}
+			return datarentList;
+
+		} finally {
+			datarentList = null;
+			query = null;
+
+		}
+	}
+	
 	private List<MasterDataCar> getListMasterDataCar() throws SequenceException {
 		Query query = null;
 		MasterTypeCar mastertypecar = null;
@@ -555,10 +692,8 @@ public class CarBookingController {
 			
 			//กท.รถ
 			query = new Query();
-//			.and("tcStatus").lt(9));
-			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()));
+			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()).and("tcStatus").lt(9));
 			carliList = carbookingService.findByCriteriadatacar(query);
-		
 			
 			return carliList;
 
