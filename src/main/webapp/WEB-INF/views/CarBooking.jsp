@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
@@ -17,36 +17,47 @@
 		}
 	}
 
+	
+	
 	//datepickup
 	$(function() {
-
+		
 		$('#example1').datepicker({
-			format : "dd/mm/yyyy",
-		});
+			format : "dd/MM/yyyy",
+		}); 
 		$('#example2').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example3').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example4').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example5').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd/MM/yyyy",
 
 		});
 		$('#example6').datepicker({
-			format : "dd/mm/yyyy"
+			format : "dd/MM/yyyy"
 
 		});
+
 		var Check_url = document.URL;
-        Check_url = Check_url.split("test=");
+		Check_url = Check_url.split("test=");
 		Show_Div(Check_url[1]);
+
+		var Check_url = document.URL;
+		Check_url = Check_url.split("tests=");
+		Show_Div1(Check_url[1]);
 		
+		var Check_url = document.URL;
+		Check_url = Check_url.split("testx=");
+		Show_Div3(Check_url[1]);
+
 		$(".testx").val("");
 	});
 
@@ -91,6 +102,20 @@
 
 		}
 	}
+	
+	function Show_Div3(mode3) {
+		if (mode3 == 'datacar') {
+			$(datacar).show(250);
+			$(showdatacarrent).hide(250);
+
+		} else if (mode3 == 'showdatacarrent') {
+			$(showdatacarrent).show(250);
+			$(datacar).hide(250);
+
+		}
+	}
+	
+	
 </script>
 
 
@@ -122,14 +147,14 @@
 			<div class="row">
 				<h1 style="text-align: center">ระบบจองรถยนต์ CarBooking</h1>
 			</div>
-			<br>
+
 
 			<!-- Search Box -->
 
 			<div>
 				<button type="button"
 					class="btn btn-primary glyphicon glyphicon-search"
-					data-original-title="add" data-toggle="tooltip"
+					data-original-title="search" data-toggle="tooltip"
 					style="font-size: 11pt; width: 40pt; height: 20pt;"
 					onclick="Show_Divsearch(search)" id="btndiv1"></button>
 			</div>
@@ -181,16 +206,14 @@
 							<label style="text-align: left">วันที่ : </label>
 						</div>
 						<div class="col-sm-2">
-							<input type="text" id="example1"
-								style="background-color: #FFFFFF; width: 120pt; Height: 20pt">
-
+							<input type="text" id="example1" style="background-color: #FFFFFF; width: 120pt; Height: 20pt">
 						</div>
 						<div class="col-sm-2">
 							<input type="text" id="example2"
 								style="background-color: #FFFFFF; width: 120pt; Height: 20pt"
 								name="txtdate1">
 						</div>
-					</div>
+						</div>
 
 					<div class="form-group">
 						<div class="col-sm-2">
@@ -198,11 +221,11 @@
 						</div>
 						<div class="col-sm-3">
 							<select style="Width: 160pt; Height: 20pt">
-								<option value="00">กรุณาเลือกผลอนุมัติ...</option>
-								<option value="1">อนุมัติแล้ว</option>
+								<option value="none">กรุณาเลือกผลอนุมัติ...</option>
+								<option value="1">อนุมัติ</option>
 								<option value="2">รออนุมัติ</option>
 								<option value="3">ไม่อนุมัติ</option>
-								<option value="3">ยกเลิก</option>
+								<option value="4">ยกเลิก</option>
 							</select>
 						</div>
 
@@ -251,8 +274,10 @@
 					<br>
 					<div id="pane1" class="tab-pane active">
 						<!-- div pane1หน้าตารางจอง  แถบใหญ่-->
-						<form:form modelAttribute="addCarBooking" method="POST" action="${pageContext.request.contextPath}/carbookings/view">
-							<div id="main">
+
+						<div id="main">
+							<form:form modelAttribute="addCarBooking" method="POST"
+								action="${pageContext.request.contextPath}/carbookings/view">
 								<!-- หน้าแรก-->
 								<p
 									style="text-align: center; font-weight: bold; font-size: 17pt;">รายการจองรถ</p>
@@ -261,7 +286,6 @@
 									class="table table-striped table-bordered table-hover table-responsive">
 									<thead>
 										<tr>
-											<th style="text-align: center;">#</th>
 											<th style="text-align: center;">วันเดือนปี</th>
 											<th style="text-align: center;">สถานที่</th>
 											<th style="text-align: center;">วัตถุประสงค์</th>
@@ -274,7 +298,6 @@
 										<c:when test="${not empty retSampleList}">
 											<c:forEach var="listValue" items="${retSampleList}">
 												<tr>
-												<td style="font-size: 13pt;"><c:out value="${listValue.id}" /></td>
 													<td style="font-size: 13pt;"><c:out
 															value="${listValue.datestart}" /></td>
 													<td style="font-size: 13pt; text-align: center"><c:out
@@ -286,11 +309,11 @@
 													<td style="font-size: 13pt; text-align: center"><c:out
 															value="${listValue.tsidxDesc}" /></td>
 
-													<td style="text-align: center">
-										<a href="<c:url value='/carbookings/view/${listValue.id}'/>?test=showdatarent"><span
-										class="btn btn-primary glyphicon glyphicon-list-alt" 
-										id="btndiv2" aria-hidden="true" 
-										data-original-title="view" data-toggle="tooltip"></span></a></td>
+													<td style="text-align: center"><a
+														href="<c:url value='/carbookings/view/${listValue.id}'/>?test=showdatarent"><span
+															class="btn btn-primary glyphicon glyphicon-list-alt"
+															id="btndiv2" aria-hidden="true"
+															data-original-title="view" data-toggle="tooltip"></span></a></td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -306,11 +329,10 @@
 										</c:otherwise>
 									</c:choose>
 								</table>
+							</form:form>
+						</div>
+						<!-- ตาราง-->
 
-
-							</div>
-							<!-- ตาราง-->
-						</form:form>
 
 
 						<div id="datarent">
@@ -319,13 +341,14 @@
 
 							<div id="showdatarent" style="display: none">
 								<!--div id="content"  -->
-								<div>
-									<h4
-										style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
-								</div>
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/savestatus">
+									<div>
+										<h4 style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
+									</div>
 
-								<br>
-								
+									<br>
+									<form:hidden path="id" />
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>รูปภาพ:</label>
@@ -333,11 +356,10 @@
 
 										<div class="col-sm-7">
 
-											<img id="myImg" name="myImg" class="img-rounded"
-												src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImage}'/>">
+											<%-- <img id="myImg" name="myImg" class="img-rounded"
+												src="/mas/src/main/webapp/WEB-INF/views/place.jpg,<c:out value='${myImg}'/>">  --%>
 										</div>
 									</div>
-
 
 
 									<div class="row">
@@ -345,7 +367,7 @@
 											<label>ชื่อผู้จอง:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt">กานต์ธิดา</label>
+											<label style="width: 130pt; height: 20pt">กานต์ธิดา</label>
 										</div>
 									</div>
 
@@ -364,7 +386,8 @@
 											<label>ประเภทการจองรถยนต์:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.tridxDesc}</label>
+
 										</div>
 									</div>
 
@@ -374,7 +397,7 @@
 											<label>ประเภทรถยนต์:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"> </label>
+											<label>${carbooking.tcidxDesc} </label>
 										</div>
 									</div>
 
@@ -383,8 +406,11 @@
 										<div class="col-sm-3" style="text-align: left">
 											<label>สถานที่เดินทาง:</label>
 										</div>
-										<div class="col-sm-9">
-											<label  style="width: 130pt; height: 20pt"> </label>
+										<div class="col-sm-2">
+											<label>${carbooking.tpidxDesc}</label>
+										</div>
+										<div class="col-sm-1">
+											<label>${carbooking.etcplace}</label>
 										</div>
 									</div>
 
@@ -392,8 +418,8 @@
 										<div class="col-sm-3" style="text-align: left">
 											<label>วันที่เริ่ม:</label>
 										</div>
-										<div class="col-sm-2">
-											<label  style="width: 130pt; height: 20pt"></label>
+										<div class="col-sm-4">
+											<label>${carbooking.datestart}</label>
 										</div>
 									</div>
 
@@ -402,7 +428,7 @@
 											<label>วันที่สิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.dateend}</label>
 										</div>
 									</div>
 
@@ -411,7 +437,7 @@
 											<label>เวลาเเริ่ม:</label>
 										</div>
 										<div class="col-sm-2">
-											<label style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.timestartDisplay}</label>
 										</div>
 									</div>
 
@@ -421,7 +447,7 @@
 											<label>เวลาสิ้นสุด:</label>
 										</div>
 										<div class="col-sm-4">
-											<label style="width: 130pt; height: 20pt">17.30</label>
+											<label>${carbooking.timeendDisplay}</label>
 										</div>
 									</div>
 
@@ -430,7 +456,7 @@
 											<label>ผู้รับผิดชอบ:</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 500pt; height: 20pt"></label>
+											<label>${carbooking.responsible}</label>
 										</div>
 									</div>
 
@@ -439,7 +465,7 @@
 											<label>จำนวนผู้เดินทาง :</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.qty}</label>
 										</div>
 									</div>
 
@@ -448,7 +474,7 @@
 											<label>ผู้ร่วมเดินทาง:</label>
 										</div>
 										<div class="col-sm-9">
-											<label  style="width: 300pt; height: 20pt"></label>
+											<label>${carbooking.nametip}</label>
 										</div>
 									</div>
 
@@ -457,7 +483,7 @@
 											<label>เบอร์โทรศัพท์ :</label>
 										</div>
 										<div class="col-sm-3">
-											<label style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.tel}</label>
 										</div>
 									</div>
 
@@ -467,62 +493,88 @@
 											<label>วัตถุประสงค์ในการเดินทาง:</label>
 										</div>
 										<div class="col-sm-7">
-											<label  style="width: 130pt; height: 20pt"></label>
+											<label>${carbooking.objective}</label>
 										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ทะเบียนรถยนต์:</label>
+										</div>
+										
+										
+										<div class="col-sm-3">
+											 <label>${carbooking.tdidxDesc}</label>
+										</div>
+										
+										
+										<c:choose>
+											<c:when test="${not empty carliList}">
+												<div class="col-sm-2">
+													<form:select path="tdidx"
+														style="width: 130pt; height: 20pt">
+														<option value=>เลือกรถยนต์...</option>
+														<c:forEach var="listValue" items="${carliList}">
+															<option value="<c:out value='${listValue.id}' />">
+																<c:out value="${listValue.carli}" />
+															</option>
+														</c:forEach>
+													</form:select>
+												</div>
+											</c:when>
+										</c:choose>
 									</div>
 
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
 											<label>ผลการอนุมัติ:</label>
 										</div>
-										<div class="col-sm-7">
-											<label   style="width: 130pt; height: 20pt">ผลการอนุมัติ</label>
+										<div class="col-sm-3">
+											<label>${carbooking.tsidxDesc}</label>
 										</div>
-										
-										<%-- <c:choose>
-										<c:when test="${not empty status}">
-											<div class="col-sm-9">
-												<form:select path="tridx" style="width: 130pt; height: 20pt">
-													<option>เลือกผลอนุมัติ...</option>
-													<c:forEach var="listValue" items="${status}">
-														<option value="<c:out value='${listValue.id}' />">
-															<c:out value="${listValue.statusTH}" />
-														</option>
-													</c:forEach>
-												</form:select>
-											</div>
-										</c:when>
-									</c:choose>  --%>
-																					
+
+										<c:choose>
+											<c:when test="${not empty status}">
+												<div class="col-sm-3">
+													<form:select id="selectStatusId" path="tsidx"
+														style="width: 130pt; height: 20pt">
+														<c:forEach items="${status}" var="listValue">
+															<option
+																<c:if test="${listValue.id eq carbooking.tsidx}">selected="selected"</c:if>
+																value="${listValue.id}">${listValue.statusTH}</option>
+														</c:forEach>
+													</form:select>
+												</div>
+											</c:when>
+										</c:choose>
 									</div>
+
 									<br>
 									<div class="row">
-										<div class="col-sm-1" style="text-align: left">
-										
-											<button type="submit"
-												class="btn btn-danger glyphicon glyphicon-arrow-left"
-												data-original-title="back" data-toggle="tooltip" 
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-										</div>
-
-
 										<div class="col-sm-1">
 											<button type="submit"
-												class="btn btn-success glyphicon glyphicon-floppy-disk"
-												data-original-title="save" data-toggle="tooltip" 
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
+												class="btn btn-danger glyphicon glyphicon-arrow-left"
+												name="btnsavestatus" data-original-title="back"
+												data-toggle="tooltip" value="back"></button>
 										</div>
-										<div class="col-sm-1" id="edit">
+										<div class="col-sm-1">
+
 											<button type="submit"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="save" data-toggle="tooltip"
+												name="btnsavestatus" value="savestatus"></button>
+										</div>
+										<div class="col-sm-1">
+											<a
+												href="<c:url value='/carbookings/savestatus/${carbooking.id}'/>?test=editdatarent"><span
 												class="btn btn-primary glyphicon glyphicon-edit"
-												data-original-title="edit" data-toggle="tooltip" 
-												style="font-size: 11pt; width: 50pt; height: 20pt"
-												id="btndiv3" onclick="Show_Div('editdatarent')"
-												value="editdatarent"></button>
+												id="btndiv3" aria-hidden="true" data-original-title="edit"
+												data-toggle="tooltip"></span></a>
 										</div>
 									</div>
-								
+
 									<br>
+								</form:form>
 							</div>
 							<!--div id="content"  -->
 
@@ -530,527 +582,595 @@
 
 							<div id="editdatarent" style="display: none">
 								<!-- div edit dataren -->
-								<h4
-									style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/editdata">
+									<h4 style="font-size: 16pt; font-weight: bold; text-align: center">แก้ไขข้อมูลการจองรถยนต์</h4>
+									<br>
+
+									<div class="col-lg-9">
+										<!-- div class="col-lg-9" -->
+										<div class="form-group">
+											<form:hidden path="id" />
+											<div class="row">
+												<div class="col-sm-4" style="text-align: left">
+													<label>ชื่อผู้จอง:</label>
+												</div>
+												<div class="col-sm-7">
+													<label style="width: 130pt; height: 20pt">กานต์ธิดา</label>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-sm-4" style="text-align: left">
+													<label>แผนก:</label>
+												</div>
+												<div class="col-sm-7">
+													<label style="width: 130pt; height: 20pt">MIS</label>
+												</div>
+											</div>
+
+											<div class="col-sm-4" style="text-align: left">
+												<label>ประเภทการจองรถยนต์:</label>
+											</div>
+											<c:choose>
+												<c:when test="${not empty typerent}">
+													<div class="col-sm-7">
+														<form:select id="selectTypeRentId" path="tridx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${typerent}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tridx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.typerentTH}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
 
 
-								<br>
 
-								<div class="col-lg-9">
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>ประเภทการรถยนต์:</label>
+											</div>
+											<c:choose>
+												<c:when test="${not empty typecar}">
+
+													<div class="col-sm-7">
+														<form:select id="selectTypeCarId" path="tcidx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${typecar}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tcidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.typeCarTH}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+
+										</div>
+
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>สถานที่เดินทาง:</label>
+											</div>
+											<c:choose>
+												<c:when test="${not empty place}">
+
+													<div class="col-sm-3">
+														<form:select id="selectPlaceId" path="tpidx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${place}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tpidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.placeTH}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+											<div class="col-sm-3">
+												<form:input path="etcplace" type="text" placeHolder="อื่นๆ โปรดระบุ..."
+													style="width: 100pt; height: 20pt"></form:input>
+											</div>
+										</div>
+
+
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>วันที่เริ่ม:</label>
+											</div>
+											<div class="col-sm-5">
+												<form:input path="datestart"
+													style="width: 130pt; height: 20pt" id="example5"></form:input>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>วันที่สิ้นสุด:</label>
+											</div>
+											<div class="col-sm-5">
+												<form:input path="dateend"
+													style="width: 130pt; height: 20pt" id="example6"></form:input>
+											</div>
+										</div>
+
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>เวลาเริ่ม:</label>
+											</div>
+											<div class="col-sm-5">
+												<c:choose>
+													<c:when test="${not empty listTime}">
+														<form:select path="timestart"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${listTime}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.timestart}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
+													</c:when>
+												</c:choose>
+
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>เวลาสิ้นสุด:</label>
+											</div>
+											<div class="col-sm-5">
+												<c:choose>
+													<c:when test="${not empty listTime}">
+
+														<form:select path="timeend"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${listTime}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.timeend}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
+													</c:when>
+												</c:choose>
+
+											</div>
+										</div>
+
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>ผู้รับผิดชอบ:</label>
+											</div>
+											<div class="col-sm-5">
+												<form:input path="responsible"
+													style="width: 130pt; Height: 20pt"></form:input>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>จำนวนผู้เดินทาง:</label>
+											</div>
+											<div class="col-sm-5">
+												<c:choose>
+													<c:when test="${not empty listQty}">
+														<form:select path="qty" style="width: 130pt; height: 20pt">
+															<c:forEach items="${listQty}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.qty}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.name}</option>
+															</c:forEach>
+														</form:select>
+
+													</c:when>
+												</c:choose>
+
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>ผู้ร่วมเดินทาง:</label>
+											</div>
+											<div class="col-sm-5">
+												<form:input path="nametip"
+													style="width: 130pt; Height: 20pt"></form:input>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>เบอร์โทรศัพท์ :</label>
+											</div>
+											<div class="col-sm-5">
+												<form:input path="tel" style="width: 130pt; Height: 20pt"
+													PlaceHolder="เบอร์โทรศัพท์ มือถือ"></form:input>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>วัตถุประสงค์เดินทาง:</label>
+											</div>
+											<div class="col-sm-7">
+												<form:textarea path="objective" rows="5" id="comment"></form:textarea>
+											</div>
+										</div>
+
+								<div class="form-group">
+											<div class="col-sm-4" style="text-align: left">
+												<label>ทะเบียนรถยนต์:</label>
+											</div>
+											 <c:choose>
+												<c:when test="${not empty carliList}">
+													<div class="col-sm-5">
+														<form:select id="selectCarLicenseId" path="tdidx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${carliList}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tdidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.carli}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+											
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4" style="text-align: left">
+												<label>ผลการอนุมัติ:</label>
+											</div>
+
+											<c:choose>
+												<c:when test="${not empty status}">
+													<div class="col-sm-3">
+														<form:select id="selectStatusId" path="tsidx"
+															style="width: 130pt; height: 20pt">
+															<c:forEach items="${status}" var="listValue">
+																<option
+																	<c:if test="${listValue.id eq carbooking.tsidx}">selected="selected"</c:if>
+																	value="${listValue.id}">${listValue.statusTH}</option>
+															</c:forEach>
+														</form:select>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
+										<br>
+
+										<div class="row" style="padding-left: 200pt">
+											<div class="col-sm-6" style="text-align: left">
+
+												<button type="submit"
+													class="btn btn-success glyphicon glyphicon-ok"
+													data-original-title="save" data-toggle="tooltip"
+													name="btnedit" value="edit"></button>
+
+												<button type="submit"
+													class="btn btn-danger glyphicon glyphicon-remove"
+													data-original-title="cancel" data-toggle="tooltip"
+													value="main" name="btnedit"></button>
+
+
+											</div>
+										</div>
+										<br>
+
+
+
+
+									</div>
 									<!-- div class="col-lg-9" -->
-									<div class="form-group">
-
-										<div class="row">
-											<div class="col-sm-4" style="text-align: left">
-												<label>ชื่อผู้จอง:</label>
-											</div>
-											<div class="col-sm-7">
-												<label style="width: 130pt; height: 20pt">กานต์ธิดา</label>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-sm-4" style="text-align: left">
-												<label>แผนก:</label>
-											</div>
-											<div class="col-sm-7">
-												<label style="width: 130pt; height: 20pt">MIS</label>
-											</div>
-										</div>
-
-										<div class="col-sm-4" style="text-align: left">
-											<label>ประเภทการจองรถยนต์:</label>
-										</div>
-										<div class="col-sm-7">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">กรุณาเลือกข้อมูล...</option>
-												<option value="1">เหมา</option>
-												<option value="2">ไปรับ-ไปส่ง</option>
-											</select>
-										</div>
-									</div>
-
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>ประเภทการรถยนต์:</label>
-										</div>
-										<div class="col-sm-7">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">กรุณาเลือกข้อมูล...</option>
-												<option value="1">รถบรรทุก</option>
-												<option value="2">รถตู้</option>
-											</select>
-										</div>
-									</div>
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>สถานที่เดินทาง:</label>
-										</div>
-										<div class="col-sm-3">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">ลาดพร้าว</option>
-												<option value="1">เมืองทองธานี</option>
-												<option value="2">นพวงศ์</option>
-											</select>
-										</div>
-										<div class="col-sm-3">
-											<input type="text" placeHolder="อื่นๆ โปรดระบุ..."
-												style="width: 100pt; height: 20pt">
-										</div>
-									</div>
-
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>วันที่เริ่ม:</label>
-										</div>
-										<div class="col-sm-5">
-											<input type="text" id="example5"
-												style="background-color: #FFFFFF; width: 130pt; Height: 20pt"
-												name="txtdatestartedit">
-										</div>
-									</div>
-
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>วันที่สิ้นสุด:</label>
-										</div>
-										<div class="col-sm-5">
-											<input type="text" id="example6"
-												style="background-color: #FFFFFF; width: 130pt; Height: 20pt"
-												name="txtdateendedit">
-										</div>
-									</div>
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>เวลาเริ่ม:</label>
-										</div>
-										<div class="col-sm-5">
-											<select name="start_time" id="start_time"
-												style="width: 130pt; height: 20pt">
-												<option value="none">- เวลาไป -</option>
-												<option value="0000">00:00</option>
-											<option value="0030">00:30</option>
-											<option value="0100">01:00</option>
-											<option value="0130">01:30</option>
-											<option value="0200">02:00</option>
-											<option value="0230">02:30</option>
-											<option value="0300">03:00</option>
-											<option value="0330">03:30</option>
-											<option value="0400">04:00</option>
-											<option value="0430">04:30</option>
-											<option value="0500">05:00</option>
-											<option value="0530">05:30</option>
-											<option value="0600">06:00</option>
-											<option value="0630">06:30</option>
-											<option value="0700">07:00</option>
-											<option value="0730">07:30</option>
-											<option value="0800">08:00</option>
-											<option value="0830">08:30</option>
-											<option value="0900">09:00</option>
-											<option value="0930">09:30</option>
-											<option value="1000">10:00</option>
-											<option value="1030">10:30</option>
-											<option value="1100">11:00</option>
-											<option value="1130">11:30</option>
-											<option value="1200">12:00</option>
-											<option value="1230">12:30</option>
-											<option value="1300">13:00</option>
-											<option value="1330">13:30</option>
-											<option value="1400">14:00</option>
-											<option value="1430">14:30</option>
-											<option value="1500">15:00</option>
-											<option value="1530">15:30</option>
-											<option value="1600">16:00</option>
-											<option value="1630">16:30</option>
-											<option value="1700">17:00</option>
-											<option value="1730">17:30</option>
-											<option value="1800">18:00</option>
-											<option value="1830">18:30</option>
-											<option value="1900">19:00</option>
-											<option value="1930">19:30</option>
-											<option value="2000">20:00</option>
-											<option value="2030">20:30</option>
-											<option value="2100">21:00</option>
-											<option value="2130">21:30</option>
-											<option value="2200">22:00</option>
-											<option value="2230">22:30</option>
-											<option value="2300">23:00</option>
-											<option value="2330">23:30</option>
-											<option value="2400">24:00</option>
-											</select>
-
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>เวลาสิ้นสุด:</label>
-										</div>
-										<div class="col-sm-5">
-											<select name="end_time" id="end_time"
-												style="width: 130pt; height: 20pt">
-												<option value="0000">00:00</option>
-											<option value="0030">00:30</option>
-											<option value="0100">01:00</option>
-											<option value="0130">01:30</option>
-											<option value="0200">02:00</option>
-											<option value="0230">02:30</option>
-											<option value="0300">03:00</option>
-											<option value="0330">03:30</option>
-											<option value="0400">04:00</option>
-											<option value="0430">04:30</option>
-											<option value="0500">05:00</option>
-											<option value="0530">05:30</option>
-											<option value="0600">06:00</option>
-											<option value="0630">06:30</option>
-											<option value="0700">07:00</option>
-											<option value="0730">07:30</option>
-											<option value="0800">08:00</option>
-											<option value="0830">08:30</option>
-											<option value="0900">09:00</option>
-											<option value="0930">09:30</option>
-											<option value="1000">10:00</option>
-											<option value="1030">10:30</option>
-											<option value="1100">11:00</option>
-											<option value="1130">11:30</option>
-											<option value="1200">12:00</option>
-											<option value="1230">12:30</option>
-											<option value="1300">13:00</option>
-											<option value="1330">13:30</option>
-											<option value="1400">14:00</option>
-											<option value="1430">14:30</option>
-											<option value="1500">15:00</option>
-											<option value="1530">15:30</option>
-											<option value="1600">16:00</option>
-											<option value="1630">16:30</option>
-											<option value="1700">17:00</option>
-											<option value="1730">17:30</option>
-											<option value="1800">18:00</option>
-											<option value="1830">18:30</option>
-											<option value="1900">19:00</option>
-											<option value="1930">19:30</option>
-											<option value="2000">20:00</option>
-											<option value="2030">20:30</option>
-											<option value="2100">21:00</option>
-											<option value="2130">21:30</option>
-											<option value="2200">22:00</option>
-											<option value="2230">22:30</option>
-											<option value="2300">23:00</option>
-											<option value="2330">23:30</option>
-											<option value="2400">24:00</option>
-											</select>
-										</div>
-									</div>
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>ผู้รับผิดชอบ:</label>
-										</div>
-										<div class="col-sm-5">
-											<input type="text" style="width: 130pt; Height: 20pt">
-										</div>
-									</div>
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>ผู้ร่วมเดินทาง:</label>
-										</div>
-										<div class="col-sm-5">
-											<input type="text" style="width: 130pt; Height: 20pt">
-										</div>
-									</div>
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>จำนวนผู้เดินทาง:</label>
-										</div>
-										<div class="col-sm-5">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">กรุณาเลือกจำนวนคน...</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-												<option value="11">11</option>
-												<option value="12">12</option>
-												<option value="13">13</option>
-												<option value="14">14</option>
-												<option value="15">15</option>
-											</select>
-										</div>
-									</div>
-
-
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>เบอร์โทรศัพท์ :</label>
-										</div>
-										<div class="col-sm-5">
-											<input type="text" style="width: 130pt; Height: 20pt"
-												PlaceHolder="เบอร์โทรศัพท์ มือถือ">
-										</div>
-									</div>
-
-
-									<div class="form-group">
-										<div class="col-sm-4" style="text-align: left">
-											<label>วัตถุประสงค์เดินทาง:</label>
-										</div>
-										<div class="col-sm-7">
-											<textarea class="form-control" rows="5" id="comment"></textarea>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-sm-4" style="text-align: left">
-											<label>ผลการอนุมัติ:</label>
-										</div>
-
-										<div class="col-sm-7">
-											<select style="Width: 130pt; Height: 20pt">
-												<option value="00">เลือกผลอนุมัติ...</option>
-												<option value="1">อนุมัติแล้ว</option>
-												<option value="2">รออนุมัติ</option>
-												<option value="3">ไม่อนุมัติ</option>
-												<option value="3">ยกเลิก</option>
-											</select>
-										</div>
-									</div>
-									<br>
-
-									<div class="row" style="padding-left: 200pt">
-										<div class="col-sm-6" style="text-align: left">
-
-											<button type="submit" 
-												class="btn btn-success glyphicon glyphicon-ok"
-												data-original-title="save" data-toggle="tooltip"
-												style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-											<button type="submit"
-												style="font-size: 11pt; width: 50pt; height: 20pt"
-												class="btn btn-danger glyphicon glyphicon-remove"
-												data-original-title="cancel" data-toggle="tooltip"
-												onclick="Show_Div('main')" id="btndiv1" value="main"></button>
-
-
-										</div>
-									</div>
-									<br>
-
-
-
-
-								</div>
-								<!-- div class="col-lg-9" -->
+								</form:form>
 							</div>
 							<!-- div edit dataren -->
 						</div>
 						<!--div id="datarent"  -->
+
 					</div>
 					<!-- div pane1หน้าตารางจอง  แถบใหญ่-->
 
 
 					<!-- Tab2 -->
 					<div id="pane2" class="tab-pane">
-						<!-- div pane2-->
-						<div class="row">
-							<h4
-								style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลรถยนต์</h4>
+					<div id="datacar">
+						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/datacar">
+							<!-- div pane2-->
+							<div class="row">
+								<h4
+									style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลรถยนต์</h4>
+							</div>
+							<c:choose>
+								<c:when test="${not empty datacarList}">
+									<c:forEach var="listValue" items="${datacarList}">
+
+										<fieldset style="margin-top: 3px;  background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+											class="col-lg-11">
+											<br>
+												<div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
+															:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.tcidxDesc}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.tbidxDesc}</label>
+													</div>
+												</div>
+
+
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">สีรถยนต์:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.color}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.carli}</label>
+													</div>
+												</div>
+
+
+
+
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${listValue.qty}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${listValue.tcStatusDesc}</label>
+													</div>
+												</div>
+
+
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">พนักงานขับรถ
+															:</label>
+													</div>
+													<div class="col-sm-3">
+														<label style="font-weight: bold">วิรัช
+															สุพรรณคง(วิรัช)</label>
+													</div>
+													<div class="col-sm-3">
+													<a href="<c:url value='/carbookings/datacar/${listValue.id}'/>?testx=showdatacarrent"><span
+																		id="btndiv3" aria-hidden="true"
+																		data-original-title="view" data-toggle="tooltip">ตารางคิวการจองรถยนต์</span></a>
+													</div>
+												</div>
+
+											</div>
+										</fieldset>
+										<br>
+									</c:forEach>
+								</c:when>
+
+								<c:otherwise>
+									<fieldset style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
+										class="col-lg-11" >
+										<br>
+
+										<div>
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+
+
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">สีรถยนต์
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
+														:</label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold"></label>
+												</div>
+												<div class="col-sm-2">
+													<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
+												</div>
+												<div class="col-sm-5">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-3">
+													<label style="font-weight: bold; text-align: left">พนักงานขับรถ
+														:</label>
+												</div>
+												<div class="col-sm-9">
+													<label style="font-weight: bold"></label>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</c:otherwise>
+							</c:choose>
+						</form:form>
 						</div>
-						<br>
-
-						<fieldset
-							style="margin-top: 3px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
-							class="col-lg-11">
-							<br>
-
-							<!--  <div class="col-lg-3">
-								<div class="col-xs-6 col-md-3">
-									<a href="#" class="thumbnail"> <img	src="Image/download.jpg"></a>
-
-								</div>
-							</div>-->
-
-							<div>
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">รถตู้</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">Toyota</label>
-									</div>
-								</div>
+						
+						
+						<div id="showdatacarrent">
+						<form:form modelAttribute="addCarBooking" >
+						<div class="row">
+								<h4
+									style="font-size: 16pt; font-weight: bold; text-align: center">ตารางแสดงรายการจองรถยนต์</h4>
+						</div>
+						<form:hidden path="id"/> 
+										<div>
+													<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">ประเภทรถยนต์:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${datacar.tcidxDesc}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${datacar.tbidxDesc}</label>
+													</div>
+												</div>
 
 
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">สีรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">บรอนด์เงิน</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">ฮฉ 2398</label>
-									</div>
-								</div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">สีรถยนต์:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${datacar.color}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${datacar.carli}</label>
+													</div>
+												</div>
 
 
 
 
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">12 ที่นั่ง</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">พร้อมบริการ</label>
-									</div>
-								</div>
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง:</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold">${datacar.qty}</label>
+													</div>
+													<div class="col-sm-2">
+														<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
+													</div>
+													<div class="col-sm-5">
+														<label style="font-weight: bold">${datacar.tcStatusDesc}</label>
+													</div>
+												</div>
 
 
+												<div class="form-group">
+													<div class="col-sm-3">
+														<label style="font-weight: bold; text-align: left">พนักงานขับรถ
+															:</label>
+													</div>
+													<div class="col-sm-3">
+														<label style="font-weight: bold">วิรัช
+															สุพรรณคง(วิรัช)</label>
+													</div>
+												</div>
+												
+											</div>
+						
+										<table
+								 	class="table table-striped table-bordered table-hover table-responsive">
+									<thead>
+										<tr>
+											<th style="text-align: center;">วันที่เริ่มเดินทาง</th>
+											<th style="text-align: center;">วันที่่เดินทางกลับ</th>
+											<th style="text-align: center;">สถานที่</th>
+											<th style="text-align: center;">เวลาเริ่มต้น</th>
+											<th style="text-align: center;">เวลาสิ้นสุด</th>
 
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">พนักงานขับรถ
-											:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="font-weight: bold">วิรัช สุพรรณคง(วิรัช)</label>
-									</div>
-								</div>
-
-
-
-							</div>
-						</fieldset>
-
-						<!-- <fieldset
-							style="margin-top: 30px; border: 3px dashed #000000; background-color: #eeeeee; overflow: auto; margin-left: 1%; float: left;"
-							class="col-lg-11">
-							<br>
-
-							 <div class="col-lg-3">
-								<div class="col-xs-6 col-md-3">
-									<a href="#" class="thumbnail"> <img	src="Image/download.jpg"></a>
-
-								</div>
-							</div>
-
-							<div>
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">ประเภทรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">รถตู้</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ยี่ห้อรถยนต์:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">Toyota</label>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">สีรถยนต์
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">บรอนด์เงิน</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">ทะเบียนรถ:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">ฮฉ 2398</label>
-									</div>
-								</div>
-
-
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">จำนวนที่นั่ง
-											:</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold">12 ที่นั่ง</label>
-									</div>
-									<div class="col-sm-2">
-										<label style="font-weight: bold; text-align: left">สถานะใช้งาน:</label>
-									</div>
-									<div class="col-sm-5">
-										<label style="font-weight: bold">พร้อมบริการ</label>
-									</div>
-								</div>
-
-
-
-
-								<div class="form-group">
-									<div class="col-sm-3">
-										<label style="font-weight: bold; text-align: left">พนักงานขับรถ
-											:</label>
-									</div>
-									<div class="col-sm-9">
-										<label style="font-weight: bold">วิรัช สุพรรณคง(วิรัช)</label>
-									</div>
-								</div>
-
-
-
-							</div>
-							
-						</fieldset> -->
+										</tr>
+									</thead>
+									<c:choose>
+										<c:when test="${not empty datarent}">
+											<c:forEach var="listValue" items="${datarent}">
+												<tr>
+													<td style="font-size: 13pt;"><c:out
+															value="${listValue.datestart}" /></td>
+															<td style="font-size: 13pt;"><c:out
+															value="${listValue.dateend}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tpidxDesc}" /></td>
+													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.timestartDisplay}" /></td>
+															<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.timeendDisplay}" /></td>
+													</tr>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+												
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</table>
+								
+								<button type="button" id="btndiv3"
+								class="btn btn-danger glyphicon glyphicon-arrow-left"
+								data-original-title="back" data-toggle="tooltip"
+										onclick="Show_Div3('datacar')"></button>
+								</form:form>
+						</div>
+						
 					</div>
 
 					<!-- div pane2-->
@@ -1098,13 +1218,14 @@
 										<c:when test="${not empty typerent}">
 											<div class="col-sm-7">
 												<form:select path="tridx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${typerent}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.typerentTH}" />
 														</option>
 													</c:forEach>
 												</form:select>
+												<form:errors path="tridx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
@@ -1121,13 +1242,12 @@
 
 											<div class="col-sm-7">
 												<form:select path="tcidx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${typecar}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.typeCarTH}" />
 														</option>
 													</c:forEach>
-
 												</form:select>
 											</div>
 										</c:when>
@@ -1147,19 +1267,20 @@
 
 											<div class="col-sm-3">
 												<form:select path="tpidx" style="width: 130pt; height: 20pt">
-													<option>กรุณาเลือกข้อมูล</option>
+													<option value="0">กรุณาเลือกข้อมูล</option>
 													<c:forEach var="listValue" items="${place}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.placeTH}" />
 														</option>
 													</c:forEach>
-
 												</form:select>
+												<form:errors path="tpidx" class="control-label" />
 											</div>
 										</c:when>
 									</c:choose>
 									<div class="col-sm-3">
-										<form:input path="etcplace" class="testx" placeHolder="อื่นๆ โปรดระบุ..."
+										<form:input path="etcplace" class="testx"
+											placeHolder="อื่นๆ โปรดระบุ..."
 											style="width: 100pt; height: 20pt"></form:input>
 									</div>
 								</div>
@@ -1334,7 +1455,7 @@
 									</div>
 									<div class="col-sm-5">
 										<form:select path="qty" style="Width: 130pt; Height: 20pt">
-											<option value="00">กรุณาเลือกจำนวนคน...</option>
+											<option value="0">กรุณาเลือกจำนวนคน...</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -1360,7 +1481,8 @@
 										<label>รายชื่อผู้เดินทาง :</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="nametip" style="width: 130pt; Height: 20pt" class="testx"></form:input>
+										<form:input path="nametip" style="width: 130pt; Height: 20pt"
+											class="testx"></form:input>
 									</div>
 								</div>
 
@@ -1370,8 +1492,8 @@
 										<label>เบอร์โทรศัพท์ :</label>
 									</div>
 									<div class="col-sm-5">
-										<form:input path="tel" style="width: 130pt; Height: 20pt" class="testx"
-											PlaceHolder="เบอร์โทรศัพท์ มือถือ"></form:input>
+										<form:input path="tel" style="width: 130pt; Height: 20pt"
+											class="testx" PlaceHolder="เบอร์โทรศัพท์ มือถือ"></form:input>
 									</div>
 								</div>
 
@@ -1401,6 +1523,7 @@
 										<button type="submit" name="btnsave" value="savecarbooking"
 											class="btn btn-success glyphicon glyphicon-floppy-disk"
 											data-original-title="send" data-toggle="tooltip"></button>
+
 										<button type="submit" name="btnsave" value="cancel"
 											class="btn btn-danger glyphicon glyphicon-remove"
 											data-original-title="cancel" data-toggle="tooltip"></button>
@@ -1482,210 +1605,244 @@
 					<!-- div pane4-->
 
 
-
-
-
-
-
-
 					<!-- Tab 5 -->
 					<div id="pane5" class="tab-pane">
 						<!-- div pane5-->
+
 						<div class="row">
 							<p style="text-align: center; font-weight: bold; font-size: 17pt">แจ้งปัญหา</p>
 							<br>
 						</div>
+						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/problem">
+								<div>
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>หัวข้อ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:input path="topic" class="testx"
+												style="width: 150pt; Height: 20pt"></form:input>
+										</div>
+									</div>
 
+									<br>
+
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label> ข้อความ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:textarea path="context" rows="5" id="comment"
+												class="testx" style="width: 150pt"></form:textarea>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label> ติดต่อ :</label>
+										</div>
+										<div class="col-sm-7">
+											<form:input path="telproblem" style="width: 150pt; Height: 20pt;"
+												class="testx" PlaceHolder="กรุณาระบุเบอร์โทรศัพท์"></form:input>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div style="text-align: left; padding-left: 225pt">
+											<button type="submit" name="btnproblem" value="saveproblem"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="send" data-toggle="tooltip"></button>
+
+											<button type="submit"
+												class="btn btn-danger glyphicon glyphicon-remove"
+												name="btnproblem" value="cancel"
+												data-original-title="cancel" data-toggle="tooltip"></button>
+										</div>
+									</div>
+								</div>
+								<br>
+								<br>
+								<br>
 						<!-- ส่วนแจ้งปัญหา user-->
-						<div id="user" style="display: none;">
-							<div>
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>หัวข้อ :</label>
-									</div>
-									<div class="col-sm-7">
-										<input type="text" style="width: 150pt; Height: 20pt">
-									</div>
+
+						<div id="user" style="display: none">
+
+								<div id="tableuser">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive;">
+										<thead>
+											<tr>
+												<th style="text-align: center;">ลำดับที่</th>
+												<th style="text-align: center;">หัวข้อ</th>
+												<th style="text-align: center;">ปัญหาที่เกิดขึ้น</th>
+												<th style="text-align: center;">สถานะ</th>
+											</tr>
+										</thead>
+										<c:choose>
+											<c:when test="${not empty problemList}">
+												<c:forEach var="listValue" items="${problemList}">
+													<tr>
+														<td style="text-align: center;"><c:out
+																value="${listValue.id}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.topic}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.context}" /></td>
+														<td style="text-align: center;"><c:out
+																value="${listValue.tspidxDesc}" /></td>
+
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+													<td>-</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</table>
 								</div>
 
-								<br>
-
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label> ข้อความ :</label>
-									</div>
-									<div class="col-sm-7">
-										<textarea class="form-control" rows="5" id="comment"
-											style="width: 150pt"></textarea>
-									</div>
-								</div>
-								<br>
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label> ติดต่อ :</label>
-									</div>
-									<div class="col-sm-7">
-										<input type="text" style="width: 150pt; Height: 20pt;"
-											PlaceHolder="กรุณาระบุเบอร์โทรศัพท์">
-									</div>
-								</div>
-								<br>
-								<div class="row">
-									<div style="text-align: left; padding-left: 225pt">
-										<button type="submit"
-											class="btn btn-success glyphicon glyphicon-floppy-disk"
-											data-original-title="send" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-
-										<button type="submit"
-											class="btn btn-danger glyphicon glyphicon-remove"
-											data-original-title="cancel" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-									</div>
-								</div>
-							</div>
-							<br>
-							<br>
-							<br>
-							<div id="tableuser">
-								<table
-									class="table table-striped table-bordered table-hover table-responsive;">
-									<thead>
-										<tr>
-											<th style="text-align: center;">ลำดับที่</th>
-											<th style="text-align: center;">หัวข้อ</th>
-											<th style="text-align: center;">ปัญหาที่เกิดขึ้น</th>
-											<th style="text-align: center;">สถานะ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="text-align: center;">1</td>
-											<td style="text-align: center;">จองรถยนต์</td>
-											<td style="text-align: center;">ไม่สามารถทำรายการจองรถยนต์ได้เนื่องจากรหัสพนักงานไม่สามารถทำรายการได้</td>
-											<td style="text-align: center;">รอทำการตรวจสอบ</td>
-
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
 						</div>
-
-
-
-
-						<!-- ส่วนแจ้งปัญหา Admin-->
+						</form:form>
+				<!-- ส่วนแจ้งปัญหา Admin-->
 						<div id="admin">
 
 
 							<!-- ส่วนแจ้งปัญหา Admin -->
 							<div id="tablepro">
-								<table
-									class="table table-striped table-bordered table-hover table-responsive">
-									<thead>
-										<tr>
-											<th style="text-align: center;">ลำดับที่</th>
-											<th style="text-align: center;">หัวข้อ</th>
-											<th style="text-align: center;">สถานะ</th>
-											<th style="text-align: center;">เพิ่มเติม</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="text-align: center;">1</td>
-											<td style="text-align: center;">จองรถยนต์</td>
-											<td style="text-align: center;">รอการตรวจสอบ</td>
-											<td style="text-align: center;"><button type="submit"
-													class=" btn-primary glyphicon glyphicon-list-alt"
-													data-original-title="view" data-toggle="tooltip"
-													style="font-size: 11pt; width: 40pt; height: 20pt"
-													onclick="Show_Div1('adminproblem')"></button></td>
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/viewproblem">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive">
+										<thead>
+											<tr>
+												<th style="text-align: center;">ลำดับที่</th>
+												<th style="text-align: center;">หัวข้อ</th>
+												<th style="text-align: center;">สถานะ</th>
+												<th style="text-align: center;">เพิ่มเติม</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<c:choose>
+													<c:when test="${not empty problemList}">
+														<c:forEach var="listValue" items="${problemList}">
+															<tr>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.id}" /></td>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.topic}" /></td>
+																<td style="text-align: center;"><c:out
+																		value="${listValue.tspidxDesc}" /></td>
+																<td style="text-align: center;"><a
+																	href="<c:url value='/carbookings/viewproblem/${listValue.id}'/>?tests=adminproblem"><span
+																		class="btn btn-primary glyphicon glyphicon-list-alt"
+																		id="btndiv2" aria-hidden="true"
+																		data-original-title="view" data-toggle="tooltip"></span></a></td>
 
-										</tr>
-									</tbody>
-								</table>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 
+
+											</tr>
+										</tbody>
+									</table>
+								</form:form>
 							</div>
 
 							<br>
 
 							<div id="adminproblem" style="display: none">
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ชื่อผู้แจ้ง :</label>
+								<form:form modelAttribute="addCarBooking" method="POST"
+									action="${pageContext.request.contextPath}/carbookings/acceptproblem">
+									<div class="row">
+									<input type="text" style="display:none;" id="id" name="id" value="${problem.id}" >
+										<div class="col-sm-3" style="text-align: left">
+											<label>ชื่อผู้แจ้ง :</label>
+										</div>
+										<div class="col-sm-7">
+											<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
+										</div>
 									</div>
-									<div class="col-sm-7">
-										<label>นางสาว กานต์ธิดา ตระกูลบุญรักษ์</label>
-									</div>
-								</div>
-								<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<label>ชื่อหัวข้อ</label>
+										</div>
+										<div class="col-sm-7">
+											<label>${problem.topic}</label>
+										</div>
 
-								<div class="row">
-									<div class="col-sm-3">
-										<label>ชื่อหัวข้อ</label>
-									</div>
-									<div class="col-sm-7">
-										<label>จองรถยนต์</label>
-									</div>
-
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3">
-										<label>เนื้อหาข้อความ</label>
-									</div>
-									<div class="col-sm-9">
-										<label>ไม่สามารถทำรายการจองรถยนต์ได้เนื่องจากรหัสพนักงานไม่สามารถทำรายการได้</label>
-									</div>
-								</div>
-
-
-								<br>
-								<div class="row">
-									<div class="col-sm-3">
-										<label>เบอร์โทรศัพท์ติดต่อ</label>
-									</div>
-									<div class="col-sm-9">
-										<label>234</label>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-3" style="text-align: left">
-										<label>ผลการอนุมัติ:</label>
 									</div>
 
-									<div class="col-sm-9">
-										<select style="Width: 130pt; Height: 20pt">
-											<option value="00">เลือกผลอนุมัติ...</option>
-											<option value="1">รับทราบ</option>
-
-										</select>
+									<div class="row">
+										<div class="col-sm-3">
+											<label>เนื้อหาข้อความ</label>
+										</div>
+										<div class="col-sm-7">
+											<label>${problem.context}</label>
+										</div>
 									</div>
-								</div>
+
+									 <div class="row">
+										<div class="col-sm-3">
+											<label>เบอร์โทรศัพท์ติดต่อ</label>
+										</div>
+										<div class="col-sm-9">
+											<label>${problem.telproblem}</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-3" style="text-align: left">
+											<label>ผลการอนุมัติ:</label>
+										</div>
+
+										<div class="col-sm-9">
+											 <form:select path="tspidx" style="Width: 130pt; Height: 20pt">
+												<option value="none">เลือกผลอนุมัติ...</option>
+												<option value="2">รับทราบ</option></form:select>
+
+										</div>
+									</div>
 
 
-								<br>
+									<br>
 
-								<div class="row" style="padding-left: 220pt">
-									<div class="col-sm-4" style="text-align: left">
+									<div class="row" style="padding-left: 220pt">
+										<div class="col-sm-4" style="text-align: left">
+											<button type="submit"
+												class="btn btn-success glyphicon glyphicon-floppy-disk"
+												data-original-title="accept" data-toggle="tooltip"
+												name="btnproblem" value="accept"></button>
+
 										<button type="submit"
-											class="btn btn-success glyphicon glyphicon-floppy-disk"
-											data-original-title="accept" data-toggle="tooltip"
-											style="font-size: 11pt; width: 50pt; height: 20pt"></button>
-										<button type="submit"
-											class="btn btn-danger glyphicon glyphicon-arrow-left"
-											style="font-size: 11pt; width: 50pt; height: 20pt"
-											data-original-title="back" data-toggle="tooltip"
-											onclick="Show_Div1('tablepro')"></button>
+												class="btn btn-danger glyphicon glyphicon-arrow-left"
+												name="btnproblem" data-original-title="back"
+												data-toggle="tooltip" value="back" onclick="Show_Div1('tablepro')"></button>
+
+
+										</div>
 									</div>
-								</div>
 
 
-
+								</form:form>
 							</div>
+
 						</div>
 						<!-- ปิดส่วน Admin -->
 

@@ -54,9 +54,9 @@
 				action="${pageContext.request.contextPath}/datacar/edit">
 				<div class="form-group">
 					<form:hidden path="id" />
-					<div class="col-sm-6" style="text-align:right">
+					<div class="col-sm-6" style="text-align: right">
 
-						<label>ประเภทรถยนต์:</label>
+						<label style="font-weight: bold;">ประเภทรถยนต์:</label>
 
 					</div>
 					<div class="col-sm-3">
@@ -79,10 +79,10 @@
 					</div>
 
 				</div>
-				
-				<div class="form-group" style="text-align:right">
+
+				<div class="form-group" style="text-align: right">
 					<div class="col-sm-6">
-						<label>ประเภทยี่ห้อรถยนต์:</label>
+						<label style="font-weight: bold;">ประเภทยี่ห้อรถยนต์:</label>
 					</div>
 					<div class="col-sm-3">
 
@@ -90,7 +90,7 @@
 							<c:when test="${not empty brand}">
 
 
-								<form:select path="tcidx" style="width: 130pt; height: 20pt">
+								<form:select path="tbidx" style="width: 130pt; height: 20pt">
 									<option>กรุณาเลือกข้อมูล...</option>
 									<c:forEach var="listValue" items="${brand}">
 										<option value="<c:out value='${listValue.id}' />">
@@ -109,47 +109,54 @@
 
 
 				<div class="form-group">
-					<div class="col-sm-4" style="text-align:right">
+					<div class="col-sm-4" style="text-align: right">
 
 						<label style="font-weight: bold;">สี : </label>
 					</div>
 					<div class="col-sm-5">
-						<form:input path="color" class="form-control" style="Height: 20pt;width:130pt" />
+						<form:input path="color" class="form-control"
+							style="Height: 20pt;width:130pt" />
 					</div>
 				</div>
-<br><br>
+				<br>
+				<br>
 				<div class="form-group">
 					<div class="col-sm-6">
-					<label	style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ทะเบียนรถ: </label></div>
-						<div class="col-sm-3">
-					<form:input path="carli" class="form-control" style="Height: 20pt" /></div>
-					
+						<label style="font-weight: bold; padding-top: 10pt;">เลขทะเบียนรถยนต์:
+						</label>
+					</div>
+					<div class="col-sm-3">
+						<form:input path="carli" class="form-control" style="Height: 20pt" />
+					</div>
+
 				</div>
-				
+
 				<div class="form-group">
-				<div class="col-sm-5">
-					<label
-						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">จำนวน
-						: </label></div>
-						<div class="col-sm-3">
-					<form:select path="qty" style="Width: 130pt; Height: 20pt">
-						<option value="00">เลือกจำนวนคน</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-						<option value="13">13</option>
-						<option value="14">14</option>
-						<option value="15">15</option>
-					</form:select></div>
+					<div class="col-sm-5">
+						<label
+							style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">จำนวน
+							: </label>
+					</div>
+					<div class="col-sm-3">
+						<form:select path="qty" style="Width: 130pt; Height: 20pt">
+							<option value="none">เลือกจำนวนคน</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+						</form:select>
+					</div>
 				</div>
 
 				<div class="form-group">
@@ -196,9 +203,10 @@
 								<td style="font-size: 13pt; text-align: center"><c:out
 										value="${listValue.id}" /></td>
 								<td style="font-size: 13pt; text-align: center"><c:out
-										value="${listValue.tcidx}" /></td>
+										value="${listValue.tcidxDesc}" /></td>
+									
 								<td style="font-size: 13pt; text-align: center"><c:out
-										value="${listValue.tbidx}" /></td>
+										value="${listValue.tbidxDesc}" /></td>
 								<td style="font-size: 13pt; text-align: center"><c:out
 										value="${listValue.color}" /></td>
 								<td style="font-size: 13pt; text-align: center"><c:out
@@ -215,7 +223,7 @@
 									href="<c:url value='/datacar/delete/${listValue.id}' />"><span
 										class="btn btn-danger glyphicon glyphicon-trash"
 										data-original-title="delete" data-toggle="tooltip"
-										onclick="Show_Divdelete" aria-hidden="true"></span></a></td>
+										onclick="return confirm('คุณต้องการลบข้อมูลรถ ${listValue.carli}?')" aria-hidden="true"></span></a></td>
 							</tr>
 						</c:forEach>
 					</c:when>

@@ -3,7 +3,7 @@ package com.dev.mas.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document (collection = "M0_TbStatus")
+@Document (collection = "CarBooking_M0_TbStatus")
 public class MasterStatus {
 
 	@Id

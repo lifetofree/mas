@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "U0_TbDetailRent")
+@Document(collection = "CarBooking_U0_TbDetailRent")
 public class CarBooking {
 
 	@Id
@@ -14,16 +14,22 @@ public class CarBooking {
 	private int empidx;
 	private int departidx;
 	private int tridx;
+	private String tridxDesc;
 	private int tcidx;
+	private String tcidxDesc;
+	private int tbidx;
+	private String tbidxDesc;
 	private int tpidx;
 	private String tpidxDesc;
 	private String etcplace;
+	private int tdidx;
+	private String tdidxDesc;
 	private Date datestart;
 	private Date dateend;
 	private String timestart;
 	private String timestartDisplay;
 	private String timeend;
-	private String TimeendDisplay;
+	private String timeendDisplay;
 	private String responsible;
 	private String qty;
 	private String nametip;
@@ -31,13 +37,23 @@ public class CarBooking {
 	private String tel;
 	private int tsidx;
 	private String tsidxDesc;
+	private int tspidx;
+	private String tspidxDesc;
 	private int cEmpIDX;
 	private Date createDate;
 	private int adEmpIDX;
 	private Date adCreateDate;
 	private Date updateDate;
 	private int tcStatus;
+	private String tcStatusDesc;
 	private String change;
+	private String Carli;
+
+	// TbProblem
+	private String topic;
+	private String context;
+	private String telproblem;
+	private int tbpidx;
 
 	public String getTimestartDisplay() {
 		return timestartDisplay;
@@ -63,6 +79,62 @@ public class CarBooking {
 		this.tpidxDesc = tpidxDesc;
 	}
 
+	public String getTridxDesc() {
+		return tridxDesc;
+	}
+
+	public void setTridxDesc(String tridxDesc) {
+		this.tridxDesc = tridxDesc;
+	}
+
+	public String getTcidxDesc() {
+		return tcidxDesc;
+	}
+
+	public void setTcidxDesc(String tcidxDesc) {
+		this.tcidxDesc = tcidxDesc;
+	}
+
+	public int getTbidx() {
+		return tbidx;
+	}
+
+	public void setTbidx(int tbidx) {
+		this.tbidx = tbidx;
+	}
+
+	public String getTbidxDesc() {
+		return tbidxDesc;
+	}
+
+	public int getTdidx() {
+		return tdidx;
+	}
+
+	public void setTdidx(int tdidx) {
+		this.tdidx = tdidx;
+	}
+
+	public String getTdidxDesc() {
+		return tdidxDesc;
+	}
+
+	public void setTdidxDesc(String tdidxDesc) {
+		this.tdidxDesc = tdidxDesc;
+	}
+
+	public String getCarli() {
+		return Carli;
+	}
+
+	public void setCarli(String carli) {
+		Carli = carli;
+	}
+
+	public void setTbidxDesc(String tbidxDesc) {
+		this.tbidxDesc = tbidxDesc;
+	}
+
 	public int getEmpidx() {
 		return empidx;
 	}
@@ -71,7 +143,6 @@ public class CarBooking {
 		this.empidx = empidx;
 	}
 
-	
 	public int getDepartidx() {
 		return departidx;
 	}
@@ -145,11 +216,11 @@ public class CarBooking {
 	}
 
 	public String getTimeendDisplay() {
-		return TimeendDisplay;
+		return timeendDisplay;
 	}
 
 	public void setTimeendDisplay(String timeendDisplay) {
-		TimeendDisplay = timeendDisplay;
+		this.timeendDisplay = timeendDisplay;
 	}
 
 	public String getResponsible() {
@@ -167,8 +238,7 @@ public class CarBooking {
 	public void setQty(String qty) {
 		this.qty = qty;
 	}
-	
-	
+
 	public String getNametip() {
 		return nametip;
 	}
@@ -184,6 +254,7 @@ public class CarBooking {
 	public void setObjective(String objective) {
 		this.objective = objective;
 	}
+
 	public String getTel() {
 		return tel;
 	}
@@ -264,23 +335,67 @@ public class CarBooking {
 		this.change = change;
 	}
 
-	@Override
-	public String toString() {
-		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
-				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx + ", Tpidx=" + tpidx
-				+ ", Etcname=" + etcplace + ", Datestart=" + datestart + ", Dateend=" + dateend
-				+ ", Timestart=" + timestart + ", Timeend=" + timeend
-				+ ", Responsible=" + responsible + ", Qty=" + qty + ", nametip=" + nametip 
-				+ ", Objective=" + objective + ", Tel=" + tel 
-				+ ",, Tsidx=" + tsidx 
-				+ ", CreateDate=" + createDate + ", AdEmpIDX=" + adEmpIDX
-				+ ", AdCreateDate=" + adCreateDate	+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
-				+ ", Change=" + change + "]";
+	public String getTcStatusDesc() {
+		return tcStatusDesc;
 	}
-	
-	//MasterTypeRent
+
+	public void setTcStatusDesc(String tcStatusDesc) {
+		this.tcStatusDesc = tcStatusDesc;
+	}
+
+	// tb problem
+
+	public int getTbpidx() {
+		return tbpidx;
+	}
+
+	public void setTbpidx(int tbpidx) {
+		this.tbpidx = tbpidx;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getTelproblem() {
+		return telproblem;
+	}
+
+	public void setTelproblem(String telproblem) {
+		this.telproblem = telproblem;
+	}
+
+	public int getTspidx() {
+		return tspidx;
+	}
+
+	public void setTspidx(int tspidx) {
+		this.tspidx = tspidx;
+	}
+
+	public String getTspidxDesc() {
+		return tspidxDesc;
+	}
+
+	public void setTspidxDesc(String tspidxDesc) {
+		this.tspidxDesc = tspidxDesc;
+	}
+
+	// MasterTypeRent
 	private MasterTypeRent mastertyperent;
-	
+
 	public MasterTypeRent getMastertyperent() {
 		return mastertyperent;
 	}
@@ -289,12 +404,24 @@ public class CarBooking {
 		this.mastertyperent = mastertyperent;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "CarBooking [id=" + id + ", Empidx=" + empidx + ", departidx="
+				+ departidx + ", Tridx=" + tridx + ", Tcidx=" + tcidx
+				+ ", Tpidx=" + tpidx + ", Etcname=" + etcplace + ", Datestart="
+				+ datestart + ", Dateend=" + dateend + ", Timestart="
+				+ timestart + ", Timeend=" + timeend + ", Responsible="
+				+ responsible + ", Qty=" + qty + ", nametip=" + nametip
+				+ ", Objective=" + objective + ", Carli=" + Carli + ", Tel="
+				+ tel + ",, Tsidx=" + tsidx + ", CreateDate=" + createDate
+				+ ", AdEmpIDX=" + adEmpIDX + ", AdCreateDate=" + adCreateDate
+				+ ", UpdateDate=" + updateDate + ", TcStatus=" + tcStatus
+				+ ", Change=" + change + "]";
+	}
 
 	// MasterTypeCar
 	private MasterTypeCar mastertypecar;
-	
+
 	public MasterTypeCar getMastertypecar() {
 		return mastertypecar;
 	}
@@ -303,11 +430,9 @@ public class CarBooking {
 		this.mastertypecar = mastertypecar;
 	}
 
-	
-	//MasterPlace
+	// MasterPlace
 	private MasterPlace masterplace;
-	
-	
+
 	public MasterPlace getMasterplace() {
 		return masterplace;
 	}
@@ -315,4 +440,38 @@ public class CarBooking {
 	public void setMasterplace(MasterPlace masterplace) {
 		this.masterplace = masterplace;
 	}
+
+	// MasterDataCar
+	private MasterDataCar masterdatacar;
+
+	public MasterDataCar getMasterdatacar() {
+		return masterdatacar;
+	}
+
+	public void setMasterdatacar(MasterDataCar masterdatacar) {
+		this.masterdatacar = masterdatacar;
+	}
+
+	// MasterBrand
+	private MasterBrand masterbrand;
+
+	public MasterBrand getMasterbrand() {
+		return masterbrand;
+	}
+
+	public void setMasterbrand(MasterBrand masterbrand) {
+		this.masterbrand = masterbrand;
+	}
+
+	// Problem
+	private Problem problem;
+
+	public Problem getProblem() {
+		return problem;
+	}
+
+	public void setProblem(Problem problem) {
+		this.problem = problem;
+	}
+
 }

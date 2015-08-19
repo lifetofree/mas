@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
+
 
 import com.dev.mas.model.CarBooking;
 import com.dev.mas.model.MasterBrand;
@@ -14,8 +15,9 @@ import com.dev.mas.model.MasterDataCar;
 import com.dev.mas.model.MasterStatus;
 import com.dev.mas.model.MasterTypeCar;
 import com.dev.mas.model.MasterTypeRent;
+import com.dev.mas.model.Problem;
 
-@Service
+@Repository
 public class CarBookingDaolmpl implements CarBookingDao {
 
 	// MasterTypeCar
@@ -183,4 +185,29 @@ public class CarBookingDaolmpl implements CarBookingDao {
 		public void savecarbooking(CarBooking carbooking) {
 				mongoOperation.save(carbooking);
 		}
+		
+		
+		
+		
+		
+		// Problem
+				private Problem problem = new Problem();
+				@Override
+				public List<Problem> listproblem() {
+					List<Problem> problemList = mongoOperation.findAll(Problem.class);
+				return problemList;
+				}
+				public Problem listByIdproblem(int id) {
+					problem = mongoOperation.findById(id, Problem.class);
+				return problem;
+				}
+				@Override
+				public List<Problem> findByCriteriaproblem(Query query) {
+					List<Problem> problemList = mongoOperation.find(query,Problem.class);
+				return problemList;
+				}
+				@Override
+				public void saveproblem(Problem problem) {
+						mongoOperation.save(problem);
+				}
 }

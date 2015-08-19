@@ -24,6 +24,7 @@
 	 $(insertdata).hide(250);
 	 }
 	 }*/
+		
 </script>
 
 <link
@@ -33,9 +34,7 @@
 </head>
 <body>
 	<div id="panelMain">
-
-
-
+	
 		<div class="row">
 			<div class="col-lg-12">
 				<h2>
@@ -65,8 +64,7 @@
 					<label
 						style="font-weight: bold; padding-top: 10pt; padding-left: 40pt">ข้อมูลยี่อห้อรถยนต์
 						: </label>
-					<form:input path="brandTH" class="form-control"
-						style="Height: 20pt" />
+					<form:input path="brandTH" class="form-control" id="txtbrand" style="Height: 20pt" />
 				</div>
 				<div class="form-group">
 					<label style="font-weight: bold">สถานะ : </label>
@@ -76,7 +74,7 @@
 						<option value="00">Offline</option>
 					</form:select>
 				</div>
-				<button type="submit" name="btnedit" value="savebrand"
+				<button type="submit" name="btnedit" value="savebrand" 
 					class="btn btn-success glyphicon glyphicon-floppy-disk"
 					data-original-title="update" data-toggle="tooltip"></button>
 				<button type="submit" name="btnedit" value="cancel"
@@ -116,7 +114,7 @@
 										data-original-title="edit" data-toggle="tooltip"></span></a> <a
 									href="<c:url value='/brand/delete/${listValue.id}' />"><span
 										class="btn btn-danger glyphicon glyphicon-trash"
-										onclick="Show_Divdelete" aria-hidden="true"
+										onclick="return confirm('คุณต้องการลบ ยี่ห้อ${listValue.brandTH}?')" aria-hidden="true"
 										data-original-title="delete" data-toggle="tooltip"></span></a></td>
 							</tr>
 						</c:forEach>

@@ -1,11 +1,14 @@
 package com.dev.mas.controller;
 
+//import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+
+
 import com.dev.mas.exception.SequenceException;
 import com.dev.mas.model.MasterBrand;
+//import com.dev.mas.model.StaticRef;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
@@ -34,11 +41,15 @@ public class MasterBrandController {
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
 		List<MasterBrand> brandList = null;
+		
 		try {
+		
+			
 			brandList = getListMasterBrand();
 			modelmap.addAttribute("addBrand", new MasterBrand());
 			modelmap.addAttribute("retSampleList", brandList);
 			modelmap.addAttribute("retSamples", "---");
+			
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
@@ -51,15 +62,19 @@ public class MasterBrandController {
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
 		List<MasterBrand> brandList = null;
+		//List<StaticRef>	listStatus  	= null;
+
 		try {
 
 			// show form
 			masterbrand = carbookingService.listByIdbrand(id);
 			modelmap.addAttribute("addBrand", masterbrand);
-
+			//listStatus	    = setListStatus();   // Add Status
+			
 			// all list
 			brandList = getListMasterBrand();
 			modelmap.addAttribute("retSampleList", brandList);
+			//modelmap.addAttribute("listStatus", listStatus);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
 			System.out.println(e.getErrMsg());
@@ -70,16 +85,19 @@ public class MasterBrandController {
 
 		return "MasterBrand";
 	}
-
+	
+	
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
 			@RequestParam String btnedit, MasterBrand masterbrand) {
 
 		if (btnedit.equals("savebrand")) {
 			try {
-				Date date = new Date();
-				masterbrand.setCreateDate(date);
-				carbookingService.savebrand(masterbrand);
+				//if (masterbrand.getBrandTH() != null) {
+					Date date = new Date();
+					masterbrand.setCreateDate(date);
+					carbookingService.savebrand(masterbrand);
+
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
@@ -91,6 +109,7 @@ public class MasterBrandController {
 
 		return "redirect:/brand/";
 	}
+
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
@@ -109,8 +128,7 @@ public class MasterBrandController {
 
 		return "redirect:/brand/";
 	}
-	
-	
+
 	private List<MasterBrand> getListMasterBrand() throws SequenceException {
 		List<MasterBrand> brandList = null;
 		MasterBrand masterbrandDesc = null;
@@ -118,7 +136,7 @@ public class MasterBrandController {
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			query.with(new Sort(Sort.Direction.DESC, "id"));
+			//query.with(new Sort(Sort.Direction.DESC, "id"));
 			brandList = carbookingService.findByCriteriabrand(query);
 
 			for (int i = 0; i < brandList.size(); i++) {
@@ -137,4 +155,25 @@ public class MasterBrandController {
 			query = null;
 		}
 	}
+	
+	/*private List<StaticRef> setListStatus() {
+		List<StaticRef>	listStatus  	= null;
+				
+		try {
+			listStatus 	= new ArrayList<StaticRef>();
+			listStatus.add(setDataStaticRef("0", "Offline"));
+			listStatus.add(setDataStaticRef("1", "Online"));
+			
+			
+			return listStatus;
+		} finally {
+			listStatus  	= null;
+		}
+	}
+
+	private StaticRef setDataStaticRef(String id, String name) {
+		StaticRef		staticRef	= new StaticRef();
+		staticRef.setDataRef(id, name);
+		return staticRef;
+	}*/
 }
