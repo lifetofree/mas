@@ -27,7 +27,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	private CarBookingDao carbookingDao;
 
 	// MasterTypeCar
-	private static final String MasterTypeCar_SEQ_KEY = "M0_TbTypeCar";
+	private static final String MasterTypeCar_SEQ_KEY = "CarBooking_M0_TbTypeCar";
 
 	@Override
 	public void save(MasterTypeCar mastertypecar) throws SequenceException {
@@ -68,7 +68,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// MasterBrand
-	private static final String MasterBrand_SEQ_KEY = "M0_TbBrand";
+	private static final String MasterBrand_SEQ_KEY = "CarBooking_M0_TbBrand";
 
 	@Override
 	public void savebrand(MasterBrand masterbrand) throws SequenceException {
@@ -108,7 +108,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// MasterPlace
-	private static final String MasterPlace_SEQ_KEY = "M0_TbPlace";
+	private static final String MasterPlace_SEQ_KEY = "CarBooking_M0_TbPlace";
 
 	@Override
 	public void saveplace(MasterPlace masterplace) throws SequenceException {
@@ -146,7 +146,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// MasterTypeRent
-	private static final String MasterTypeRent_SEQ_KEY = "M0_TbTypeRent";
+	private static final String MasterTypeRent_SEQ_KEY = "CarBooking_M0_TbTypeRent";
 
 	@Override
 	public void savetyperent(MasterTypeRent mastertyperent)
@@ -185,7 +185,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// MasterDataCar
-	private static final String MasterDataCar_SEQ_KEY = "M0_TbDataCar";
+	private static final String MasterDataCar_SEQ_KEY = "CarBooking_M0_TbDataCar";
 
 	@Override
 	public void savedatacar(MasterDataCar masterdatacar) throws SequenceException {
@@ -225,7 +225,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// MasterStatus
-	private static final String MasterStatus_SEQ_KEY = "M0_TbStatus";
+	private static final String MasterStatus_SEQ_KEY = "CarBooking_M0_TbStatus";
 
 	@Override
 	public void savestatus(MasterStatus masterstatus) throws SequenceException {
@@ -257,7 +257,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// CarBooking
-	private static final String CarBooking_SEQ_KEY = "U0_TbDetailRent";
+	private static final String CarBooking_SEQ_KEY = "CarBooking_U0_TbDetailRent";
 
 	@Override
 	public void savecarbooking(CarBooking carbooking) throws SequenceException {
@@ -307,7 +307,7 @@ public class CarBookingServicelmpl implements CarBookingService {
 	}
 
 	// Problem
-	private static final String Problem_SEQ_KEY = "U1_TbProblem";
+	private static final String Problem_SEQ_KEY = "CarBooking_U1_TbProblem";
 
 	@Override
 	public void saveproblem(Problem problem) throws SequenceException {

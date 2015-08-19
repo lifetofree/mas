@@ -21,6 +21,9 @@
 				<form:input path="domain" class="form-control"
 					placeHolder="Domain Name" />
 			</div>
+			<%-- <form:select path="country">
+				<form:options items="${countryList}" />
+			</form:select> --%>
 			<button type="submit" name="cmdName" value="save"
 				class="btn btn-default">
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"

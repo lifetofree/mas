@@ -7,10 +7,9 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-
 import com.dev.mas.model.Hosting;
 
-@Repository
+@Repository("hostingDao")
 public class HostingDaoImpl implements HostingDao {
 
 	@Autowired
