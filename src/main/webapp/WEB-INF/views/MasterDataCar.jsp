@@ -223,7 +223,7 @@
 									href="<c:url value='/datacar/delete/${listValue.id}' />"><span
 										class="btn btn-danger glyphicon glyphicon-trash"
 										data-original-title="delete" data-toggle="tooltip"
-										onclick="Show_Divdelete" aria-hidden="true"></span></a></td>
+										onclick="return confirm('คุณต้องการลบข้อมูลรถ ${listValue.carli}?')" aria-hidden="true"></span></a></td>
 							</tr>
 						</c:forEach>
 					</c:when>

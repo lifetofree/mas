@@ -110,8 +110,8 @@
 										data-original-title="edit" data-toggle="tooltip"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
 										 <a href="<c:url value='/place/delete/${listValue.id}' />">
-										 <span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"
-										 data-original-title="delete" data-toggle="tooltip" ></span></a>
+										 <span	class="btn btn-danger glyphicon glyphicon-trash" onclick="return confirm('คุณต้องการลบสถานที่ ${listValue.placeTH}?')"
+										 aria-hidden="true" data-original-title="delete" data-toggle="tooltip" ></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

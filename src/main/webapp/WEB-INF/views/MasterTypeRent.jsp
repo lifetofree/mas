@@ -110,7 +110,7 @@
 										data-original-title="edit" data-toggle="tooltip"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
 										 <a href="<c:url value='/typerent/delete/${listValue.id}' />"><span	class="btn btn-danger glyphicon glyphicon-trash" 
-										 data-original-title="delete" data-toggle="tooltip"onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 data-original-title="delete" data-toggle="tooltip" onclick="return confirm('คุณต้องการลบประเภทการจอง ${listValue.typerentTH}?')" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

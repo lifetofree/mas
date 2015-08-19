@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -119,7 +119,7 @@ public class MasterPlaceController {
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			query.with(new Sort(Sort.Direction.DESC, "id"));
+			//query.with(new Sort(Sort.Direction.DESC, "id"));
 			placeList = carbookingService.findByCriteriaplace(query);
 
 			for (int i = 0; i < placeList.size(); i++) {

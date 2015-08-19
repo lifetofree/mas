@@ -114,7 +114,7 @@
 										data-original-title="edit" data-toggle="tooltip"></span></a> <a
 									href="<c:url value='/brand/delete/${listValue.id}' />"><span
 										class="btn btn-danger glyphicon glyphicon-trash"
-										onclick="Show_Divdelete" aria-hidden="true"
+										onclick="return confirm('คุณต้องการลบ ยี่ห้อ${listValue.brandTH}?')" aria-hidden="true"
 										data-original-title="delete" data-toggle="tooltip"></span></a></td>
 							</tr>
 						</c:forEach>

@@ -120,7 +120,7 @@
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
 										 <a href="<c:url value='/typecar/delete/${listValue.id}' />"><span	
 										 data-original-title="delete" data-toggle="tooltip" class="btn btn-danger glyphicon glyphicon-trash" 
-										 onclick="Show_Divdelete" aria-hidden="true"></span></a>
+										 onclick="return confirm('คุณต้องการลบประเภท ${listValue.typeCarTH}?')" aria-hidden="true"></span></a>
 										 </td>
 							</tr>
 						</c:forEach>

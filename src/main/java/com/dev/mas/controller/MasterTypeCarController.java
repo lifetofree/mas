@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -56,7 +56,6 @@ public class MasterTypeCarController {
 
 			// show form
 			mastertypecar = carbookingService.listById(id);
-System.out.println(mastertypecar.getTypeCarTH() + ":" + mastertypecar.getTcStatus());
 			modelmap.addAttribute("addTypeCar", mastertypecar);
 
 			// all list
@@ -121,7 +120,7 @@ System.out.println(mastertypecar.getTypeCarTH() + ":" + mastertypecar.getTcStatu
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("tcStatus").lt(9));
-			query.with(new Sort(Sort.Direction.DESC, "id"));
+			//query.with(new Sort(Sort.Direction.DESC, "id"));
 			typecarList = carbookingService.findByCriteria(query);
 
 			for (int i = 0; i < typecarList.size(); i++) {

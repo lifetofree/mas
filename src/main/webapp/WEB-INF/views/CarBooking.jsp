@@ -18,6 +18,7 @@
 	}
 
 	
+	
 	//datepickup
 	$(function() {
 		
@@ -114,6 +115,7 @@
 		}
 	}
 	
+	
 </script>
 
 
@@ -152,7 +154,7 @@
 			<div>
 				<button type="button"
 					class="btn btn-primary glyphicon glyphicon-search"
-					data-original-title="add" data-toggle="tooltip"
+					data-original-title="search" data-toggle="tooltip"
 					style="font-size: 11pt; width: 40pt; height: 20pt;"
 					onclick="Show_Divsearch(search)" id="btndiv1"></button>
 			</div>
@@ -219,11 +221,11 @@
 						</div>
 						<div class="col-sm-3">
 							<select style="Width: 160pt; Height: 20pt">
-								<option value="00">กรุณาเลือกผลอนุมัติ...</option>
-								<option value="1">อนุมัติแล้ว</option>
+								<option value="none">กรุณาเลือกผลอนุมัติ...</option>
+								<option value="1">อนุมัติ</option>
 								<option value="2">รออนุมัติ</option>
 								<option value="3">ไม่อนุมัติ</option>
-								<option value="3">ยกเลิก</option>
+								<option value="4">ยกเลิก</option>
 							</select>
 						</div>
 
@@ -1127,7 +1129,7 @@
 											<th style="text-align: center;">วันที่เริ่มเดินทาง</th>
 											<th style="text-align: center;">วันที่่เดินทางกลับ</th>
 											<th style="text-align: center;">สถานที่</th>
-											<th style="text-align: center;">เวลาเริ่มค้น</th>
+											<th style="text-align: center;">เวลาเริ่มต้น</th>
 											<th style="text-align: center;">เวลาสิ้นสุด</th>
 
 										</tr>
