@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "roomreserved_m0_tbroom")
-public class MasterRoom {
+public class MasterRoomReserved {
 	
 	@Id
 	private long id;

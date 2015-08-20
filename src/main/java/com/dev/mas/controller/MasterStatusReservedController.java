@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
 
-import com.dev.mas.model.MasterStatus;
+import com.dev.mas.model.MasterStatusReserved;
 
-import com.dev.mas.service.MasterStatusService;
+import com.dev.mas.service.MasterStatusReservedService;
 
 @Controller
 @RequestMapping(value = "/status")
-public class MasterStatusController {
+public class MasterStatusReservedController {
 	
 	@Autowired
 	private ApplicationContext ctx;
@@ -34,16 +34,16 @@ public class MasterStatusController {
 
 
 	@Autowired
-	private MasterStatusService masterstatusService; // RoomReservedService roomservedService
+	private MasterStatusReservedService masterstatusreservedService; // RoomReservedService roomservedService
 
-	private MasterStatus masterstatus = new MasterStatus();
+	private MasterStatusReserved masterstatusreserved = new MasterStatusReserved();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-		List<MasterStatus> statustList = null;
+		List<MasterStatusReserved> statustList = null;
 		try {
 			statustList = getListMasterStatus();
-			modelmap.addAttribute("addStatus", new MasterStatus());
+			modelmap.addAttribute("addStatus", new MasterStatusReserved());
 			modelmap.addAttribute("retSampleList", statustList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
@@ -52,17 +52,17 @@ public class MasterStatusController {
 			statustList = null;
 		}
 
-		return "MasterStatus";
+		return "MasterStatusReserved";
 	}
 
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-		List<MasterStatus> statustList = null;
+		List<MasterStatusReserved> statustList = null;
 		try {
 
 			// show form
-			masterstatus = masterstatusService.listById(id); // roomservedService , Idstatus
-			modelmap.addAttribute("addStatus", masterstatus);
+			masterstatusreserved = masterstatusreservedService.listById(id); // roomservedService , Idstatus
+			modelmap.addAttribute("addStatus", masterstatusreserved);
 
 			// all list
 			statustList = getListMasterStatus();
@@ -75,25 +75,25 @@ public class MasterStatusController {
 
 		}
 
-		return "MasterStatus";
+		return "MasterStatusReserved";
 	}
 
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
-			@RequestParam String btnedit, MasterStatus masterstatus) {
+			@RequestParam String btnedit, MasterStatusReserved masterstatusreserved) {
 
 		if (btnedit.equals("savestatus")) {
 			try {
 				Date date = new Date();
-				masterstatus.setCreateDate(date);
-				masterstatusService.save(masterstatus); //roomreservedService , savestatus
+				masterstatusreserved.setCreateDate(date);
+				masterstatusreservedService.save(masterstatusreserved); //roomreservedService , savestatus
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
-				modelmap.addAttribute("addStatus", new MasterStatus());
+				modelmap.addAttribute("addStatus", new MasterStatusReserved());
 			}
 		} else if (btnedit.equals("cancel")) {
-			modelmap.addAttribute("addStatus", new MasterStatus());
+			modelmap.addAttribute("addStatus", new MasterStatusReserved());
 		}
 
 		return "redirect:/status/";
@@ -102,46 +102,46 @@ public class MasterStatusController {
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
-			masterstatus = masterstatusService.listById(id); //roomreservedService , Idstatus
+			masterstatusreserved = masterstatusreservedService.listById(id); //roomreservedService , Idstatus
 
 			Date date = new Date();
-			masterstatus.setCreateDate(date);
-			masterstatus.setTrStatus(9);
-			masterstatusService.save(masterstatus); //roomreservedService , savestatus
+			masterstatusreserved.setCreateDate(date);
+			masterstatusreserved.setTrStatus(9);
+			masterstatusreservedService.save(masterstatusreserved); //roomreservedService , savestatus
 
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("addStatus", new MasterStatus());
+			modelmap.addAttribute("addStatus", new MasterStatusReserved());
 		}
 
 		return "redirect:/status/";
 	}
 
 
-	private List<MasterStatus> getListMasterStatus() throws SequenceException {
-		List<MasterStatus> statusList = null;
-		MasterStatus masterstatusDesc = null;
+	private List<MasterStatusReserved> getListMasterStatus() throws SequenceException {
+		List<MasterStatusReserved> statusList = null;
+		MasterStatusReserved masterstatusreservedDesc = null;
 		Query query = null;
 		try {
 			query = new Query();
 			query.addCriteria(Criteria.where("trStatus").lt(9));
 			query.with(new Sort(Sort.Direction.DESC, "id"));
-			statusList = masterstatusService.findByCriteria(query); //roomreservedService , Criteriastatus
+			statusList = masterstatusreservedService.findByCriteria(query); //roomreservedService , Criteriastatus
 
 			for (int i = 0; i < statusList.size(); i++) {
-				masterstatusDesc = statusList.get(i);
+				masterstatusreservedDesc = statusList.get(i);
 
-				if (masterstatusDesc.getTrStatus() == 1) {
-					masterstatusDesc.setTrStatusDesc("Online");
-			} else if (masterstatusDesc.getTrStatus() == 0) {
-					masterstatusDesc.setTrStatusDesc("Offline");
+				if (masterstatusreservedDesc.getTrStatus() == 1) {
+					masterstatusreservedDesc.setTrStatusDesc("Online");
+			} else if (masterstatusreservedDesc.getTrStatus() == 0) {
+				masterstatusreservedDesc.setTrStatusDesc("Offline");
 				}
 			}
 			return statusList;
 		} finally {
 		statusList = null;
-			masterstatusDesc = null;
+		masterstatusreservedDesc = null;
 			query = null;
 		}
 	}

@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "roomreserved_m0_tbplace")
-public class MasterPlace {
+public class MasterPlaceReserved {
 	
 	@Id
 	private long id;
@@ -98,6 +98,6 @@ public class MasterPlace {
 
 @Override
 public String toString() {
-	return "MasterPlace [id=" + id + ", placeTH=" +placeTH + ", createDate=" + createDate + ", adEmpIDX=" + adEmpIDX + ", updateDate=" + updateDate + ", tcStatus=" + trStatus + ", trStatusDesc=" + trStatusDesc + "]";
+	return "MasterPlaceReserved [id=" + id + ", placeTH=" +placeTH + ", createDate=" + createDate + ", adEmpIDX=" + adEmpIDX + ", updateDate=" + updateDate + ", tcStatus=" + trStatus + ", trStatusDesc=" + trStatusDesc + "]";
 	}
 }
