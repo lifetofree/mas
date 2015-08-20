@@ -89,7 +89,7 @@ public class MasterPlaceReservedController {
 			modelmap.addAttribute("addPlace", new MasterPlaceReserved());
 		}
 
-		return "redirect:/place/";
+		return "redirect:/roomplace/";
 	}
 
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
@@ -108,7 +108,7 @@ public class MasterPlaceReservedController {
 			modelmap.addAttribute("addPlace", new MasterPlaceReserved());
 		}
 
-		return "redirect:/place/";
+		return "redirect:/roomplace/";
 	}
 
 

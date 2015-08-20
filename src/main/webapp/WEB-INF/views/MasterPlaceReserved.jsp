@@ -43,7 +43,7 @@
 				style="font-weight: bold; padding-top: 10pt; font-size: 14pt; font-weight: bold; padding-left: 20pt">เพิ่มสถานที่</label>
 
 			<form:form class="form-inline" modelAttribute="addPlace"
-				method="POST" action="${pageContext.request.contextPath}/place/edit">
+				method="POST" action="${pageContext.request.contextPath}/roomplace/edit">
 				<div class="form-group">
 					<form:hidden path="id" />
 					<label
@@ -95,11 +95,11 @@
 								<td style="font-size: 13pt;"><c:out
 										value="${listValue.trStatusDesc}" /></td>
 								 <td><a
-									href="<c:url value='/place/edit/${listValue.id}' />"><span
+									href="<c:url value='/roomplace/edit/${listValue.id}' />"><span
 										class="btn btn-primary glyphicon glyphicon-edit"
 										data-original-title="edit" data-toggle="tooltip"
 										onclick="Show_Divedit(editdata)" aria-hidden="true"></span></a>
-										 <a href="<c:url value='/place/delete/${listValue.id}' />">
+										 <a href="<c:url value='/roomplace/delete/${listValue.id}' />">
 										 <span	class="btn btn-danger glyphicon glyphicon-trash" onclick="Show_Divdelete" aria-hidden="true"
 										 data-original-title="delete" data-toggle="tooltip" ></span></a>
 										 </td>
