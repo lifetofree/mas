@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.mas.exception.SequenceException;
-import com.dev.mas.model.MasterPlaceReserved;
-import com.dev.mas.service.MasterPlaceReservedService;
+import com.dev.mas.model.MasterPlace;
+import com.dev.mas.service.CarBookingService;
 
 @Controller
-@RequestMapping(value = "/roomplace")
-public class MasterPlaceReservedController {
-	
+@RequestMapping(value = "/place")
+public class MasterPlaceController {
+
 	@Autowired
 	private ApplicationContext ctx;
 
 	@Autowired
-	private  MasterPlaceReservedService masterplacereservedService; //RoomReserved
+	private CarBookingService carbookingService;
 
-	private MasterPlaceReserved masterplacereserved = new MasterPlaceReserved();
+	private MasterPlace masterplace = new MasterPlace();
 
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String defaultPage(ModelMap modelmap) {
-		List<MasterPlaceReserved> placeList = null;
+		List<MasterPlace> placeList = null;
 		try {
 			placeList = getListMasterPlace();
-			modelmap.addAttribute("addPlace", new MasterPlaceReserved());
+			modelmap.addAttribute("addPlace", new MasterPlace());
 			modelmap.addAttribute("retSampleList", placeList);
 			modelmap.addAttribute("retSamples", "---");
 		} catch (SequenceException e) {
@@ -45,17 +45,17 @@ public class MasterPlaceReservedController {
 			placeList = null;
 		}
 
-		return "MasterPlaceReserved";
+		return "MasterPlace";
 	}
 
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
-		List<MasterPlaceReserved> placeList = null;
+		List<MasterPlace> placeList = null;
 		try {
 
 			// show form
-			masterplacereserved = masterplacereservedService.listById(id); //roomreserved ,IDplace
-			modelmap.addAttribute("addPlace", masterplacereserved);
+			masterplace = carbookingService.listByIdplace(id);
+			modelmap.addAttribute("addPlace", masterplace);
 
 			// all list
 			placeList = getListMasterPlace();
@@ -68,25 +68,25 @@ public class MasterPlaceReservedController {
 
 		}
 
-		return "MasterPlaceReserved";
+		return "MasterPlace";
 	}
 
 	@RequestMapping(value = { "/edit" }, params = { "btnedit" }, method = RequestMethod.POST)
 	public String processUpsertPost(ModelMap modelmap,
-			@RequestParam String btnedit, MasterPlaceReserved masterplacereserved) {
+			@RequestParam String btnedit, MasterPlace masterplace) {
 
-		if (btnedit.equals("save")) {
+		if (btnedit.equals("saveplace")) {
 			try {
 				Date date = new Date();
-				masterplacereserved.setCreateDate(date);
-				masterplacereservedService.save(masterplacereserved);// roomreserved , saveplace
+				masterplace.setCreateDate(date);
+				carbookingService.saveplace(masterplace);
 			} catch (SequenceException e) {
 				modelmap.addAttribute("retSamples", e.getErrMsg());
 			} finally {
-				modelmap.addAttribute("addPlace", new MasterPlaceReserved());
+				modelmap.addAttribute("addPlace", new MasterPlace());
 			}
 		} else if (btnedit.equals("cancel")) {
-			modelmap.addAttribute("addPlace", new MasterPlaceReserved());
+			modelmap.addAttribute("addPlace", new MasterPlace());
 		}
 
 		return "redirect:/place/";
@@ -95,48 +95,47 @@ public class MasterPlaceReservedController {
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDelete(ModelMap modelmap, @PathVariable int id) {
 		try {
-			masterplacereserved = masterplacereservedService.listById(id); //roomreserved ,IDplace
+			masterplace = carbookingService.listByIdplace(id);
 
 			Date date = new Date();
-			masterplacereserved.setCreateDate(date);
-			masterplacereserved.setTrStatus(9);
-			masterplacereservedService.save(masterplacereserved); //roomreserved , saveplace
+			masterplace.setCreateDate(date);
+			masterplace.setTcStatus(9);
+			carbookingService.saveplace(masterplace);
 
 		} catch (SequenceException e) {
 			modelmap.addAttribute("retSamples", e.getErrMsg());
 		} finally {
-			modelmap.addAttribute("addPlace", new MasterPlaceReserved());
+			modelmap.addAttribute("addPlace", new MasterPlace());
 		}
 
 		return "redirect:/place/";
 	}
-
-
-	private List<MasterPlaceReserved> getListMasterPlace() throws SequenceException {
-		List<MasterPlaceReserved> placeList = null;
-		MasterPlaceReserved masterplacereservedDesc = null;
+	
+	
+	private List<MasterPlace> getListMasterPlace() throws SequenceException {
+		List<MasterPlace> placeList = null;
+		MasterPlace masterplaceDesc = null;
 		Query query = null;
 		try {
 			query = new Query();
-			query.addCriteria(Criteria.where("trStatus").lt(9));
-			query.with(new Sort(Sort.Direction.DESC, "id"));
-			placeList = masterplacereservedService.findByCriteria(query); //roomreserved , Criteriaplace
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			//query.with(new Sort(Sort.Direction.DESC, "id"));
+			placeList = carbookingService.findByCriteriaplace(query);
 
 			for (int i = 0; i < placeList.size(); i++) {
-				masterplacereservedDesc = placeList.get(i);
+				masterplaceDesc = placeList.get(i);
 
-				if (masterplacereservedDesc.getTrStatus() == 1) {
-					masterplacereservedDesc.setTrStatusDesc("Online");
-				} else if (masterplacereservedDesc.getTrStatus() == 0) {
-					masterplacereservedDesc.setTrStatusDesc("Offline");
+				if (masterplaceDesc.getTcStatus() == 1) {
+					masterplaceDesc.setTcStatusDesc("Online");
+				} else if (masterplaceDesc.getTcStatus() == 0) {
+					masterplaceDesc.setTcStatusDesc("Offline");
 				}
 			}
 			return placeList;
 		} finally {
 			placeList = null;
-			masterplacereservedDesc = null;
+			masterplaceDesc = null;
 			query = null;
 		}
 	}
-
 }

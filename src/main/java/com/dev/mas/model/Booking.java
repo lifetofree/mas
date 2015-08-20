@@ -1,17 +1,16 @@
 package com.dev.mas.model;
 
-import org.springframework.data.annotation.Id;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "hosting")
-public class Hosting {
-
-	@Id
+@Document(collection = "booking")
+public class Booking {
 	private long id;
-
+	
 	private String name;
 	private String domain;
-	private String supplier;
+	
+	private String car;
 
 	public long getId() {
 		return id;
@@ -37,17 +36,18 @@ public class Hosting {
 		this.domain = domain;
 	}
 
-	public String getSupplier() {
-		return supplier;
+	public String getCar() {
+		return car;
 	}
 
-	public void setSupplier(String supplier) {
-		this.supplier = supplier;
+	public void setCar(String car) {
+		this.car = car;
 	}
 	
 	@Override
 	public String toString() {
-		return "Hosting [id=" + id + ", name=" + name + "]";
+		return "Booking [id=" + id + ", name=" + name + " , car=" + car + "]";
 	}
-}
 
+	
+}
