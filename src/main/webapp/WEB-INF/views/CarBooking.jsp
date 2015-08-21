@@ -116,6 +116,8 @@
 	}
 	
 	
+	
+	
 </script>
 
 
@@ -133,7 +135,6 @@
 <script class="cssdesk"
 	src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"
 	type="text/javascript"></script>
-
 
 
 </head>
@@ -161,6 +162,7 @@
 			<br>
 			<div class="row" id="search" style="display: none;">
 				<!--div Show Search-->
+				<form:form modelAttribute="addCarBooking">
 				<div class="col-sm-11">
 					<!--div class="col-sm-11-->
 
@@ -170,22 +172,54 @@
 							<label style="text-align: left"> ประเภทการค้นหา: </label>
 						</div>
 						<div class="col-sm-3">
-							<select style="Width: 160pt; Height: 20pt">
+						<form:form method="POST" action="${pageContext.request.contextPath}/Car/dropdown">
+							<select style="Width: 160pt; Height: 20pt" onchange="this.form.submit();" name="dropsearch" >
 								<option value="00">กรุณาเลือกประเภทค้นหา...</option>
 								<option value="1">ประเภทการจองรถยนต์</option>
 								<option value="2">ประเภทรถยนต์</option>
 								<option value="3">รายงาน</option>
 							</select>
+							</form:form>
 						</div>
 
 						<div class="col-sm-2">
 							<label style="text-align: left">ข้อมูลการค้นหา:</label>
 						</div>
 						<div class="col-sm-2">
-							<select style="Width: 160pt; Height: 20pt">
-								<option value="00">กรุณาเลือกข้อมูล...</option>
-
-							</select>
+							<c:choose>
+										<c:when test="${not empty typerent}">
+											<div class="col-sm-7">
+												<form:select path="tridx" style="width: 130pt; height: 20pt">
+													<option value="0">กรุณาเลือกข้อมูล</option>
+													<c:forEach var="listValue" items="${typerent}">
+														<option value="<c:out value='${listValue.id}' />">
+															<c:out value="${listValue.typerentTH}" />
+														</option>
+													</c:forEach>
+												</form:select>
+												<form:errors path="tridx" class="control-label" />
+											</div>
+										</c:when>
+																				
+										 <c:when test="${not empty typecar}">
+										<form:select path="tcidx" style="width: 130pt; height: 20pt">
+													<option value="0">กรุณาเลือกข้อมูล</option>
+													<c:forEach var="listValue" items="${typecar}">
+														<option value="<c:out value='${listValue.id}' />">
+															<c:out value="${listValue.typeCarTH}" />
+														</option>
+													</c:forEach>
+												</form:select>
+												</c:when> 
+										<c:otherwise>
+										<select style="width: 130pt; height: 20pt">
+													<option value="0">กรุณาเลือกข้อมูล</option>
+													<option value="1">รายงานการจองรถยนต์</option>
+													<option value="2">รายงานการใช้รถยนต์</option>
+													<option value="3">รายงานการแจ้งปัญหา</option>
+										</select>
+										</c:otherwise>
+									</c:choose>
 						</div>
 					</div>
 
@@ -206,12 +240,19 @@
 							<label style="text-align: left">วันที่ : </label>
 						</div>
 						<div class="col-sm-2">
-							<input type="text" id="example1" style="background-color: #FFFFFF; width: 120pt; Height: 20pt">
-						</div>
-						<div class="col-sm-2">
+						<input type="text" id="example1" style="width: 120pt; Height: 20pt;">
+						
+						
+					<!--  <div class='input-group date' id='datetimepicker1'>
+                  <input type="text" id="example1" style="width: 100pt; Height: 22pt;"> <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>  -->
+						
+                   		</div>
+						<div class="col-sm-3">
 							<input type="text" id="example2"
-								style="background-color: #FFFFFF; width: 120pt; Height: 20pt"
-								name="txtdate1">
+								style="width: 120pt; Height: 20pt;enable:false"	name="txtdate1">
 						</div>
 						</div>
 
@@ -244,16 +285,16 @@
 
 					<div class="form-group">
 						<div class="col-sm-11">
-							<button type="button"
+						<button type="submit" name="btnsearch" value="btnsearch"
 								class="btn btn-defualt glyphicon glyphicon-search"
-								data-original-title="search" data-toggle="tooltip"
-								style="font-size: 11pt; width: 40pt; height: 20pt"></button>
+								data-original-title="search" data-toggle="tooltip"></button>
 						</div>
 					</div>
 
 
 
 				</div>
+				 </form:form>
 				<!--div class="col-sm-11-->
 			</div>
 			<!--div Show Search-->
@@ -277,7 +318,7 @@
 
 						<div id="main">
 							<form:form modelAttribute="addCarBooking" method="POST"
-								action="${pageContext.request.contextPath}/carbookings/view">
+								action="${pageContext.request.contextPath}/Car/view">
 								<!-- หน้าแรก-->
 								<p
 									style="text-align: center; font-weight: bold; font-size: 17pt;">รายการจองรถ</p>
@@ -310,7 +351,7 @@
 															value="${listValue.tsidxDesc}" /></td>
 
 													<td style="text-align: center"><a
-														href="<c:url value='/carbookings/view/${listValue.id}'/>?test=showdatarent"><span
+														href="<c:url value='/Car/view/${listValue.id}'/>?test=showdatarent"><span
 															class="btn btn-primary glyphicon glyphicon-list-alt"
 															id="btndiv2" aria-hidden="true"
 															data-original-title="view" data-toggle="tooltip"></span></a></td>
@@ -342,7 +383,7 @@
 							<div id="showdatarent" style="display: none">
 								<!--div id="content"  -->
 								<form:form modelAttribute="addCarBooking" method="POST"
-									action="${pageContext.request.contextPath}/carbookings/savestatus">
+									action="${pageContext.request.contextPath}/Car/savestatus">
 									<div>
 										<h4 style="font-size: 16pt; font-weight: bold; text-align: center">ข้อมูลการจองรถยนต์</h4>
 									</div>
@@ -419,7 +460,7 @@
 											<label>วันที่เริ่ม:</label>
 										</div>
 										<div class="col-sm-4">
-											<label>${carbooking.datestart}</label>
+											 <label>${carbooking.datestart}</label> 
 										</div>
 									</div>
 
@@ -429,7 +470,7 @@
 										</div>
 										<div class="col-sm-4">
 											<label>${carbooking.dateend}</label>
-										</div>
+											</div>
 									</div>
 
 									<div class="row">
@@ -566,7 +607,7 @@
 										</div>
 										<div class="col-sm-1">
 											<a
-												href="<c:url value='/carbookings/savestatus/${carbooking.id}'/>?test=editdatarent"><span
+												href="<c:url value='/Car/savestatus/${carbooking.id}'/>?test=editdatarent"><span
 												class="btn btn-primary glyphicon glyphicon-edit"
 												id="btndiv3" aria-hidden="true" data-original-title="edit"
 												data-toggle="tooltip"></span></a>
@@ -583,7 +624,7 @@
 							<div id="editdatarent" style="display: none">
 								<!-- div edit dataren -->
 								<form:form modelAttribute="addCarBooking" method="POST"
-									action="${pageContext.request.contextPath}/carbookings/editdata">
+									action="${pageContext.request.contextPath}/Car/editdata">
 									<h4 style="font-size: 16pt; font-weight: bold; text-align: center">แก้ไขข้อมูลการจองรถยนต์</h4>
 									<br>
 
@@ -894,7 +935,7 @@
 					<!-- Tab2 -->
 					<div id="pane2" class="tab-pane">
 					<div id="datacar">
-						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/datacar">
+						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/Car/datacar">
 							<!-- div pane2-->
 							<div class="row">
 								<h4
@@ -969,7 +1010,7 @@
 															สุพรรณคง(วิรัช)</label>
 													</div>
 													<div class="col-sm-3">
-													<a href="<c:url value='/carbookings/datacar/${listValue.id}'/>?testx=showdatacarrent"><span
+													<a href="<c:url value='/Car/datacar/${listValue.id}'/>?testx=showdatacarrent"><span
 																		id="btndiv3" aria-hidden="true"
 																		data-original-title="view" data-toggle="tooltip">ตารางคิวการจองรถยนต์</span></a>
 													</div>
@@ -1180,7 +1221,7 @@
 					<div id="pane3" class="tab-pane">
 						<!-- div pan3-->
 						<form:form modelAttribute="addCarBooking" method="POST"
-							action="${pageContext.request.contextPath}/carbookings/save">
+							action="${pageContext.request.contextPath}/Car/save">
 							<div class="row">
 								<h4
 									style="font-size: 16pt; font-weight: bold; text-align: center">ขั้นตอนการจองรถยนต์</h4>
@@ -1613,7 +1654,7 @@
 							<p style="text-align: center; font-weight: bold; font-size: 17pt">แจ้งปัญหา</p>
 							<br>
 						</div>
-						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/carbookings/problem">
+						<form:form modelAttribute="addCarBooking" method="POST"	action="${pageContext.request.contextPath}/Car/problem">
 								<div>
 									<div class="row">
 										<div class="col-sm-3" style="text-align: left">
@@ -1708,7 +1749,7 @@
 								</div>
 
 						</div>
-						</form:form>
+						</form:form> 
 				<!-- ส่วนแจ้งปัญหา Admin-->
 						<div id="admin">
 
@@ -1716,7 +1757,7 @@
 							<!-- ส่วนแจ้งปัญหา Admin -->
 							<div id="tablepro">
 								<form:form modelAttribute="addCarBooking" method="POST"
-									action="${pageContext.request.contextPath}/carbookings/viewproblem">
+									action="${pageContext.request.contextPath}/Car/viewproblem">
 									<table
 										class="table table-striped table-bordered table-hover table-responsive">
 										<thead>
@@ -1740,7 +1781,7 @@
 																<td style="text-align: center;"><c:out
 																		value="${listValue.tspidxDesc}" /></td>
 																<td style="text-align: center;"><a
-																	href="<c:url value='/carbookings/viewproblem/${listValue.id}'/>?tests=adminproblem"><span
+																	href="<c:url value='/Car/viewproblem/${listValue.id}'/>?tests=adminproblem"><span
 																		class="btn btn-primary glyphicon glyphicon-list-alt"
 																		id="btndiv2" aria-hidden="true"
 																		data-original-title="view" data-toggle="tooltip"></span></a></td>
@@ -1769,7 +1810,7 @@
 
 							<div id="adminproblem" style="display: none">
 								<form:form modelAttribute="addCarBooking" method="POST"
-									action="${pageContext.request.contextPath}/carbookings/acceptproblem">
+									action="${pageContext.request.contextPath}/Car/acceptproblem">
 									<div class="row">
 									<input type="text" style="display:none;" id="id" name="id" value="${problem.id}" >
 										<div class="col-sm-3" style="text-align: left">

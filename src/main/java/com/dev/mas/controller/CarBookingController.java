@@ -30,7 +30,8 @@ import com.dev.mas.model.StaticRef;
 import com.dev.mas.service.CarBookingService;
 
 @Controller
-@RequestMapping(value = "/carbookings")
+//@RequestMapping(value = "/carbookings")
+@RequestMapping(value = {"/Car", "/Booking/carbookings"})
 public class CarBookingController {
 
 	@Autowired
@@ -39,7 +40,20 @@ public class CarBookingController {
 	@Autowired
 	private CarBookingService carbookingService;
 	private CarBooking carbooking = new CarBooking();
+	
+	
+	
+	// ปุ่ม search ค้นหาข้อมูล
+		@RequestMapping(value = { "/dropdown" }, params = { "dropsearch" }, method = RequestMethod.POST)
+	public String processSearch(ModelMap modelmap,@RequestParam int id) {
+			
+		    		System.out.println("เข้าเมธอดนี้นะครัช");
+		    		
 
+			return "redirect:/Car/";
+
+		}
+	
 	// หน้าแรกแสดงรายการ tab 1
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
 	public String rentpage(ModelMap modelmap) {
@@ -114,7 +128,7 @@ public class CarBookingController {
 			modelmap.addAttribute("addCarBooking", new CarBooking());
 		}
 
-		return "redirect:/carbookings/";
+		return "redirect:/Car/";
 
 	}
 
@@ -231,7 +245,7 @@ public class CarBookingController {
 			modelmap.addAttribute("addCarBooking", new CarBooking());
 		}
 
-		return "redirect:/carbookings/";
+		return "redirect:/Car/";
 
 	}
 
@@ -415,7 +429,7 @@ public class CarBookingController {
 		} else if (btnedit.equals("main")) {
 			modelmap.addAttribute("addCarBooking", new CarBooking());
 		}
-		return "redirect:/carbookings/";
+		return "redirect:/Car/";
 
 	}
 
@@ -445,7 +459,7 @@ public class CarBookingController {
 		} else if (btnproblem.equals("cancel")) {
 			modelmap.addAttribute("addCarBooking", new Problem());
 		}
-		return "redirect:/carbookings/";
+		return "redirect:/Car/";
 	}
 
 	// tab problem ปุ่ม view มาแสดงดูรายละเอียดของ admin
@@ -517,7 +531,7 @@ public class CarBookingController {
 			} else if (btnproblem.equals("back")) {
 				modelmap.addAttribute("addCarBooking", new Problem());
 			}
-			return "redirect:/carbookings/";
+			return "redirect:/Car/";
 		}
 						
 	private List<CarBooking> getListCarBooking() throws SequenceException {
