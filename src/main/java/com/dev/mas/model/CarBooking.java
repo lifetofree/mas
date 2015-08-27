@@ -25,7 +25,9 @@ public class CarBooking {
 	private int tdidx;
 	private String tdidxDesc;
 	private Date datestart;
+	private String datestartDisplay;
 	private Date dateend;
+	private String dateendDisplay;
 	private String timestart;
 	private String timestartDisplay;
 	private String timeend;
@@ -189,6 +191,23 @@ public class CarBooking {
 
 	public void setDatestart(Date datestart) {
 		this.datestart = datestart;
+	}
+
+	
+	public String getDatestartDisplay() {
+		return datestartDisplay;
+	}
+
+	public void setDatestartDisplay(String datestartDisplay) {
+		this.datestartDisplay = datestartDisplay;
+	}
+
+	public String getDateendDisplay() {
+		return dateendDisplay;
+	}
+
+	public void setDateendDisplay(String dateendDisplay) {
+		this.dateendDisplay = dateendDisplay;
 	}
 
 	public Date getDateend() {
