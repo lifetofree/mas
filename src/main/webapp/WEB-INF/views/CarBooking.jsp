@@ -1631,13 +1631,14 @@
 						<form:form modelAttribute="addCarBooking" method="POST"
 							action="${pageContext.request.contextPath}/car/report">
 							<div id="reporttable" style="display: none">
-								<div class="row">
-									<h4
-										style="font-size: 16pt; font-weight: bold; text-align: center">รายงานการจองรถยนตฺ์</h4>
-								</div>
+								
 								<!-- ตารางรีพอร์ท -->
 								<c:choose>
 									<c:when test="${not empty reportcarbookingList}">
+									<div class="row">
+									<h4
+										style="font-size: 16pt; font-weight: bold; text-align: center">รายงานการจองรถยนตฺ์</h4>
+								</div>
 										<table
 											class="table table-striped table-bordered table-hover table-responsive">
 											<thead>
@@ -1679,53 +1680,68 @@
 
 									</c:when>
 
-									<c:when test="${not empty datarentList}">
-										<div class="row">
-											<div class="col-sm-2">
-												<form:select path="tdidx" style="width: 130pt; height: 20pt">
+									 <c:when test="${not empty reportusecarrentList}">
+									<div class="row">
+									<h4
+										style="font-size: 16pt; font-weight: bold; text-align: center">รายงานการใช้รถยนต์</h4>
+								</div>
+									
+									 <c:when test="${not empty reportcarliList}">  
+									 <div class="row">
+											<form:select path="tdidx" style="width: 130pt; height: 20pt">
 													<option value=>เลือกรถยนต์...</option>
-													<c:forEach var="listValue" items="${carliList}">
+													<c:forEach var="listValue" items="${reportcarliList}">
 														<option value="<c:out value='${listValue.id}' />">
 															<c:out value="${listValue.carli}" />
 														</option>
 													</c:forEach>
 												</form:select>
-											</div>
-									<button type="button" class="btn btn-primary glyphicon glyphicon-search"
-									data-original-title="view" data-toggle="tooltip"></button>
-							</div>
-											
-										
-
-										<table
+												<button type="submit" name="btncarli" value="reportcarli"
+									class="btn btn-defualt glyphicon glyphicon-search"
+									data-original-title="search" data-toggle="tooltip"></button>
+											</div> 
+										  </c:when> 
+									
+								<table
 											class="table table-striped table-bordered table-hover table-responsive">
 											<thead>
 												<tr>
 													<th style="text-align: center;">วันเดือนปี</th>
 													<th style="text-align: center;">ชื่อผู้จอง</th>
 													<th style="text-align: center;">แผนก</th>
+													<th style="text-align: center;">ปรเภทรถยนต์</th>
+													<th style="text-align: center;">ทะเบียนรถยนต์</th>
 													<th style="text-align: center;">สถานที่</th>
+													<th style="text-align: center;">ผลการอนุมัติ</th>
 
 
 												</tr>
 											</thead>
 
-											<c:forEach var="listValue" items="${datarentList}">
+										  <c:forEach var="listValue" items="${reportusecarrentList}"> 
 												<tr>
-													<td style="font-size: 13pt;"><c:out
-															value="${listValue.datestartDisplay}" /></td>
+													 <td style="font-size: 13pt;"><c:out
+															value="${listValue.datestartDisplay}" /></td>  
 													<td style="font-size: 13pt;">กานต์ธิดา</td>
 													<td style="font-size: 13pt;">MIS</td>
 													<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tcidxDesc}" /></td>
+															<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.carli}" /></td>
+													 <td style="font-size: 13pt; text-align: center"><c:out
 															value="${listValue.tpidxDesc}" /></td>
+															<td style="font-size: 13pt; text-align: center"><c:out
+															value="${listValue.tsidxDesc}" /></td>
 												</tr>
-											</c:forEach>
+											</c:forEach> 
 										</table>
 
-									</c:when>
-
-									
+									</c:when> 
 									<c:when test="${not empty reportproblemList}">
+									<div class="row">
+									<h4
+										style="font-size: 16pt; font-weight: bold; text-align: center">รายงานการแจ้งปัญหา</h4>
+								</div>
 										<table
 											class="table table-striped table-bordered table-hover table-responsive">
 											<thead>
@@ -1762,34 +1778,26 @@
 
 									</c:when>
 									<c:otherwise>
-										<table
-											class="table table-striped table-bordered table-hover table-responsive">
-											<thead>
-												<tr>
-													<th style="text-align: center;">วันเดือนปีเริ่มต้น</th>
-													<th style="text-align: center;">วันเดือนปีสิ้นสุด</th>
-													<th style="text-align: center;">ชื่อผู้จอง</th>
-													<th style="text-align: center;">แผนก</th>
-													<th style="text-align: center;">สถานที่</th>
-													<th style="text-align: center;">วัตถุประสงค์</th>
-													<th style="text-align: center;">เวลาเริ่มต้น</th>
-													<th style="text-align: center;">เวลาสิ้นสุด</th>
-													<th style="text-align: center;">ผลการอนุมัติ</th>
-
-												</tr>
-											</thead>
-											<tr>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-												<td>-</td>
-											</tr>
-										</table>
+										<c:choose>
+											 <c:when test="${not empty reportcarliList}">  
+											 <div class="row">
+												<form:select path="tdidx" style="width: 130pt; height: 20pt">
+														<option value=>เลือกรถยนต์...</option>
+														<c:forEach var="listValue" items="${reportcarliList}">
+															<option value="<c:out value='${listValue.id}' />">
+																<c:out value="${listValue.carli}" />
+															</option>
+														</c:forEach>
+													</form:select>
+													
+													<button type="submit" name="btncarli" value="reportcarli"
+									class="btn btn-defualt glyphicon glyphicon-search"
+									data-original-title="search" data-toggle="tooltip"></button>
+												
+												</div> 
+											  </c:when> 
+										</c:choose>
+										<h1 style="font-size:20pt;font-weight:bold;text-align:center;">--- ไม่มีข้อมูลแสดง ---</h1>
 									</c:otherwise>
 								</c:choose>
 								<button type="button"
@@ -2018,7 +2026,7 @@
 
 										<div class="col-sm-9">
 											<form:select path="tspidx" style="Width: 130pt; Height: 20pt">
-												<option value="none">เลือกผลอนุมัติ...</option>
+												<option value="1">เลือกผลอนุมัติ...</option>
 												<option value="2">รับทราบ</option>
 											</form:select>
 

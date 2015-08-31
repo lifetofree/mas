@@ -62,7 +62,7 @@ public class CarBookingController {
 	
 	@RequestMapping(value = { "/report/{id}" }, method = RequestMethod.GET)
 	public String report(ModelMap modelmap, @PathVariable int id) {
-System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
+		System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		List<MasterTypeCar> typecarList = null;
 		List<MasterTypeRent> typerentList = null;
 		List<MasterPlace> placeList = null;
@@ -73,6 +73,8 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		List<MasterDataCar> carliList = null;
 		List<Problem> problemList = null;
 		List<Problem> reportproblemList = null;
+		List<CarBooking> reportusecarrentList = null;
+		List<MasterDataCar> reportcarliList = null;
 		
 		
 		try {
@@ -88,6 +90,8 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 			datarentList = getListDataCarRent();
 			reportcarbookingList = getReportCarBooking();
 			reportproblemList = getReportProblem();
+			reportusecarrentList = getListUseCarRent();
+			reportcarliList = getReportListCarli();
 			
 			switch (id) {
 			case 1:
@@ -96,7 +100,11 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 				break;
 			case 2 :
 				System.out.println("เข้าเทธอดนี้นะจ้ะ 4");
-				modelmap.addAttribute("datarentList", datarentList);
+				modelmap.addAttribute("reportcarliList", reportcarliList);
+				System.out.println("reportcarliList ==> " + reportcarliList.size());
+				
+				modelmap.addAttribute("reportusecartrentList", reportusecarrentList);
+				
 				break;
 			case 3 :
 				System.out.println("เข้าเทธอดนี้นะจ้ะ 5");
@@ -131,6 +139,129 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		}
 		return "CarBooking";
 	}
+	
+	
+	// ปุ่ม reportsearchcarli
+		@RequestMapping(value = { "/report" }, params = { "btncarli" }, method = RequestMethod.POST)
+		public String reportUseDataCar(ModelMap modelmap,
+				@RequestParam String btncarli,
+				@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
+				BindingResult result) {
+			// list data
+			List<MasterTypeCar> typecarList = null;
+			List<MasterTypeRent> typerentList = null;
+			List<MasterPlace> placeList = null;
+			List<CarBooking> carbookingList = null;
+			List<CarBooking> datarentList = null;
+			List<MasterDataCar> datacarList = null;
+			List<MasterDataCar> carliList = null;
+			List<Problem> problemList = null;
+			List<CarBooking> reportusecarrentList = null;
+			List<MasterDataCar> reportcarliList = null;
+			
+			if (btncarli.equals("reportcarli")) {
+				try {
+					modelmap.addAttribute("addCarBooking", carbooking);
+					carbookingList = getListCarBooking();
+					datacarList = getListMasterDataCar();
+					carliList = getListCarli();
+					typecarList = getListMasterTypeCar(); 
+					typerentList = getListMasterTypeRent();
+					placeList = getListMasterPlace();
+					problemList = getListProblem();
+					datarentList = getListDataCarRent();
+					reportusecarrentList = getListUseCarRent();
+					reportcarliList = getReportListCarli();
+					
+					modelmap.addAttribute("reportcarliList", reportcarliList);
+					modelmap.addAttribute("reportusecarrentList", reportusecarrentList);
+					// สำหรับ tab1 โชว์ข้อมูล
+					modelmap.addAttribute("retSampleList", carbookingList);
+					// สำหรับ dropdownlist
+					modelmap.addAttribute("typerent", typerentList);
+					modelmap.addAttribute("typecar", typecarList);
+					modelmap.addAttribute("place", placeList);
+					// กท.รถ
+					modelmap.addAttribute("carliList", carliList);
+
+					// สำหรับ tab2 ดึงข้อมูลแสดง
+					modelmap.addAttribute("datacarList", datacarList);
+					modelmap.addAttribute("datarentList", datarentList);
+					// สำหรับดึงค่ามาแสดง tab5
+					modelmap.addAttribute("problemList", problemList);
+				} catch (SequenceException e) {
+					// modelmap.addAttribute("retSamples", e.getErrMsg());
+				} finally {
+					modelmap.addAttribute("addCarBooking", new CarBooking());
+				}
+			}
+			System.out.println("tdix==>" + carbooking.getTdidx());
+			//System.out.println("reportusecarrentList==>" + reportusecarrentList);
+		
+			return "CarBooking";
+		}
+
+	
+	// ปุ่ม save statusเลือกสถานะอนุมัติ
+		@RequestMapping(value = { "/savestatus" }, params = { "btnsavestatus" }, method = RequestMethod.POST)
+		public String processSavestatus(ModelMap modelmap,
+				@RequestParam String btnsavestatus,
+				@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
+				BindingResult result) {
+			// list data
+			if (btnsavestatus.equals("savestatus")) {
+				CarBooking newCarbooking = null;
+				try {
+					newCarbooking = carbookingService.listByIdcarbooking(Integer
+							.parseInt(String.valueOf(carbooking.getId())));
+					Date date = new Date();
+					newCarbooking.setAdCreateDate(date);
+					newCarbooking.setTdidx(carbooking.getTdidx());
+					newCarbooking.setTsidx(carbooking.getTsidx());
+					carbookingService.savecarbooking(newCarbooking);
+
+				} catch (SequenceException e) {
+					// modelmap.addAttribute("retSamples", e.getErrMsg());
+				} finally {
+					modelmap.addAttribute("addCarBooking", new CarBooking());
+				}
+			} else if (btnsavestatus.equals("back")) {
+				modelmap.addAttribute("addCarBooking", new CarBooking());
+			}
+
+			return "redirect:/car/";
+
+		}
+	
+	// ปุ่ม save ทำรายการจองรายการ tab3
+		@RequestMapping(value = { "/save" }, params = { "btnsave" }, method = RequestMethod.POST)
+		public String processForm(ModelMap modelmap, @RequestParam String btnsave,
+				@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
+				BindingResult result) {
+			// list data
+			if (btnsave.equals("savecarbooking")) {
+				try {
+
+					// add data
+					Date date = new Date();
+					carbooking.setCreateDate(date);
+					carbooking.setTsidx(2);
+					carbooking.setTcStatus(1);
+					carbookingService.savecarbooking(carbooking);
+					modelmap.addAttribute("addCarBooking", new CarBooking());
+
+				} catch (SequenceException e) {
+					// modelmap.addAttribute("retSamples", e.getErrMsg());
+				} finally {
+					modelmap.addAttribute("addCarBooking", new CarBooking());
+				}
+			} else if (btnsave.equals("cancel")) {
+				modelmap.addAttribute("addCarBooking", new CarBooking());
+			}
+
+			return "redirect:/car/";
+
+		}
 	
 	// หน้าแรกแสดงรายการ tab 1
 	@RequestMapping(value = { "", "/list" }, method = RequestMethod.GET)
@@ -180,35 +311,7 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		return "CarBooking";
 	}
 
-	// ปุ่ม save ทำรายการจองรายการ tab3
-	@RequestMapping(value = { "/save" }, params = { "btnsave" }, method = RequestMethod.POST)
-	public String processForm(ModelMap modelmap, @RequestParam String btnsave,
-			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
-			BindingResult result) {
-		// list data
-		if (btnsave.equals("savecarbooking")) {
-			try {
-
-				// add data
-				Date date = new Date();
-				carbooking.setCreateDate(date);
-				carbooking.setTsidx(2);
-				carbooking.setTcStatus(1);
-				carbookingService.savecarbooking(carbooking);
-				modelmap.addAttribute("addCarBooking", new CarBooking());
-
-			} catch (SequenceException e) {
-				// modelmap.addAttribute("retSamples", e.getErrMsg());
-			} finally {
-				modelmap.addAttribute("addCarBooking", new CarBooking());
-			}
-		} else if (btnsave.equals("cancel")) {
-			modelmap.addAttribute("addCarBooking", new CarBooking());
-		}
-
-		return "redirect:/car/";
-
-	}
+	
 
 	// ปุ่ม view ใช้ดูรายละเอียดข้อมูล
 	@RequestMapping(value = { "/view/{id}" }, method = RequestMethod.GET)
@@ -297,37 +400,7 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		return "CarBooking";
 	}
 
-	// ปุ่ม save statusเลือกสถานะอนุมัติ
-	@RequestMapping(value = { "/savestatus" }, params = { "btnsavestatus" }, method = RequestMethod.POST)
-	public String processSavestatus(ModelMap modelmap,
-			@RequestParam String btnsavestatus,
-			@ModelAttribute(value = "addCarBooking") CarBooking carbooking,
-			BindingResult result) {
-		// list data
-		if (btnsavestatus.equals("savestatus")) {
-			CarBooking newCarbooking = null;
-			try {
-				newCarbooking = carbookingService.listByIdcarbooking(Integer
-						.parseInt(String.valueOf(carbooking.getId())));
-				Date date = new Date();
-				newCarbooking.setAdCreateDate(date);
-				newCarbooking.setTdidx(carbooking.getTdidx());
-				newCarbooking.setTsidx(carbooking.getTsidx());
-				carbookingService.savecarbooking(newCarbooking);
-
-			} catch (SequenceException e) {
-				// modelmap.addAttribute("retSamples", e.getErrMsg());
-			} finally {
-				modelmap.addAttribute("addCarBooking", new CarBooking());
-			}
-		} else if (btnsavestatus.equals("back")) {
-			modelmap.addAttribute("addCarBooking", new CarBooking());
-		}
-
-		return "redirect:/car/";
-
-	}
-
+	
 	// ดึงค่ามาแสดง edit
 	@RequestMapping(value = { "/savestatus/{id}" }, method = RequestMethod.GET)
 	public String processEdit(ModelMap modelmap, @PathVariable int id) {
@@ -499,8 +572,6 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		return "redirect:/car/";
 
 	}
-
-	
 	
 	// tab problem ปุ่มsend user
 	@RequestMapping(value = { "/problem" }, params = { "btnproblem" }, method = RequestMethod.POST)
@@ -702,7 +773,7 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "
 							+ carbookingDesc.getTpidx());
 				}
-
+				
 				masterstatus = carbookingService.listByIdstatus(carbookingDesc
 						.getTsidx());
 				if (masterstatus != null) {
@@ -814,6 +885,75 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 		}
 	}
 	
+	// ดึงมาแสดงในส่วน report ข้อมูลการใช้รถยนต์
+	private List<CarBooking> getListUseCarRent() throws SequenceException {
+		Query query = null;
+		MasterPlace masterplace = null;
+		MasterStatus masterstatus = null;
+		MasterDataCar masterdatacar = null;
+		MasterTypeCar mastertypecar = null;
+		String timestart = null;
+		List<CarBooking> reportusecarrentList = null;
+		CarBooking carbookingDesc = null;
+
+		try {
+			query = new Query();
+			query.addCriteria(Criteria.where("tdidx").is(carbooking.getId()).and("tsidx").lt(2));
+			reportusecarrentList = carbookingService.findByCriteriacarbooking(query);
+
+			System.out.println("reportusecarrentList==>" + reportusecarrentList);
+			// สำหรับ tab1 ดึงขึ้นมารายการที่แสดง
+			for (int i = 0; i < reportusecarrentList.size(); i++) {
+				carbookingDesc = reportusecarrentList.get(i);
+				masterplace = carbookingService.listByIdplace(carbookingDesc.getTpidx());
+				if (masterplace != null) {
+					carbookingDesc.setTpidxDesc(masterplace.getPlaceTH());
+				} else {
+					carbookingDesc.setTpidxDesc("รายการที่ไม่มีคือ "	+ carbookingDesc.getTpidx());
+				}
+				
+				masterdatacar = carbookingService.listByIddatacar(carbookingDesc.getTdidx());
+				if (mastertypecar != null) {
+					carbookingDesc.setCarli(masterdatacar.getCarli());
+				} else {
+					carbookingDesc.setCarli("รายการที่ไม่มีคือ " + carbookingDesc.getTdidx());
+				}
+				
+				mastertypecar = carbookingService.listById(carbookingDesc.getTcidx());
+				if (mastertypecar != null) {
+					carbookingDesc.setTcidxDesc(mastertypecar.getTypeCarTH());
+				} else {
+					carbookingDesc.setTcidxDesc("รายการที่ไม่มีคือ " + carbookingDesc.getTcidx());
+				}
+				
+				masterstatus = carbookingService.listByIdstatus(carbookingDesc
+						.getTsidx());
+				if (masterstatus != null) {
+					carbookingDesc.setTsidxDesc(masterstatus.getStatusTH());
+				} else {
+					carbookingDesc.setTsidxDesc("รายการที่ไม่มีคือ "
+							+ carbookingDesc.getTsidx());
+				}
+
+				if (carbookingDesc.getTimestart() != null) {
+					timestart = carbookingDesc.getTimestart();
+					timestart = timestart.substring(0, 2) + ":"
+							+ timestart.substring(2, 4);
+					carbookingDesc.setTimestartDisplay(timestart);
+				} else {
+					carbookingDesc.setTimestartDisplay("ไม่มีข้อมูล");
+				}
+				
+			}
+			return reportusecarrentList;
+
+		} finally {
+			reportusecarrentList = null;
+			query = null;
+
+		}
+	}
+	
 	// Report Problem
 	private List<Problem> getReportProblem() throws SequenceException {
 		Query query = null;
@@ -905,14 +1045,35 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 
 			// กท.รถ
 			query = new Query();
-			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx())
-					.and("tcStatus").lt(9));
+			query.addCriteria(Criteria.where("tcidx").is(carbooking.getTcidx()).and("tcStatus").lt(9)); //.and("tcStatus").gt(0)
 			carliList = carbookingService.findByCriteriadatacar(query);
+			System.out.println("carbooking.getTcidx>>=" + carbooking.getId());
 
 			return carliList;
 
 		} finally {
 			carliList = null;
+			query = null;
+		}
+
+	}
+	
+	// ใช้สำหรับดึงรายงาน กท.รถ
+	private List<MasterDataCar> getReportListCarli() throws SequenceException {
+		Query query = null;
+		List<MasterDataCar> reportcarliList = null;
+
+		try {
+
+			// กท.รถ
+			query = new Query();
+			query.addCriteria(Criteria.where("tcStatus").lt(9));
+			reportcarliList = carbookingService.findByCriteriadatacar(query);
+			
+			return reportcarliList;
+
+		} finally {
+			reportcarliList = null;
 			query = null;
 		}
 
@@ -988,10 +1149,8 @@ System.out.println("เข้าเทธอดนี้นะจ้ะ 1");
 	}
 }
 	
-
-	
 	// สำหรับเก็บรายละเอียดเวลา เอามาใช้ใน ดึงค่ามาแสดง edit
-private List<StaticRef> setListTime() {
+	private List<StaticRef> setListTime() {
 		List<StaticRef> listTime = null;
 
 		try {
@@ -1052,7 +1211,6 @@ private List<StaticRef> setListTime() {
 		}
 	}
 
-	
 	// สำหรับเก็บรายละเอียดคนที่ขึ้น เอามาใช้ใน ดึงค่ามาแสดง edit
 	private List<StaticRef> setListQty() {
 		List<StaticRef> listQty = null;
