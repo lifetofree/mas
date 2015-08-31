@@ -356,7 +356,7 @@
 											<c:forEach var="listValue" items="${retSampleList}">
 												<tr>
 													<td style="font-size: 13pt;"><c:out
-															value="${listValue.datestartDisplay}" /></td>
+															value="${listValue.datestart}" /></td>
 													<td style="font-size: 13pt; text-align: center"><c:out
 															value="${listValue.tpidxDesc}" /></td>
 													<td style="font-size: 13pt; text-align: center"><c:out
@@ -1659,7 +1659,7 @@
 											<c:forEach var="listValue" items="${reportcarbookingList}">
 												<tr>
 													<td style="font-size: 13pt;"><c:out
-															value="${listValue.datestartDisplay}" /></td>
+															value="${listValue.datestart}" /></td>
 													<td style="font-size: 13pt;"><c:out
 															value="${listValue.dateend}" /></td>
 													<td style="font-size: 13pt;">กานต์ธิดา</td>
